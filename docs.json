@@ -79,5 +79,8 @@
   },
   "icons": {
     "library": "tabler"
+  },
+  "background": {
+    "decoration": "gradient"
   }
 }
