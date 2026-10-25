@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "willow",
   "name": "Feezless | Document Payment Technology",
   "colors": {
     "primary": "#16A34A",
@@ -76,5 +76,8 @@
   "fonts": {
     "family": "Geist",
     "weight": 400
+  },
+  "icons": {
+    "library": "tabler"
   }
 }
