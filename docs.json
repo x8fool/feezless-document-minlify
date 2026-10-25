@@ -19,6 +19,17 @@
           "index",
           "quickstart"
         ]
+      },
+      {
+        "group": "Solutions",
+        "pages": [
+          "solutions/pay-per-request/index",
+          "solutions/checkout/index",
+          "solutions/product-menu/index",
+          "solutions/pos/index",
+          "solutions/membership/index",
+          "solutions/invoice-bill-payment/index"
+        ]
       }
     ],
     "global": {
