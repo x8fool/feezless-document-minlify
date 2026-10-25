@@ -74,6 +74,7 @@
   },
   "description": "Official Feezless API documentation for developers and businesses. Learn how to integrate payment acceptance, automate payouts, access transaction statements, configure webhooks, and create hosted payment pages with step-by-step guides and API references.",
   "fonts": {
-    "family": "Geist"
+    "family": "Geist",
+    "weight": 400
   }
 }
