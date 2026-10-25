@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "Feezless | Document Payment Technology",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#0E0E0E",
+    "light": "#FDFDFD",
+    "dark": "#0E0E0E"
   },
   "favicon": {
     "light": "/logo/light.svg",
@@ -16,9 +16,9 @@
       {
         "group": "Getting Started",
         "pages": [
-          "index",
-          "quickstart"
-        ]
+          "index"
+        ],
+        "icon": "🗂️"
       },
       {
         "group": "Payment Solutions",
@@ -32,23 +32,8 @@
           "untitled-page-2"
         ],
         "icon": "💲"
-      },
-      "untitled-page"
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+      }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
@@ -58,13 +43,13 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:support@mintlify.com"
+        "href": "mailto:support@feezless.cloud"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://app.mintlify.com"
+      "href": "https://www.feezless.cloud"
     }
   },
   "contextual": {
@@ -81,20 +66,42 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "facebook": "https://facebook.com/feezless.th",
+      "youtube": "https://youtube.com/@feezless_th"
     }
   },
   "description": "Official Feezless API documentation for developers and businesses. Learn how to integrate payment acceptance, automate payouts, access transaction statements, configure webhooks, and create hosted payment pages with step-by-step guides and API references.",
   "fonts": {
-    "family": "Geist",
-    "weight": 400
+    "heading": {
+      "family": "Geist"
+    },
+    "body": {
+      "family": "Geist"
+    }
   },
   "icons": {
     "library": "tabler"
   },
   "background": {
-    "decoration": "gradient"
-  }
+    "decoration": "grid",
+    "color": {
+      "light": "#FDFDFD",
+      "dark": "#0E0E0E"
+    }
+  },
+  "thumbnails": {
+    "surface": "neutral"
+  },
+  "redirects": [
+    {
+      "source": "/quickstart",
+      "destination": "/index",
+      "permanent": true
+    },
+    {
+      "source": "/untitled-page",
+      "destination": "/index",
+      "permanent": true
+    }
+  ]
 }
