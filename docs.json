@@ -21,15 +21,17 @@
         ]
       },
       {
-        "group": "Solutions",
+        "group": "Payment Solutions",
         "pages": [
           "solutions/pay-per-request/index",
           "solutions/checkout/index",
           "solutions/product-menu/index",
           "solutions/pos/index",
           "solutions/membership/index",
-          "solutions/invoice-bill-payment/index"
-        ]
+          "solutions/invoice-bill-payment/index",
+          "untitled-page-2"
+        ],
+        "icon": "💲"
       },
       "untitled-page"
     ],
