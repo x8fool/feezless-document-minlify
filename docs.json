@@ -12,26 +12,106 @@
     "dark": "/favicon.svg"
   },
   "navigation": {
-    "pages": [
+    "languages": [
       {
-        "group": "Getting Started",
-        "pages": [
-          "index"
-        ],
-        "icon": "🗂️"
+        "language": "en",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "icon": "🗂️",
+            "pages": [
+              "index"
+            ]
+          },
+          {
+            "group": "Payment Solutions",
+            "icon": "💲",
+            "pages": [
+              "solutions/pay-per-request/index",
+              "solutions/checkout/index",
+              "solutions/product-menu/index",
+              "solutions/pos/index",
+              "solutions/membership/index",
+              "solutions/invoice-bill-payment/index",
+              "untitled-page-2"
+            ]
+          }
+        ]
       },
       {
-        "group": "Payment Solutions",
-        "pages": [
-          "solutions/pay-per-request/index",
-          "solutions/checkout/index",
-          "solutions/product-menu/index",
-          "solutions/pos/index",
-          "solutions/membership/index",
-          "solutions/invoice-bill-payment/index",
-          "untitled-page-2"
-        ],
-        "icon": "💲"
+        "language": "jp",
+        "groups": [
+          {
+            "group": "はじめに",
+            "icon": "🗂️",
+            "pages": [
+              "jp/index"
+            ]
+          },
+          {
+            "group": "決済ソリューション",
+            "icon": "💲",
+            "pages": [
+              "jp/solutions/pay-per-request/index",
+              "jp/solutions/checkout/index",
+              "jp/solutions/product-menu/index",
+              "jp/solutions/pos/index",
+              "jp/solutions/membership/index",
+              "jp/solutions/invoice-bill-payment/index",
+              "jp/untitled-page-2"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "ko",
+        "groups": [
+          {
+            "group": "시작하기",
+            "icon": "🗂️",
+            "pages": [
+              "ko/index"
+            ]
+          },
+          {
+            "group": "결제 솔루션",
+            "icon": "💲",
+            "pages": [
+              "ko/solutions/pay-per-request/index",
+              "ko/solutions/checkout/index",
+              "ko/solutions/product-menu/index",
+              "ko/solutions/pos/index",
+              "ko/solutions/membership/index",
+              "ko/solutions/invoice-bill-payment/index",
+              "ko/untitled-page-2"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "zh-CN",
+        "groups": [
+          {
+            "group": "入门",
+            "icon": "🗂️",
+            "pages": [
+              "zh-CN/index"
+            ]
+          },
+          {
+            "group": "支付解决方案",
+            "icon": "💲",
+            "pages": [
+              "zh-CN/solutions/pay-per-request/index",
+              "zh-CN/solutions/checkout/index",
+              "zh-CN/solutions/product-menu/index",
+              "zh-CN/solutions/pos/index",
+              "zh-CN/solutions/membership/index",
+              "zh-CN/solutions/invoice-bill-payment/index",
+              "zh-CN/untitled-page-2"
+            ]
+          }
+        ]
       }
     ]
   },
