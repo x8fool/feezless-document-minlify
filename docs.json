@@ -1,39 +1,55 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Feezless | Document Payment Technology",
+  "name": "Feezless | เอกสารเทคโนโลยีการชำระเงิน",
   "colors": {
     "primary": "#0E0E0E",
     "light": "#FDFDFD",
     "dark": "#0E0E0E"
   },
   "favicon": {
-    "light": "/logo/light.svg",
-    "dark": "/favicon.svg"
+    "light": "/images/favicon.jpg",
+    "dark": "/LOGO_Feezless1.png"
   },
   "navigation": {
     "languages": [
       {
         "language": "en",
-        "groups": [
+        "pages": [
           {
-            "group": "Getting Started",
+            "group": "เริ่มต้นใช้งาน",
             "icon": "🗂️",
             "pages": [
-              "index"
+              "th/index"
             ]
           },
           {
-            "group": "Payment Solutions",
+            "group": "บริการชำระเงิน",
             "icon": "💲",
             "pages": [
-              "solutions/pay-per-request/index",
-              "solutions/checkout/index",
-              "solutions/product-menu/index",
-              "solutions/pos/index",
-              "solutions/membership/index",
-              "solutions/invoice-bill-payment/index",
-              "untitled-page-2"
+              "th/solutions/pay-per-request/index",
+              "th/solutions/checkout/index",
+              "th/solutions/product-menu/index",
+              "th/solutions/pos/index",
+              "th/solutions/membership/index",
+              "th/solutions/invoice-bill-payment/index",
+              "th/untitled-page-2"
+            ]
+          },
+          {
+            "group": "Marketing",
+            "pages": [
+              "th/untitled-page",
+              "th/marketing/day-01",
+              "th/marketing/day-02",
+              "th/marketing/day-03",
+              "th/marketing/day-04",
+              "th/marketing/day-05",
+              "th/marketing/day-06",
+              "th/marketing/day-07",
+              "th/marketing/day-08",
+              "th/marketing/day-09",
+              "th/marketing/day-10"
             ]
           }
         ]
@@ -113,23 +129,36 @@
           }
         ]
       }
-    ]
+    ],
+    "global": {
+      "languages": [
+        {
+          "language": "zh-CN",
+          "href": "https://knownledge.feezless.cloud/zh"
+        },
+        {
+          "language": "vi",
+          "href": "https://knownledge.feezless.cloud/vn"
+        }
+      ]
+    }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/images/feezless-logo-white-feez.png"
+    "light": "/images/favicon.jpg",
+    "dark": "/LOGO_Feezless1.png",
+    "href": "https://knownledge.feezless.cloud"
   },
   "navbar": {
     "links": [
       {
-        "label": "Support",
+        "label": "ติดต่อฝ่ายสนับสนุน",
         "href": "mailto:support@feezless.cloud"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://www.feezless.cloud"
+      "label": "เริ่มใช้งาน",
+      "href": "https://merchant.feezless.cloud"
     }
   },
   "contextual": {
@@ -150,7 +179,7 @@
       "youtube": "https://youtube.com/@feezless_th"
     }
   },
-  "description": "Official Feezless API documentation for developers and businesses. Learn how to integrate payment acceptance, automate payouts, access transaction statements, configure webhooks, and create hosted payment pages with step-by-step guides and API references.",
+  "description": "เอกสาร API อย่างเป็นทางการของ Feezless สำหรับนักพัฒนาและธุรกิจ เรียนรู้การเชื่อมต่อระบบรับชำระเงิน การจ่ายเงินอัตโนมัติ การเข้าถึงรายการเดินบัญชี การตั้งค่า Webhook และการสร้างหน้าชำระเงิน พร้อมคู่มือทีละขั้นตอนและเอกสารอ้างอิง API",
   "fonts": {
     "heading": {
       "family": "Geist"
@@ -160,28 +189,153 @@
     }
   },
   "icons": {
-    "library": "tabler"
+    "library": "fontawesome"
   },
   "background": {
-    "decoration": "grid",
+    "decoration": "gradient",
     "color": {
       "light": "#FDFDFD",
       "dark": "#0E0E0E"
+    },
+    "image": {
+      "light": "/images/glass-aqua-bubble.png",
+      "dark": "/images/mesh-deep-ocean.png"
     }
   },
   "thumbnails": {
-    "surface": "neutral"
+    "fonts": {
+      "family": "Geist"
+    },
+    "eyebrow": {
+      "color": "#FFFFFF"
+    }
   },
   "redirects": [
     {
       "source": "/quickstart",
-      "destination": "/index",
+      "destination": "/th/index",
       "permanent": true
     },
     {
       "source": "/untitled-page",
-      "destination": "/index",
+      "destination": "/th/index",
+      "permanent": true
+    },
+    {
+      "source": "/th",
+      "destination": "/th/index",
+      "permanent": true
+    },
+    {
+      "source": "/index",
+      "destination": "/th/index",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/pay-per-request/index",
+      "destination": "/th/solutions/pay-per-request/index",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/checkout/index",
+      "destination": "/th/solutions/checkout/index",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/product-menu/index",
+      "destination": "/th/solutions/product-menu/index",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/pos/index",
+      "destination": "/th/solutions/pos/index",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/membership/index",
+      "destination": "/th/solutions/membership/index",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/invoice-bill-payment/index",
+      "destination": "/th/solutions/invoice-bill-payment/index",
+      "permanent": true
+    },
+    {
+      "source": "/untitled-page-2",
+      "destination": "/th/untitled-page-2",
+      "permanent": true
+    },
+    {
+      "source": "/marketing/day-01",
+      "destination": "/th/marketing/day-01",
+      "permanent": true
+    },
+    {
+      "source": "/marketing/day-02",
+      "destination": "/th/marketing/day-02",
+      "permanent": true
+    },
+    {
+      "source": "/marketing/day-03",
+      "destination": "/th/marketing/day-03",
+      "permanent": true
+    },
+    {
+      "source": "/marketing/day-04",
+      "destination": "/th/marketing/day-04",
+      "permanent": true
+    },
+    {
+      "source": "/marketing/day-05",
+      "destination": "/th/marketing/day-05",
+      "permanent": true
+    },
+    {
+      "source": "/marketing/day-06",
+      "destination": "/th/marketing/day-06",
+      "permanent": true
+    },
+    {
+      "source": "/marketing/day-07",
+      "destination": "/th/marketing/day-07",
+      "permanent": true
+    },
+    {
+      "source": "/marketing/day-08",
+      "destination": "/th/marketing/day-08",
+      "permanent": true
+    },
+    {
+      "source": "/marketing/day-09",
+      "destination": "/th/marketing/day-09",
+      "permanent": true
+    },
+    {
+      "source": "/marketing/day-10",
+      "destination": "/th/marketing/day-10",
       "permanent": true
     }
-  ]
+  ],
+  "api": {
+    "playground": {
+      "credentials": true
+    },
+    "url": "full"
+  },
+  "appearance": {
+    "default": "system"
+  },
+  "seo": {
+    "metatags": {
+      "og:title": "ระบบชำระเงินทั่วโลก"
+    },
+    "indexing": "all"
+  },
+  "styling": {
+    "latex": true
+  },
+  "markdown": {
+    "schema": true
+  }
 }

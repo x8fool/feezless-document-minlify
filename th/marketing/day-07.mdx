@@ -1,0 +1,94 @@
+---
+title: "Day 07 · Educational Content: 4 จุดที่ควรตรวจสอบในเส้นทางการซื้อ"
+sidebarTitle: "Day 07 · Educational Content"
+description: "โพสต์วันที่ 7 ของแคมเปญ: Carousel ให้ความรู้ 4 คำถามตรวจเส้นทางการซื้อ พร้อมแคปชันและ Prompt ภาพ"
+---
+
+<Info>
+  **เป้าหมาย:** ให้ความรู้ที่นำไปใช้ได้จริง · **บทบาท:** ให้ความรู้ · **รูปแบบ:** Carousel 5 สไลด์
+</Info>
+
+## Prompt 1 คลิก
+
+คัดลอกทั้งก้อนไปวางใน ChatGPT แล้วแนบไฟล์โลโก้ Feezless ไปด้วย จะได้ภาพ Carousel ครบ 5 สไลด์และแคปชันในครั้งเดียว ถ้า ChatGPT สร้างให้ไม่ครบ พิมพ์ว่า "ทำสไลด์ถัดไป"
+
+```text Prompt 1 คลิก · Day 07
+Create a 5-slide carousel for the Feezless brand campaign "10 Days, 10 Different Stories" (Day 07 · Educational Content). Goal: give practical, useful knowledge, not a direct product sale. Generate 5 separate images, one per slide, all in the same consistent style.
+
+FORMAT: each slide 4:5 portrait, 1080x1350 px, for Facebook and Instagram carousel.
+
+SHARED STYLE FOR ALL SLIDES: Clean infographic look on a white #FDFDFD background. One large flat-3D icon in electric blue gradient (cyan to royal blue), a soft dotted journey path line flowing across the slide from one slide to the next, a large numbered circle in deep black #0E0E0E. Friendly, educational, organized, lots of white space.
+
+TEXT: Render each slide's text exactly, spelled correctly, in Thai where given. Typography: bold modern sans-serif, deep black #0E0E0E, large and easy to read.
+
+SLIDE 1 (cover): icon = a winding journey path with four checkpoints. Text: "Audit Your Customer Journey."
+SLIDE 2: number 1, icon = magnifying glass. Text: "ลูกค้าหาสินค้าหรือบริการเจอได้ง่ายไหม?"
+SLIDE 3: number 2, icon = document page. Text: "รายละเอียดและเงื่อนไขชัดเจนหรือไม่?"
+SLIDE 4: number 3, icon = step-by-step stairs. Text: "ลูกค้าเข้าใจขั้นตอนการสั่งซื้อและชำระเงินหรือเปล่า?"
+SLIDE 5: number 4, icon = forward arrow. Text: "หลังดำเนินการแล้ว ลูกค้ารู้หรือไม่ว่าต้องทำอะไรต่อ?"
+
+LOGO: If I attached the Feezless logo, place it small in the top-left corner of every slide exactly as provided. Do not redraw, recolor or alter it. If no logo is attached, leave the corner empty. Never invent a logo.
+
+DO NOT: add any other text, product selling, watermarks, bank or card brand marks.
+
+After the images, reply with this caption exactly as written, ready to post:
+
+อยากพัฒนาประสบการณ์การซื้อของธุรกิจ ลองเริ่มจาก 4 คำถามนี้
+
+1. ลูกค้าหาสินค้าหรือบริการเจอได้ง่ายไหม?
+2. รายละเอียดและเงื่อนไขชัดเจนหรือไม่?
+3. ลูกค้าเข้าใจขั้นตอนการสั่งซื้อและชำระเงินหรือเปล่า?
+4. หลังดำเนินการแล้ว ลูกค้ารู้หรือไม่ว่าต้องทำอะไรต่อ?
+
+ลองตรวจสอบเส้นทางของลูกค้าจริง แล้วเลือกจุดที่ควรปรับปรุงก่อน
+
+บันทึกโพสต์นี้ไว้ใช้ตรวจสอบขั้นตอนการขายของธุรกิจคุณ
+
+#Feezless #CustomerJourney #BusinessTips
+```
+
+## 1. ภาพ (Carousel)
+
+**ข้อความบนภาพปก:** Audit Your Customer Journey.
+
+**แนวทางภาพ:** Infographic หรือ Carousel เน้นประโยชน์และการนำไปใช้ ไม่ขายผลิตภัณฑ์ตรง ๆ
+
+| สไลด์ | ข้อความบนภาพ | ไอคอนใน Prompt |
+| :-: | --- | --- |
+| 1 | Audit Your Customer Journey. | a winding journey path with four checkpoints |
+| 2 | 1. ลูกค้าหาสินค้าหรือบริการเจอได้ง่ายไหม? | magnifying glass |
+| 3 | 2. รายละเอียดและเงื่อนไขชัดเจนหรือไม่? | document page |
+| 4 | 3. ลูกค้าเข้าใจขั้นตอนการสั่งซื้อและชำระเงินหรือเปล่า? | step-by-step stairs |
+| 5 | 4. หลังดำเนินการแล้ว ลูกค้ารู้หรือไม่ว่าต้องทำอะไรต่อ? | forward arrow |
+
+ใช้ Prompt ด้านล่างทีละสไลด์ โดยเปลี่ยน `[ICON]` เป็นไอคอนในตาราง
+
+```text Prompt ภาพ
+Clean infographic-style carousel slide background: a single large flat-3D icon of [ICON] in blue gradient on a white background, with a soft dotted journey path line flowing across the slide and a large numbered circle placeholder shape. Friendly, educational, organized, lots of white space for text. No product selling. Premium fintech brand visual with an electric blue gradient accent (cyan to royal blue) and deep black #0E0E0E details. Leave empty space in the top-left corner for a logo. No text, no letters, no numbers, no logos, no watermarks. Aspect ratio 4:5.
+```
+
+## 2. แคปชัน
+
+```text แคปชัน (คัดลอกไปโพสต์ได้ทันที)
+อยากพัฒนาประสบการณ์การซื้อของธุรกิจ ลองเริ่มจาก 4 คำถามนี้
+
+1. ลูกค้าหาสินค้าหรือบริการเจอได้ง่ายไหม?
+2. รายละเอียดและเงื่อนไขชัดเจนหรือไม่?
+3. ลูกค้าเข้าใจขั้นตอนการสั่งซื้อและชำระเงินหรือเปล่า?
+4. หลังดำเนินการแล้ว ลูกค้ารู้หรือไม่ว่าต้องทำอะไรต่อ?
+
+ลองตรวจสอบเส้นทางของลูกค้าจริง แล้วเลือกจุดที่ควรปรับปรุงก่อน
+
+บันทึกโพสต์นี้ไว้ใช้ตรวจสอบขั้นตอนการขายของธุรกิจคุณ
+
+#Feezless #CustomerJourney #BusinessTips
+```
+
+## 3. เช็กลิสต์ก่อนโพสต์
+
+- สร้างภาพครบ 5 สไลด์ และใช้โทนสีเดียวกันทุกสไลด์
+- ใส่โลโก้และข้อความของแต่ละสไลด์ใน Canva หรือ Figma
+- อัปโหลดเป็นโพสต์แบบหลายภาพ (Carousel) เรียงตามตาราง
+
+<Card title="วันถัดไป: Day 08 · Trust Education" icon="arrow-right" horizontal href="/th/marketing/day-08">
+</Card>
