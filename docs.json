@@ -76,6 +76,22 @@
               "jp/solutions/invoice-bill-payment/index",
               "jp/untitled-page-2"
             ]
+          },
+          {
+            "group": "マーケティング",
+            "pages": [
+              "jp/untitled-page",
+              "jp/marketing/day-01",
+              "jp/marketing/day-02",
+              "jp/marketing/day-03",
+              "jp/marketing/day-04",
+              "jp/marketing/day-05",
+              "jp/marketing/day-06",
+              "jp/marketing/day-07",
+              "jp/marketing/day-08",
+              "jp/marketing/day-09",
+              "jp/marketing/day-10"
+            ]
           }
         ]
       },
@@ -101,6 +117,22 @@
               "ko/solutions/invoice-bill-payment/index",
               "ko/untitled-page-2"
             ]
+          },
+          {
+            "group": "마케팅",
+            "pages": [
+              "ko/untitled-page",
+              "ko/marketing/day-01",
+              "ko/marketing/day-02",
+              "ko/marketing/day-03",
+              "ko/marketing/day-04",
+              "ko/marketing/day-05",
+              "ko/marketing/day-06",
+              "ko/marketing/day-07",
+              "ko/marketing/day-08",
+              "ko/marketing/day-09",
+              "ko/marketing/day-10"
+            ]
           }
         ]
       },
@@ -125,6 +157,22 @@
               "zh-CN/solutions/membership/index",
               "zh-CN/solutions/invoice-bill-payment/index",
               "zh-CN/untitled-page-2"
+            ]
+          },
+          {
+            "group": "市场营销",
+            "pages": [
+              "zh-CN/untitled-page",
+              "zh-CN/marketing/day-01",
+              "zh-CN/marketing/day-02",
+              "zh-CN/marketing/day-03",
+              "zh-CN/marketing/day-04",
+              "zh-CN/marketing/day-05",
+              "zh-CN/marketing/day-06",
+              "zh-CN/marketing/day-07",
+              "zh-CN/marketing/day-08",
+              "zh-CN/marketing/day-09",
+              "zh-CN/marketing/day-10"
             ]
           }
         ]
