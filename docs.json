@@ -179,10 +179,11 @@
   },
   "thumbnails": {
     "fonts": {
-      "family": "Geist"
+      "family": "Noto Sans Thai Looped"
     },
     "eyebrow": {
-      "color": "#FFFFFF"
+      "color": "#FFFFFF",
+      "source": "none"
     }
   },
   "redirects": [
