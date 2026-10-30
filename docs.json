@@ -36,7 +36,7 @@
             ]
           },
           {
-            "group": "บริการชำระเงิน",
+            "group": "บริการของเรา",
             "icon": "💲",
             "pages": [
               "th/solutions/pay-per-request/index",
@@ -44,8 +44,7 @@
               "th/solutions/product-menu/index",
               "th/solutions/pos/index",
               "th/solutions/membership/index",
-              "th/solutions/invoice-bill-payment/index",
-              "th/untitled-page-2"
+              "th/solutions/invoice-bill-payment/index"
             ]
           }
         ]
@@ -247,6 +246,11 @@
     {
       "source": "/untitled-page-2",
       "destination": "/th/untitled-page-2",
+      "permanent": true
+    },
+    {
+      "source": "/th/untitled-page-2",
+      "destination": "/th/index",
       "permanent": true
     }
   ],
