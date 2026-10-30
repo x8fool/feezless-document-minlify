@@ -7,10 +7,7 @@
     "light": "#FDFDFD",
     "dark": "#0E0E0E"
   },
-  "favicon": {
-    "light": "/images/favicon.jpg",
-    "dark": "/LOGO_Feezless1.png"
-  },
+  "favicon": "https://feezless-pull-storage.b-cdn.net/brand/favicon.png",
   "navigation": {
     "global": {
       "dropdowns": [
@@ -37,7 +34,7 @@
           },
           {
             "group": "บริการของเรา",
-            "icon": "💲",
+            "icon": "🛠️",
             "pages": [
               "th/solutions/pay-per-request/index",
               "th/solutions/checkout/index",
@@ -178,10 +175,6 @@
     "color": {
       "light": "#FFFFFF",
       "dark": "#0E0E0E"
-    },
-    "image": {
-      "light": "",
-      "dark": "/images/mesh-deep-ocean.png"
     }
   },
   "thumbnails": {
