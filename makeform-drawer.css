@@ -1,0 +1,19 @@
+/* Follow the device theme only for the Feezless contact form drawer. */
+.makeform-slider-modal:has(> iframe[src^="https://makeform.ai/e/iY978F0d"]) {
+  color-scheme: light;
+  /* Override background updates sent by the embedded form to its outer panel. */
+  background: #ffffff !important;
+  color: #0e0e0e;
+}
+
+.makeform-slider-modal:has(> iframe[src^="https://makeform.ai/e/iY978F0d"]) > .makeform-close-button {
+  color: inherit;
+}
+
+@media (prefers-color-scheme: dark) {
+  .makeform-slider-modal:has(> iframe[src^="https://makeform.ai/e/iY978F0d"]) {
+    color-scheme: dark;
+    background: #0e0e0e !important;
+    color: #ffffff;
+  }
+}
