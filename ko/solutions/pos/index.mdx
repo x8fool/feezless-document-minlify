@@ -51,10 +51,56 @@ POS 판매 시스템(POS Cashier)을 사용하면 전용 결제 단말기를 구
 
 결제 수납을 시작하기 전에 현재 거래 수수료율과 관련 비용을 [Feezless에 문의](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1)하세요.
 
-이해를 돕기 위한 예시일 뿐입니다. 0.8%의 예시 요율에서 1,000 통화 단위 거래의 수수료는 8 통화 단위입니다. 이는 승인된 요율이 아니므로 시작하기 전에 [Feezless에서 실제 요율을 확인](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1)하세요.
+### 요금 계산 예시
+
+아래 수치는 이해를 돕기 위한 예시이며 승인된 요율이 아닙니다.
+
+- 결제 금액(예시): 1,000 통화 단위
+- 고정 예시 수수료율(승인되지 않음): 0.8%
+- 수수료: 1,000 x 0.8 / 100 = 8 통화 단위
+- 이 수수료를 제외한 남은 금액: 1,000 - 8 = 992 통화 단위
+
+아래 예시와 계산기는 세금 및 기타 가능한 부가 비용을 포함하지 않으며, 정산 견적서가 아닙니다. 표시되는 소수점 둘째 자리까지의 값은 예시를 위한 것이며 Feezless의 반올림 기준과 다를 수 있습니다. 실제 요율은 [Feezless에 문의](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1)하세요.
+
+<PricingCalculator />
 
 ## 판매 채널 선택
 
 POS 판매 시스템은 매장 고객 판매용으로 설계되었습니다. 고객이 온라인으로도 상품을 둘러보고 결제하도록 하려면 [상품 메뉴 (Product Menu)](/ko/solutions/product-menu/index)를 사용하여 스토어, 장바구니, 결제를 한 페이지에 통합하세요.
 
 설정 및 요금 관련 문의는 사용 방식을 기재하여 [Feezless에 연락](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1)하세요.
+
+export const PricingCalculator = () => {
+  const [amount, setAmount] = useState("1000");
+  const rate = 0.8;
+  const value = Number(amount);
+  const percent = rate;
+  const fee = value * (percent / 100);
+  const remainder = value - fee;
+  const valid = amount.trim() !== "" && Number.isFinite(value) && value >= 0 && Number.isFinite(fee) && Number.isFinite(remainder);
+  const format = (n) => n.toLocaleString("ko-KR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return (
+    <div className="not-prose" style={{ border: "1px solid rgba(127,127,127,.25)", borderRadius: 12, padding: 16, background: "transparent", color: "inherit", width: "100%", boxSizing: "border-box" }}>
+      <div style={{ display: "grid", gap: 12 }}>
+        <label style={{ display: "grid", gap: 4, fontSize: 14 }}>
+          결제 금액 (통화 단위)
+          <input type="number" min="0" step="any" value={amount} onChange={(e) => setAmount(e.target.value)} style={{ width: "100%", minWidth: 0, padding: "8px 10px", borderRadius: 8, border: "1px solid rgba(127,127,127,.35)", background: "transparent", color: "inherit", boxSizing: "border-box" }} />
+        </label>
+        <div style={{ fontSize: 14 }}>
+          고정 예시 수수료율(승인되지 않음): {rate}%
+        </div>
+        <div aria-live="polite" style={{ fontSize: 14 }}>
+          {!valid ? (
+            <div>유효한 결제 금액을 입력하세요.</div>
+          ) : (
+            <div style={{ display: "grid", gap: 6 }}>
+              <div>수수료: {format(fee)} 통화 단위</div>
+              <div>이 수수료를 제외한 남은 금액: {format(remainder)} 통화 단위</div>
+            </div>
+          )}
+        </div>
+        <div style={{ fontSize: 12, opacity: 0.7 }}>표시되는 소수점 둘째 자리까지의 값은 예시를 위한 것이며 Feezless의 반올림 기준과 다를 수 있습니다. 세금 및 기타 가능한 부가 비용은 포함하지 않습니다.</div>
+      </div>
+    </div>
+  );
+};

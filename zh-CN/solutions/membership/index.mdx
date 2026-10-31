@@ -48,7 +48,55 @@ Feezless 会员系统将客户的首次付款与您的会员计划关联起来�
 
 请[联系 Feezless](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1) 了解会员系统当前的交易费率和相关费用，并说明您希望采用的会员注册流程，以便团队为您推荐设置方案和费用。
 
+### 定价计算示例
+
+以下示例金额仅为演示用途，不代表会员费或服务价格。
+
+本文档未指定 Feezless 对该服务的手续费数值。如果 Feezless 确认按百分比收费且费率为 r%，则一笔与会员注册关联的首次付款 1,000 单位示例计算如下：
+
+- 手续费 = 1,000 × r ÷ 100 = 10r
+- 扣除该手续费后剩余 = 1,000 − 10r
+
+示例和计算器未包含税费及其他可能存在的费用，仅供参考，不作为结算依据。以上数字保留两位小数仅为示例参考。
+
+<PricingCalculator />
+
 ## 下一步
 
 - 参阅[支付链接](/zh-CN/solutions/checkout/index)服务，通过分享给客户的链接收款
 - 返回[支付服务概览](/zh-CN/index)，比较全部 6 种服务
+
+export const PricingCalculator = () => {
+  const [amount, setAmount] = useState("1000");
+  const [rate, setRate] = useState("");
+  const value = Number(amount);
+  const percent = Number(rate);
+  const fee = value * (percent / 100);
+  const remainder = value - fee;
+  const valid = amount.trim() !== "" && rate.trim() !== "" && Number.isFinite(value) && value >= 0 && Number.isFinite(percent) && percent >= 0 && Number.isFinite(fee) && Number.isFinite(remainder);
+  const format = (n) => n.toLocaleString("zh-CN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return (
+    <div className="not-prose" style={{ border: "1px solid rgba(127,127,127,.25)", borderRadius: 12, padding: 16, background: "transparent", color: "inherit", width: "100%", boxSizing: "border-box" }}>
+      <div style={{ fontWeight: 600, marginBottom: 12 }}>手续费试算器</div>
+      <label style={{ display: "grid", gap: 6, fontSize: 14 }}>
+        交易金额
+        <input type="number" min="0" step="any" value={amount} onChange={(e) => setAmount(e.target.value)} style={{ border: "1px solid rgba(127,127,127,.35)", borderRadius: 8, padding: "8px 10px", background: "transparent", color: "inherit", width: "100%", minWidth: 0, boxSizing: "border-box" }} />
+      </label>
+      <label style={{ display: "grid", gap: 6, fontSize: 14, marginTop: 10 }}>
+        Feezless 确认百分比费率 (%)
+        <input type="number" min="0" step="any" value={rate} onChange={(e) => setRate(e.target.value)} style={{ border: "1px solid rgba(127,127,127,.35)", borderRadius: 8, padding: "8px 10px", background: "transparent", color: "inherit", width: "100%", minWidth: 0, boxSizing: "border-box" }} />
+      </label>
+      <div aria-live="polite" style={{ marginTop: 12, fontSize: 15, display: "grid", gap: 6 }}>
+        {valid ? (
+          <>
+            <div>手续费（约）: {format(fee)} 单位</div>
+            <div>扣除该手续费后剩余: {format(remainder)} 单位</div>
+          </>
+        ) : (
+          <div>请输入有效的交易金额与确认费率以计算手续费。</div>
+        )}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 12, opacity: 0.75 }}>未包含税费及其他可能存在的费用。以上数字保留两位小数仅为示例参考，不代表 Feezless 的进位规则或结算金额。</div>
+    </div>
+  );
+};

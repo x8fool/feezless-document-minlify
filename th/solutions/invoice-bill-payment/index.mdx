@@ -53,7 +53,52 @@ icon: "🧾"
 
 ติดต่อ [Feezless](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1) เพื่อสอบถามอัตราค่าธรรมเนียมธุรกรรมและค่าใช้จ่ายที่เกี่ยวข้องในปัจจุบันก่อนส่งใบแจ้งหนี้ หากมีคำถามเรื่องการตั้งค่าหรือการเชื่อมต่อระบบ ติดต่อ [Feezless](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1)
 
+### ตัวอย่างการคำนวณค่าบริการ
+
+สมมติว่าลูกค้าชำระใบแจ้งหนี้หนึ่งใบเป็นจำนวน 1,000 หน่วยเงิน ยอดนี้ใช้แสดงวิธีคำนวณเท่านั้น ไม่ใช่ค่าบริการออกใบแจ้งหนี้ที่ Feezless กำหนด
+
+เอกสารยังไม่ได้ระบุอัตราค่าธรรมเนียมเป็นตัวเลขสำหรับบริการนี้ **หาก Feezless ยืนยันว่าคิดค่าธรรมเนียมแบบเปอร์เซ็นต์ที่อัตรา r%** จึงใช้สูตรต่อไปนี้ได้ โดย r แทนอัตราที่ได้รับการยืนยัน ไม่ใช่อัตราที่สมมติขึ้น
+
+| รายการ | วิธีคำนวณ | จำนวนหน่วยเงิน |
+| --- | --- | --- |
+| ยอดชำระตัวอย่าง | 1 รายการ | 1,000 |
+| ค่าธรรมเนียมแบบเปอร์เซ็นต์ หากใช้กับบัญชีของคุณ | 1,000 × r ÷ 100 | 10r |
+| ยอดคงเหลือหลังหักเฉพาะค่าธรรมเนียมนี้ | 1,000 − 10r | ต้องทราบ r ก่อน |
+
+กรอกอัตราที่ Feezless ยืนยันในเครื่องคำนวณเฉพาะเมื่อใช้การคิดค่าธรรมเนียมแบบเปอร์เซ็นต์ ตารางและเครื่องคำนวณไม่รวมภาษีหรือค่าใช้จ่ายอื่นที่อาจมี และไม่ใช่การยืนยันยอดที่จะได้รับจริง การแสดงทศนิยมสองตำแหน่งมีไว้ประกอบตัวอย่าง ไม่ใช่นโยบายการปัดเศษของ Feezless
+
+<PricingCalculator />
+
 ## ขั้นตอนถัดไป
 
 - กลับไปยัง [ภาพรวมบริการชำระเงิน](/th/index) เพื่อเปรียบเทียบบริการของ Feezless ทั้งหมด
 - ดูบริการ [ลิงก์ชำระเงิน](/th/solutions/checkout/index) หากต้องการรับชำระเงินทันทีโดยไม่ต้องออกใบแจ้งหนี้
+
+export const PricingCalculator = () => {
+  const [amount, setAmount] = useState("1000");
+  const [rate, setRate] = useState("");
+  const value = Number(amount);
+  const percent = Number(rate);
+  const fee = value * (percent / 100);
+  const remainder = value - fee;
+  const valid = amount.trim() !== "" && rate.trim() !== "" && Number.isFinite(value) && value >= 0 && Number.isFinite(percent) && percent >= 0 && Number.isFinite(fee) && Number.isFinite(remainder);
+  const format = (number) => number.toLocaleString("th-TH", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const inputStyle = { width: "100%", minWidth: 0, boxSizing: "border-box", border: "1px solid rgba(127,127,127,.35)", borderRadius: 8, padding: "8px 12px", background: "transparent", color: "inherit", font: "inherit" };
+  return (
+    <div className="not-prose" style={{ width: "100%", minWidth: 0, boxSizing: "border-box", border: "1px solid rgba(127,127,127,.25)", borderRadius: 12, padding: 16, display: "grid", gap: 12, color: "inherit" }}>
+      <strong>คำนวณเมื่อทราบอัตราแบบเปอร์เซ็นต์แล้ว</strong>
+      <label style={{ display: "grid", gap: 6 }}>
+        ยอดชำระตัวอย่าง (หน่วยเงิน)
+        <input type="number" min="0" step="any" value={amount} onChange={(event) => setAmount(event.target.value)} style={inputStyle} />
+      </label>
+      <label style={{ display: "grid", gap: 6 }}>
+        อัตราแบบเปอร์เซ็นต์ที่ Feezless ยืนยัน (%)
+        <input type="number" min="0" step="any" value={rate} onChange={(event) => setRate(event.target.value)} style={inputStyle} />
+      </label>
+      <div aria-live="polite" style={{ display: "grid", gap: 6 }}>
+        {valid ? <><div>ค่าธรรมเนียม: <strong>{format(fee)} หน่วยเงิน</strong></div><div>ยอดคงเหลือหลังหักเฉพาะค่าธรรมเนียมนี้: <strong>{format(remainder)} หน่วยเงิน</strong></div></> : <div>กรอกยอดชำระและอัตราที่ Feezless ยืนยันเป็นตัวเลขที่ไม่ติดลบ เฉพาะเมื่อใช้การคิดค่าธรรมเนียมแบบเปอร์เซ็นต์ ช่องอัตราที่ว่างไม่ได้หมายถึงค่าธรรมเนียม 0%</div>}
+      </div>
+      <small>ไม่รวมภาษีหรือค่าใช้จ่ายอื่นที่อาจมี ไม่ใช่ยอดรับเงินจริง แสดงทศนิยมสองตำแหน่งเพื่อประกอบตัวอย่างเท่านั้น</small>
+    </div>
+  );
+};

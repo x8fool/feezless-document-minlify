@@ -42,7 +42,20 @@ icon: "shopping-cart-check"
 
 支払いの受け取りを開始する前に、最新の取引手数料率と関連する費用について [Feezless にお問い合わせください。](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1)
 
-あくまで説明用の例として、取引手数料率が 2.0% の場合、1,000 通貨単位の支払いには 20 通貨単位の手数料がかかります。これは例であり、承認済みの料率ではありません。
+### 料金計算の例
+
+あくまで説明用の例として、取引手数料率が 2.0% の場合：
+
+| 項目 | 金額 |
+| --- | --- |
+| 決済金額 | 1,000 通貨単位 |
+| 料率 | 2.0% |
+| 手数料 | 1,000 x 2.0 / 100 = 20 通貨単位 |
+| この手数料のみを差し引いた残高 | 1,000 - 20 = 980 通貨単位 |
+
+これは例であり、承認済みの料率ではありません。税金やその他の費用は含まれておらず、決済確定金額ではありません。
+
+<PricingCalculator />
 
 > **注:** 決済リンクの作成や振込証明の受領だけでは、支払いは確定しません。商品やサービスを提供する前に、確定済みの決済ステータスを確認してください。
 
@@ -53,3 +66,36 @@ icon: "shopping-cart-check"
 ## 次のステップ
 
 決済リンクの利用を開始するには、想定される販売量と決済リンクを共有する予定のチャネルを添えて、[お問い合わせフォーム](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1) よりご連絡ください。
+
+export const PricingCalculator = () => {
+  const [amount, setAmount] = useState("1000");
+  const rateText = "2.0";
+  const value = Number(amount);
+  const percent = Number(rateText);
+  const fee = value * (percent / 100);
+  const remainder = value - fee;
+  const valid = amount.trim() !== "" && Number.isFinite(value) && value >= 0 && Number.isFinite(percent) && percent >= 0 && Number.isFinite(fee) && Number.isFinite(remainder);
+  const format = (n) => n.toLocaleString("ja-JP", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return (
+    <div className="not-prose" style={{ width: "100%", boxSizing: "border-box", border: "1px solid rgba(127,127,127,.25)", borderRadius: 12, padding: 16, background: "transparent", color: "inherit" }}>
+      <div style={{ display: "grid", gap: 12 }}>
+        <label style={{ display: "grid", gap: 4, fontSize: 14, color: "inherit" }}>
+          決済金額（通貨単位）
+          <input type="number" min="0" step="any" value={amount} onChange={(e) => setAmount(e.target.value)} style={{ minWidth: 0, width: "100%", boxSizing: "border-box", padding: "8px 10px", borderRadius: 8, border: "1px solid rgba(127,127,127,.35)", background: "transparent", color: "inherit", font: "inherit" }} />
+        </label>
+        <div style={{ fontSize: 14 }}>固定の説明用例の料率: 2.0%（承認済みの料率ではありません）</div>
+        <div aria-live="polite" style={{ fontSize: 14 }}>
+          {valid ? (
+            <div style={{ display: "grid", gap: 4 }}>
+              <div>手数料（この手数料のみ）: {format(fee)} 通貨単位</div>
+              <div>この手数料を差し引いた残り: {format(remainder)} 通貨単位</div>
+            </div>
+          ) : (
+            <div>有効な決済金額を入力してください</div>
+          )}
+        </div>
+        <div style={{ fontSize: 12, opacity: 0.7 }}>税金やその他の追加の手数料がかかる場合があります。小数点第2位までの表示は参考であり、決済見積ではありません。</div>
+      </div>
+    </div>
+  );
+};

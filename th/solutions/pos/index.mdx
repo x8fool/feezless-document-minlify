@@ -51,10 +51,47 @@ icon: "🏪"
 
 ติดต่อ [Feezless](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1) เพื่อสอบถามอัตราค่าธรรมเนียมธุรกรรมและค่าใช้จ่ายที่เกี่ยวข้องในปัจจุบันก่อนเริ่มรับชำระเงิน
 
-ตัวอย่างประกอบความเข้าใจเท่านั้น: ธุรกรรมมูลค่า 1,000 หน่วยเงิน ที่อัตราตัวอย่าง 0.8% จะมีค่าธรรมเนียม 8 หน่วยเงิน อัตรานี้ไม่ใช่อัตราที่ได้รับการอนุมัติ โปรด[ยืนยันอัตราจริงกับ Feezless](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1) ก่อนเริ่มใช้งาน
+### ตัวอย่างการคำนวณค่าบริการ
+
+ใช้ยอดชำระหน้าร้าน 1,000 หน่วยเงินและอัตราตัวอย่าง 0.8% ที่ระบุในเอกสารเพื่อแสดงวิธีคำนวณ อัตรานี้ไม่ใช่อัตราที่ได้รับการอนุมัติหรือราคาเสนอ โปรด[ยืนยันอัตราจริงกับ Feezless](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1) ก่อนเริ่มใช้งาน
+
+| รายการ | วิธีคำนวณ | จำนวนหน่วยเงิน |
+| --- | --- | --- |
+| ยอดชำระตัวอย่าง | 1 รายการ | 1,000 |
+| ค่าธรรมเนียมตามอัตราตัวอย่าง | 1,000 × 0.8 ÷ 100 | 8 |
+| ยอดคงเหลือหลังหักเฉพาะค่าธรรมเนียมนี้ | 1,000 − 8 | 992 |
+
+ตารางและเครื่องคำนวณแสดงเฉพาะค่าธรรมเนียมแบบเปอร์เซ็นต์ ไม่รวมภาษีหรือค่าใช้จ่ายอื่นที่อาจมี และไม่ใช่การยืนยันยอดที่จะได้รับจริง การแสดงทศนิยมสองตำแหน่งมีไว้ประกอบตัวอย่าง ไม่ใช่นโยบายการปัดเศษของ Feezless
+
+<PricingCalculator />
 
 ## เลือกช่องทางการขาย
 
 ระบบขายหน้าร้านออกแบบมาสำหรับการขายกับลูกค้าที่หน้าร้าน หากต้องการให้ลูกค้าเลือกดูสินค้าและชำระเงินออนไลน์ด้วย ใช้ [เมนูสินค้า (Product Menu)](/th/solutions/product-menu/index) เพื่อรวมร้านค้า ตะกร้า และการชำระเงินไว้ในหน้าเดียว
 
 หากมีคำถามเกี่ยวกับการตั้งค่าและค่าบริการ ติดต่อ [Feezless](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1) พร้อมระบุลักษณะการใช้งาน
+
+export const PricingCalculator = () => {
+  const [amount, setAmount] = useState("1000");
+  const rate = 0.8;
+  const value = Number(amount);
+  const fee = value * (rate / 100);
+  const remainder = value - fee;
+  const valid = amount.trim() !== "" && Number.isFinite(value) && value >= 0 && Number.isFinite(fee) && Number.isFinite(remainder);
+  const format = (number) => number.toLocaleString("th-TH", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const inputStyle = { width: "100%", minWidth: 0, boxSizing: "border-box", border: "1px solid rgba(127,127,127,.35)", borderRadius: 8, padding: "8px 12px", background: "transparent", color: "inherit", font: "inherit" };
+  return (
+    <div className="not-prose" style={{ width: "100%", minWidth: 0, boxSizing: "border-box", border: "1px solid rgba(127,127,127,.25)", borderRadius: 12, padding: 16, display: "grid", gap: 12, color: "inherit" }}>
+      <strong>ทดลองคำนวณค่าธรรมเนียม</strong>
+      <label style={{ display: "grid", gap: 6 }}>
+        ยอดชำระตัวอย่าง (หน่วยเงิน)
+        <input type="number" min="0" step="any" value={amount} onChange={(event) => setAmount(event.target.value)} style={inputStyle} />
+      </label>
+      <div>อัตราตัวอย่างคงที่: 0.8% (ไม่ใช่อัตราที่ได้รับการอนุมัติ)</div>
+      <div aria-live="polite" style={{ display: "grid", gap: 6 }}>
+        {valid ? <><div>ค่าธรรมเนียม: <strong>{format(fee)} หน่วยเงิน</strong></div><div>ยอดคงเหลือหลังหักเฉพาะค่าธรรมเนียมนี้: <strong>{format(remainder)} หน่วยเงิน</strong></div></> : <div>กรอกยอดชำระเป็นตัวเลขที่ไม่ติดลบ</div>}
+      </div>
+      <small>ไม่รวมภาษีหรือค่าใช้จ่ายอื่นที่อาจมี ไม่ใช่ยอดรับเงินจริง แสดงทศนิยมสองตำแหน่งเพื่อประกอบตัวอย่างเท่านั้น</small>
+    </div>
+  );
+};

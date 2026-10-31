@@ -44,6 +44,21 @@ icon: "shopping-cart-check"
 
 以下仅为帮助理解的示例：如果交易费率为 2.0%，一笔 1,000 货币单位的付款将产生 20 货币单位的手续费。这只是示例，并非核准费率。
 
+### 定价计算示例
+
+以下示例金额仅为演示用途，不代表服务价格。
+
+| 项目 | 数值 |
+| --- | --- |
+| 付款金额 | 1,000 |
+| 费率 | 2.0% |
+| 手续费 | 1,000 × 2.0 ÷ 100 = 20 |
+| 扣除该手续费后剩余 | 1,000 − 20 = 980 |
+
+此表未包含税费及其他可能存在的费用，仅供参考，不作为结算依据。以上数字保留两位小数仅为示例参考。
+
+<PricingCalculator />
+
 > **注意：** 仅创建支付链接或收到转账凭证并不代表付款已确认。请在交付商品或服务前核实已确认的付款状态。
 
 ## 需要让客户选购商品并加入购物车吗？
@@ -53,3 +68,34 @@ icon: "shopping-cart-check"
 ## 下一步
 
 如需开始使用支付链接，请[联系 Feezless](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1)，并说明您的预期销售量以及计划用于分享支付链接的渠道。
+
+export const PricingCalculator = () => {
+  const [amount, setAmount] = useState("1000");
+  const feeRate = 2;
+  const value = Number(amount);
+  const fee = value * (feeRate / 100);
+  const remainder = value - fee;
+  const valid = amount.trim() !== "" && Number.isFinite(value) && value >= 0 && Number.isFinite(fee) && Number.isFinite(remainder);
+  const format = (n) => n.toLocaleString("zh-CN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return (
+    <div className="not-prose" style={{ border: "1px solid rgba(127,127,127,.25)", borderRadius: 12, padding: 16, background: "transparent", color: "inherit", width: "100%", boxSizing: "border-box" }}>
+      <div style={{ fontWeight: 600, marginBottom: 12 }}>手续费试算器（示例）</div>
+      <label style={{ display: "grid", gap: 6, fontSize: 14 }}>
+        交易金额
+        <input type="number" min="0" step="any" value={amount} onChange={(e) => setAmount(e.target.value)} style={{ border: "1px solid rgba(127,127,127,.35)", borderRadius: 8, padding: "8px 10px", background: "transparent", color: "inherit", width: "100%", minWidth: 0, boxSizing: "border-box" }} />
+      </label>
+      <div style={{ marginTop: 10, fontSize: 14 }}>固定示例费率: {feeRate}%（非核准费率）</div>
+      <div aria-live="polite" style={{ marginTop: 12, fontSize: 15, display: "grid", gap: 6 }}>
+        {valid ? (
+          <>
+            <div>手续费（约）: {format(fee)} 单位</div>
+            <div>扣除该手续费后剩余: {format(remainder)} 单位</div>
+          </>
+        ) : (
+          <div>请输入有效的交易金额以计算手续费。</div>
+        )}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 12, opacity: 0.75 }}>未包含税费及其他可能存在的费用。以上数字保留两位小数仅为示例参考，不代表 Feezless 的进位规则或结算金额。</div>
+    </div>
+  );
+};

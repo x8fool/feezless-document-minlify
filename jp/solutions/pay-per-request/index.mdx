@@ -42,8 +42,55 @@ icon: "paywall"
 
 顧客にリクエストごとに請求する価格と、Feezless の利用手数料は区別してください。支払いの受け取りを開始する前に、最新の取引手数料率と関連する費用について [Feezless にお問い合わせください。](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1)
 
+### 料金計算の例
+
+本ドキュメントではリクエスト単位課金の数値的な手数料率を定めていません。Feezless がパーセンテージ課金を採用していて、確定した手数料率が r% である場合、API リクエストの決済例として 1,000 通貨単位の取引であれば、手数料は次のようになります。
+
+- 手数料 = 1,000 x r / 100 = 10r 通貨単位
+- この手数料のみを差し引いた残高 = 1,000 - 10r 通貨単位
+
+これは参考例であり、本サービスの価格ではありません。税金やその他の費用は含まれておらず、決済確定金額ではありません。
+
+<PricingCalculator />
+
 > **注:** 支払いリクエストの作成や振込証明の受領だけでは、支払いは確定しません。結果やデジタルサービスを提供する前に、確定済みの決済ステータスを確認してください。
 
 ## 次のステップ
 
 API やデジタルサービスにリクエスト単位課金プロトコルを導入するには、ユースケース、想定されるリクエスト量、リクエストごとに請求する予定の価格を添えて、[お問い合わせフォーム](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1) よりご連絡ください。
+
+export const PricingCalculator = () => {
+  const [amount, setAmount] = useState("1000");
+  const [rate, setRate] = useState("");
+  const value = Number(amount);
+  const percent = Number(rate);
+  const fee = value * (percent / 100);
+  const remainder = value - fee;
+  const valid = amount.trim() !== "" && rate.trim() !== "" && Number.isFinite(value) && value >= 0 && Number.isFinite(percent) && percent >= 0 && Number.isFinite(fee) && Number.isFinite(remainder);
+  const format = (n) => n.toLocaleString("ja-JP", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return (
+    <div className="not-prose" style={{ width: "100%", boxSizing: "border-box", border: "1px solid rgba(127,127,127,.25)", borderRadius: 12, padding: 16, background: "transparent", color: "inherit" }}>
+      <div style={{ display: "grid", gap: 12 }}>
+        <label style={{ display: "grid", gap: 4, fontSize: 14, color: "inherit" }}>
+          決済金額（通貨単位）
+          <input type="number" min="0" step="any" value={amount} onChange={(e) => setAmount(e.target.value)} style={{ minWidth: 0, width: "100%", boxSizing: "border-box", padding: "8px 10px", borderRadius: 8, border: "1px solid rgba(127,127,127,.35)", background: "transparent", color: "inherit", font: "inherit" }} />
+        </label>
+        <label style={{ display: "grid", gap: 4, fontSize: 14, color: "inherit" }}>
+          Feezless 確定のパーセンテージ料率（%）
+          <input type="number" min="0" step="any" value={rate} onChange={(e) => setRate(e.target.value)} style={{ minWidth: 0, width: "100%", boxSizing: "border-box", padding: "8px 10px", borderRadius: 8, border: "1px solid rgba(127,127,127,.35)", background: "transparent", color: "inherit", font: "inherit" }} />
+        </label>
+        <div aria-live="polite" style={{ fontSize: 14 }}>
+          {valid ? (
+            <div style={{ display: "grid", gap: 4 }}>
+              <div>手数料（この手数料のみ）: {format(fee)} 通貨単位</div>
+              <div>この手数料を差し引いた残り: {format(remainder)} 通貨単位</div>
+            </div>
+          ) : (
+            <div>有効な決済金額と料率を入力してください</div>
+          )}
+        </div>
+        <div style={{ fontSize: 12, opacity: 0.7 }}>税金やその他の追加の手数料がかかる場合があります。小数点第2位までの表示は参考であり、決済見積ではありません。</div>
+      </div>
+    </div>
+  );
+};

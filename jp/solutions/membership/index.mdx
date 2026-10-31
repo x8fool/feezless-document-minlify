@@ -48,7 +48,54 @@ Feezless と設定について相談する際は、以下の情報をご用意�
 
 会員システムの最新の取引手数料率と関連する費用については、希望する会員登録フローを添えて [お問い合わせフォーム](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1) よりご連絡ください。チームが設定と料金についてご案内します。
 
+### 料金計算の例
+
+本ドキュメントでは会員システムの数値的な手数料率を定めていません。Feezless がパーセンテージ課金を採用していて、確定した手数料率が r% である場合、会員紐付けの初回決済例として 1,000 通貨単位の取引であれば、手数料は次のようになります。
+
+- 手数料 = 1,000 x r / 100 = 10r 通貨単位
+- この手数料のみを差し引いた残高 = 1,000 - 10r 通貨単位
+
+これは参考例であり、会員サブスクリプション料金ではありません。税金やその他の費用は含まれておらず、決済確定金額ではありません。
+
+<PricingCalculator />
+
 ## 次のステップ
 
 - 顧客に共有したリンクで支払いを受け取るには、[決済リンク](/jp/solutions/checkout/index) サービスをご覧ください。
 - [決済サービスの概要](/jp/index) に戻って、6 つのサービスを比較します。
+
+export const PricingCalculator = () => {
+  const [amount, setAmount] = useState("1000");
+  const [rate, setRate] = useState("");
+  const value = Number(amount);
+  const percent = Number(rate);
+  const fee = value * (percent / 100);
+  const remainder = value - fee;
+  const valid = amount.trim() !== "" && rate.trim() !== "" && Number.isFinite(value) && value >= 0 && Number.isFinite(percent) && percent >= 0 && Number.isFinite(fee) && Number.isFinite(remainder);
+  const format = (n) => n.toLocaleString("ja-JP", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return (
+    <div className="not-prose" style={{ width: "100%", boxSizing: "border-box", border: "1px solid rgba(127,127,127,.25)", borderRadius: 12, padding: 16, background: "transparent", color: "inherit" }}>
+      <div style={{ display: "grid", gap: 12 }}>
+        <label style={{ display: "grid", gap: 4, fontSize: 14, color: "inherit" }}>
+          決済金額（通貨単位）
+          <input type="number" min="0" step="any" value={amount} onChange={(e) => setAmount(e.target.value)} style={{ minWidth: 0, width: "100%", boxSizing: "border-box", padding: "8px 10px", borderRadius: 8, border: "1px solid rgba(127,127,127,.35)", background: "transparent", color: "inherit", font: "inherit" }} />
+        </label>
+        <label style={{ display: "grid", gap: 4, fontSize: 14, color: "inherit" }}>
+          Feezless 確定のパーセンテージ料率（%）
+          <input type="number" min="0" step="any" value={rate} onChange={(e) => setRate(e.target.value)} style={{ minWidth: 0, width: "100%", boxSizing: "border-box", padding: "8px 10px", borderRadius: 8, border: "1px solid rgba(127,127,127,.35)", background: "transparent", color: "inherit", font: "inherit" }} />
+        </label>
+        <div aria-live="polite" style={{ fontSize: 14 }}>
+          {valid ? (
+            <div style={{ display: "grid", gap: 4 }}>
+              <div>手数料（この手数料のみ）: {format(fee)} 通貨単位</div>
+              <div>この手数料を差し引いた残り: {format(remainder)} 通貨単位</div>
+            </div>
+          ) : (
+            <div>有効な決済金額と料率を入力してください</div>
+          )}
+        </div>
+        <div style={{ fontSize: 12, opacity: 0.7 }}>税金やその他の追加の手数料がかかる場合があります。小数点第2位までの表示は参考であり、決済見積ではありません。</div>
+      </div>
+    </div>
+  );
+};
