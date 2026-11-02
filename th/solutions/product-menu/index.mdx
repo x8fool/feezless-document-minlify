@@ -93,9 +93,9 @@ export const ProductMenuFlowVisual = () => {
   const step = steps[active];
   const btn = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 44, height: 44, padding: 0, borderRadius: 10, border: "1px solid rgba(127,127,127,.3)", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
   return (
-    <section className="not-prose menu-story" aria-label="เส้นทางลูกค้าเมนูสินค้า" style={{ width: "100%", minWidth: 0, border: "none", padding: 0, display: "grid", gap: 14, color: "inherit", fontFamily: "inherit" }}>
+    <section className="not-prose menu-story" aria-label="เส้นทางลูกค้าเมนูสินค้า" style={{ width: "100%", minWidth: 0, border: "none", padding: 0, display: "grid", gap: 14, fontFamily: "inherit", background: "#ffffff", color: "#1e293b", colorScheme: "light", borderRadius: 16 }}>
       <style>{`.menu-story button:focus-visible { outline: 2px solid #2f6bff; outline-offset: 3px; } .menu-story button:disabled { opacity: .35; cursor: default; } .menu-story button:not(:disabled):hover { background: rgba(47,107,255,.08) !important; }`}</style>
-      <div style={{ background: "rgba(47,107,255,.06)", borderRadius: 16, overflow: "hidden" }}>
+      <div style={{ background: "linear-gradient(135deg, #ffffff 0%, #eef4ff 100%)", borderRadius: 16, overflow: "hidden" }}>
         <svg viewBox="0 0 640 240" role="img" aria-label={step.scene} style={{ width: "100%", height: "auto", display: "block" }}>
           <defs>
             <linearGradient id={`${id}-blue`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#94b6ff" /><stop offset="1" stopColor="#2454d6" /></linearGradient>
@@ -110,15 +110,15 @@ export const ProductMenuFlowVisual = () => {
             <path d="M-24 52Q0 65 24 52" fill="none" stroke="#fff" strokeOpacity=".45" strokeWidth="4" />
             <path d="M28 64L58 48" fill="none" stroke="#78a2fa" strokeWidth="14" strokeLinecap="round" />
           </g>
-          <g transform="translate(530 68)">
-            <circle cx="0" cy="0" r="25" fill={paint("white")} />
-            <path d="M-38 99V58C-38 20 38 20 38 58V99Z" fill={paint("dark")} />
-            <path d="M-18 37L0 54L18 37" fill="none" stroke="#a6b9dd" strokeWidth="3" />
-            <rect x="-52" y="84" width="104" height="52" rx="10" fill={paint("white")} />
-            <rect x="-35" y="94" width="70" height="25" rx="5" fill={paint("blue")} />
+          <g transform="translate(530 118)">
+            <title>Feezless Platform</title>
+            <rect x="-56" y="-56" width="112" height="112" rx="26" fill={paint("white")} stroke="#c7d8f5" strokeWidth="1.5" style={{ filter: "drop-shadow(0 6px 8px rgba(47,107,255,.18))" }} />
+            <image href="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" x="-40" y="-40" width="80" height="80" preserveAspectRatio="xMidYMid meet" />
           </g>
-          <path d="M177 128H225M415 128H463" fill="none" stroke="#7296e4" strokeWidth="3" strokeDasharray="5 7" />
-          <path d={active === 0 || active === 3 ? "M187 121L177 128L187 135M425 121L415 128L425 135" : "M215 121L225 128L215 135M453 121L463 128L453 135"} fill="none" stroke="#4777df" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          <g style={{ filter: "drop-shadow(0 0 3px rgba(71,119,223,.85)) drop-shadow(0 0 8px rgba(71,119,223,.45))" }}>
+            <path d="M177 128H225M415 128H463" fill="none" stroke="#7296e4" strokeWidth="3" strokeDasharray="5 7" />
+            <path d={active === 0 || active === 3 ? "M187 121L177 128L187 135M425 121L415 128L425 135" : "M215 121L225 128L215 135M453 121L463 128L453 135"} fill="none" stroke="#4777df" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          </g>
           {active === 0 && <g transform="translate(320 115)">
             <rect x="-66" y="-62" width="132" height="124" rx="14" fill="#b9cff9" transform="rotate(-8)" />
             <rect x="-58" y="-66" width="132" height="124" rx="14" fill={paint("white")} />
@@ -145,7 +145,7 @@ export const ProductMenuFlowVisual = () => {
             <circle cx="57" cy="-48" r="25" fill={paint("blue")} /><path d="M45-49L54-40L70-58" fill="none" stroke="#fff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
           </g>}
         </svg>
-        <div style={{ display: "flex", justifyContent: "space-between", padding: "0 10% 14px", fontSize: 13, gap: 12 }}><span>ลูกค้า</span><span>ร้านค้า</span></div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0 10% 14px", fontSize: 13, gap: 12 }}><span>ลูกค้า</span><span style={{ fontWeight: 700, textAlign: "right" }}>Feezless Platform</span></div>
       </div>
       <div role="group" aria-label="เลือกขั้นตอนบนเส้นทางลูกค้า" style={{ position: "relative", display: "grid", gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))`, gap: 0 }}>
         <div aria-hidden="true" style={{ position: "absolute", top: 15, height: 2, left: `${50 / steps.length}%`, right: `${50 / steps.length}%`, background: "rgba(127,127,127,.25)" }} />
