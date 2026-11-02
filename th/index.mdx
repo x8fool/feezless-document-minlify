@@ -24,20 +24,19 @@ icon:
 เปิดหน้าของแต่ละบริการเพื่อดูขั้นตอนการทำงาน สิ่งที่ต้องเตรียม และข้อมูลค่าบริการ [ติดต่อ Feezless เพื่อสอบถามข้อกำหนดการเปิดบัญชีและอัตราค่าบริการปัจจุบัน](https://zcal.co/i/gFYmG_pU) อัตราที่แสดงสำหรับลิงก์ชำระเงิน (Checkout Cart) และระบบขายหน้าร้าน (POS) เป็นเพียงตัวอย่าง ไม่ใช่ราคาเสนอ
 
 <Columns cols={2}>
-  <Card title="ชำระเงินต่อคำขอ" color="#FFFFFF" icon="paywall">
+  <Card title="ชำระเงินต่อคำขอ" color="#FFFFFF" icon="paywall" href="/th/solutions/pay-per-request/index">
     <img
       src="/services/06_True_Pay_Per_Request_Protocol.png"
       alt="ภาพประกอบบริการชำระเงินต่อคำขอ True Pay-Per-Request Protocol"
       style={{ width: "100%", height: "auto" }}
+      noZoom
     />
 
     คิดค่าบริการต่อคำขอ API และเปิดสิทธิ์เข้าถึงบริการดิจิทัลเมื่อเป็นไปตามเงื่อนไขการชำระเงิน
 
     **สิ่งที่ต้องเตรียม:** API หรือบริการดิจิทัลที่ต้องการคิดค่าบริการ ราคาต่อคำขอหรือต่อการใช้งาน ข้อมูลผู้รับเงิน และเงื่อนไขการใช้บริการ
 
-    **ค่าบริการ:** [ติดต่อ Feezless เพื่อสอบถามอัตราค่าธรรมเนียมธุรกรรมปัจจุบัน](https://zcal.co/i/gFYmG_pU)
-
-    [ดูรายละเอียดบริการ](/th/solutions/pay-per-request/index)
+    **ค่าบริการ:** ติดต่อ Feezless เพื่อสอบถามอัตราค่าธรรมเนียมธุรกรรมปัจจุบัน
   </Card>
 
   <Card title="ลิงก์ชำระเงิน (Checkout Cart)" color="#FFFFFF" icon="shopping-cart-check" href="/th/solutions/checkout/index">
@@ -45,6 +44,7 @@ icon:
       src="/services/01_Payment_Link.png"
       alt="ภาพประกอบบริการลิงก์ชำระเงิน"
       style={{ width: "100%", height: "auto" }}
+      noZoom
     />
 
     แชร์ลิงก์ชำระเงินผ่านแชต โซเชียลมีเดีย หรือเว็บไซต์ของคุณ
@@ -54,20 +54,19 @@ icon:
     **ตัวอย่างค่าบริการ:** 2.0% ต่อธุรกรรม
   </Card>
 
-  <Card title="เมนูสินค้า" color="#FFFFFF" icon="packages">
+  <Card title="เมนูสินค้า" color="#FFFFFF" icon="packages" href="/th/solutions/product-menu/index">
     <img
       src="/services/02_Product_Menu.png"
       alt="ภาพประกอบบริการเมนูสินค้าออนไลน์"
       style={{ width: "100%", height: "auto" }}
+      noZoom
     />
 
     ให้ลูกค้าเลือกดูสินค้า เพิ่มลงตะกร้า และชำระเงินได้ในหน้าเดียว
 
     **สิ่งที่ต้องเตรียม:** รายละเอียดสินค้า หรือรายการอาหารและเครื่องดื่ม พร้อมราคาสำหรับจัดทำแค็ตตาล็อก
 
-    **ค่าบริการ:** [ติดต่อ Feezless เพื่อสอบถามอัตราค่าธรรมเนียมธุรกรรมปัจจุบัน](https://zcal.co/i/gFYmG_pU)
-
-    [ดูรายละเอียดบริการ](/th/solutions/product-menu/index)
+    **ค่าบริการ:** ติดต่อ Feezless เพื่อสอบถามอัตราค่าธรรมเนียมธุรกรรมปัจจุบัน
   </Card>
 
   <Card title="ระบบขายหน้าร้าน (POS)" color="#FFFFFF" icon="cash-register" href="/th/solutions/pos/index">
@@ -75,6 +74,7 @@ icon:
       src="/services/03_POS_Cashier.png"
       alt="ภาพประกอบบริการระบบขายหน้าร้าน POS"
       style={{ width: "100%", height: "auto" }}
+      noZoom
     />
 
     รับชำระเงินหน้าร้านผ่านโทรศัพท์หรือแท็บเล็ต และอัปเดตสต็อกสินค้าให้ตรงกับยอดขาย
@@ -84,36 +84,34 @@ icon:
     **ตัวอย่างค่าบริการ:** 0.8% ต่อธุรกรรม
   </Card>
 
-  <Card title="ระบบสมาชิก" color="#FFFFFF" icon="user-star">
+  <Card title="ระบบสมาชิก" color="#FFFFFF" icon="user-star" href="/th/solutions/membership/index">
     <img
       src="/services/04_Membership_and_Loyalty.png"
       alt="ภาพประกอบบริการระบบสมาชิกและบัตรสมาชิกดิจิทัล"
       style={{ width: "100%", height: "auto" }}
+      noZoom
     />
 
     เปลี่ยนการชำระเงินครั้งแรกของลูกค้าให้เป็นการสมัครสมาชิก พร้อมออกบัตรสมาชิกดิจิทัล
 
     **สิ่งที่ต้องเตรียม:** โปรแกรมสมาชิก รายละเอียดบัตรดิจิทัล และช่องทางส่งบัตรกับลิงก์ตั้งค่าให้ลูกค้า
 
-    **ค่าบริการ:** [ติดต่อ Feezless เพื่อสอบถามอัตราค่าธรรมเนียมธุรกรรมปัจจุบัน](https://zcal.co/i/gFYmG_pU)
-
-    [ดูรายละเอียดบริการ](/th/solutions/membership/index)
+    **ค่าบริการ:** ติดต่อ Feezless เพื่อสอบถามอัตราค่าธรรมเนียมธุรกรรมปัจจุบัน
   </Card>
 
-  <Card title="ใบแจ้งหนี้และการชำระบิล" icon="receipt">
+  <Card title="ใบแจ้งหนี้และการชำระบิล" icon="receipt" href="/th/solutions/invoice-bill-payment/index">
     <img
       src="/services/05_Invoice_and_Bill_Payment.png"
       alt="ภาพประกอบบริการใบแจ้งหนี้และการชำระบิลออนไลน์"
       style={{ width: "100%", height: "auto" }}
+      noZoom
     />
 
     ส่งลิงก์ใบแจ้งหนี้ รับชำระเงินออนไลน์ และติดตามสถานะการชำระเงิน
 
     **สิ่งที่ต้องเตรียม:** รายละเอียดใบแจ้งหนี้ จำนวนเงินที่ต้องการเรียกเก็บ และช่องทางส่งลิงก์ชำระเงินให้ลูกค้า
 
-    **ค่าบริการ:** [ติดต่อ Feezless เพื่อสอบถามอัตราค่าธรรมเนียมธุรกรรมปัจจุบัน](https://zcal.co/i/gFYmG_pU)
-
-    [ดูรายละเอียดบริการ](/th/solutions/invoice-bill-payment/index)
+    **ค่าบริการ:** ติดต่อ Feezless เพื่อสอบถามอัตราค่าธรรมเนียมธุรกรรมปัจจุบัน
   </Card>
 </Columns>
 
