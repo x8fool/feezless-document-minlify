@@ -82,9 +82,9 @@ icon: "🛍️"
 export const ProductMenuFlowVisual = () => {
   const steps = [
     { label: "เลือกสินค้า", title: "เลือกจากแค็ตตาล็อกที่ร้านเตรียมไว้", customer: "เลือกดูสินค้าและรายการในเมนูบนหน้าเดียว", merchant: "สร้างแค็ตตาล็อกสินค้าพร้อมชื่อ รายละเอียด และราคา", scene: "ลูกค้าดูเมนูสินค้าที่ร้านค้าจัดแค็ตตาล็อกไว้" },
-    { label: "เพิ่มลงตะกร้า", title: "เพิ่มสินค้าลงตะกร้าโดยไม่ต้องออกจากหน้า", customer: "เพิ่มสินค้าลงตะกร้าและตรวจสอบรายการในหน้าเดียวกัน", merchant: "ตะกร้าและหน้าสินค้าอยู่บนหน้าเดียวกัน ไม่ต้องเปลี่ยนหน้า", scene: "ลูกค้าเพิ่มสินค้าลงตะกร้า ร้านค้าไม่ต้องเปลี่ยนหน้า" },
-    { label: "ชำระเงิน", title: "ชำระเงินในหน้าเดียวกัน", customer: "เลือกวิธีชำระเงินและดำเนินการจนจบขั้นตอน", merchant: "ตรวจสอบสถานะการชำระเงินที่ยืนยันแล้วก่อนจัดการส่งมอบ", scene: "ลูกค้าชำระเงินบนหน้าเดียวกัน ร้านค้าตรวจสอบผลก่อนส่งมอบ", note: "การดำเนินการจนจบขั้นตอนชำระเงินไม่ใช่การยืนยันว่าชำระเงินแล้ว" },
-    { label: "รับสินค้า", title: "รับสินค้าเมื่อยืนยันการชำระเงินแล้ว", customer: "รับสินค้าหรือบริการหลังร้านค้าตรวจสอบการชำระเงิน", merchant: "เมื่อการขายเสร็จสมบูรณ์ ระบบตัดสต็อกอัตโนมัติ", scene: "ภาพจำลองการส่งมอบสินค้าหลังยืนยันการชำระเงิน", note: "จัดการส่งมอบเมื่อสถานะการชำระเงินได้รับการยืนยันแล้วเท่านั้น" },
+    { label: "เพิ่มลงตะกร้า", title: "จากสินค้าที่ชอบ สู่ตะกร้า", customer: "เพิ่มสินค้าที่เลือกลงตะกร้าในหน้าเดียวกัน", merchant: "รวมเมนูสินค้า ตะกร้า และการชำระเงินไว้ในหน้าเดียว", scene: "ลูกค้าเพิ่มสินค้าลงตะกร้าจากหน้าเมนู" },
+    { label: "ชำระเงิน", title: "ชำระเงินในหน้าเดียวกัน", customer: "ดำเนินการชำระเงินจากหน้าเดียวกับเมนูและตะกร้า", merchant: "ตรวจสอบสถานะการชำระเงินที่ยืนยันแล้วก่อนจัดการส่งมอบ", scene: "ลูกค้าชำระเงินบนหน้าเดียวกัน ร้านค้าตรวจสอบผลก่อนส่งมอบ", note: "การดำเนินการจนจบขั้นตอนชำระเงินไม่ใช่การยืนยันว่าชำระเงินแล้ว" },
+    { label: "รับสินค้า", title: "รับสินค้าเมื่อยืนยันการชำระเงินแล้ว", customer: "รับสินค้าหลังร้านค้ายืนยันการชำระเงินแล้ว", merchant: "เมื่อการขายเสร็จสมบูรณ์ ระบบตัดสต็อกอัตโนมัติ", scene: "ภาพจำลองการส่งมอบสินค้าหลังยืนยันการชำระเงิน", note: "จัดการส่งมอบเมื่อสถานะการชำระเงินได้รับการยืนยันแล้วเท่านั้น" },
   ];
   const [active, setActive] = useState(0);
   const uid = useId().replace(/:/g, "");
@@ -125,10 +125,13 @@ export const ProductMenuFlowVisual = () => {
             {[0, 1, 2].map((row) => <g key={row} transform={`translate(0 ${row * 36})`}><rect x="-48" y="-52" width="28" height="28" rx="8" fill={paint("blue")} /><rect x="-14" y="-48" width="56" height="7" rx="3" fill="#a0b7de" /><rect x="-14" y="-34" width="32" height="5" rx="2" fill="#c6d3e8" /></g>)}
           </g>}
           {active === 1 && <g transform="translate(320 118)">
-            <rect x="-54" y="-56" width="108" height="112" rx="14" fill={paint("dark")} />
-            <rect x="-46" y="-48" width="92" height="96" rx="10" fill={paint("white")} />
-            {[0, 1, 2].map((row) => <g key={row} transform={`translate(0 ${row * 28})`}><rect x="-38" y="-38" width="76" height="20" rx="6" fill={row === 1 ? "#dbe7ff" : "#edf1f8"} stroke={row === 1 ? "#4777df" : "#d5ddeb"} /><circle cx="-26" cy="-28" r="5" fill={row === 1 ? "#4777df" : "#b2c2dc"} /><rect x="-16" y="-31" width="30" height="5" rx="2" fill="#9dafcd" /></g>)}
-            <g transform="translate(40 -36)"><circle cx="0" cy="0" r="18" fill={paint("blue")} /><path d="M-6 0H6M0 -6V6" stroke="#fff" strokeWidth="3" strokeLinecap="round" /></g>
+            <rect x="-33" y="-52" width="34" height="54" rx="8" fill={paint("white")} transform="rotate(-12)" />
+            <rect x="8" y="-62" width="32" height="64" rx="8" fill="#b5cdf8" transform="rotate(9)" />
+            <path d="M-65-14H65L47 58H-47Z" fill={paint("blue")} />
+            <path d="M-65-14L-47-26H49L65-14Z" fill="#a5c4ff" />
+            <path d="M-32-19V-38Q-32-72 0-72Q32-72 32-38V-19" fill="none" stroke="#617ead" strokeWidth="8" strokeLinecap="round" />
+            {[-28, 0, 28].map((x) => <path key={x} d={`M${x} 6V37`} fill="none" stroke="#dbe8ff" strokeWidth="8" strokeLinecap="round" opacity=".7" />)}
+            <circle cx="57" cy="-44" r="22" fill={paint("white")} stroke="#adc6f5" /><path d="M48-44H66M57-53V-35" stroke="#4777df" strokeWidth="4" strokeLinecap="round" />
           </g>}
           {active === 2 && <g transform="translate(320 118)">
             <rect x="-47" y="-79" width="94" height="158" rx="18" fill={paint("dark")} />

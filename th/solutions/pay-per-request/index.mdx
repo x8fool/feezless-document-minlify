@@ -80,9 +80,9 @@ icon: "💳"
 
 export const PayPerRequestFlowVisual = () => {
   const steps = [
-    { label: "เรียกใช้บริการ", title: "เรียกใช้บริการดิจิทัล", customer: "ส่งคำขอใช้บริการหรือ API ตามที่ต้องการ", merchant: "รับคำขอและแสดงเงื่อนไขการชำระเงินสำหรับคำขอนั้น", scene: "ผู้ใช้บริการส่งคำขอจากอุปกรณ์ไปยังผู้ให้บริการดิจิทัล" },
-    { label: "ชำระตามเงื่อนไข", title: "ชำระเงินตามเงื่อนไขที่กำหนด", customer: "ชำระเงินตามเงื่อนไขที่ระบบแสดง", merchant: "ตรวจสอบสถานะการชำระเงินตามเงื่อนไขก่อนเปิดให้เข้าถึง", scene: "ผู้ใช้ชำระเงินตามเงื่อนไข ผู้ให้บริการตรวจสอบผล", note: "การสร้างคำขอชำระเงินหรือได้รับหลักฐานการโอนเพียงอย่างเดียวไม่ใช่การยืนยันว่าชำระเงินแล้ว" },
-    { label: "เข้าถึงผลลัพธ์", title: "เข้าถึงผลลัพธ์หรือบริการดิจิทัล", customer: "เข้าถึงผลลัพธ์หรือบริการดิจิทัลเมื่อเงื่อนไขผ่าน", merchant: "ส่งมอบผลลัพธ์หรือเปิดใช้งานบริการดิจิทัลเมื่อเงื่อนไขครบถ้วน", scene: "ผู้ใช้บริการได้รับผลลัพธ์ดิจิทัลหลังผู้ให้บริการยืนยันเงื่อนไข", note: "ส่งมอบผลลัพธ์เมื่อสถานะการชำระเงินได้รับการยืนยันแล้วเท่านั้น" },
+    { label: "เรียกใช้บริการ", title: "เริ่มจากคำขอใช้บริการดิจิทัล", customer: "ส่งคำขอใช้บริการหรือเรียกใช้ API", merchant: "กำหนดราคา ผู้รับเงิน และเงื่อนไขสำหรับคำขอ", scene: "ผู้ใช้บริการส่งคำขอ API ไปยังผู้ให้บริการดิจิทัล" },
+    { label: "ชำระตามเงื่อนไข", title: "ชำระเงินสำหรับคำขอนั้น", customer: "ชำระเงินตามเงื่อนไขการใช้บริการที่กำหนด", merchant: "เชื่อมคำขอกับการชำระเงิน และตรวจสอบผลก่อนส่งมอบ", scene: "ผู้ใช้ชำระเงินตามเงื่อนไข ผู้ให้บริการตรวจสอบผลก่อนเปิดให้เข้าถึง", note: "การสร้างคำขอชำระเงินหรือได้รับหลักฐานการโอนเพียงอย่างเดียวไม่ใช่การยืนยันว่าชำระเงินแล้ว" },
+    { label: "เข้าถึงผลลัพธ์", title: "เข้าถึงผลลัพธ์เมื่อเงื่อนไขการชำระเงินครบถ้วน", customer: "เข้าถึงผลลัพธ์หรือบริการดิจิทัลเมื่อเป็นไปตามเงื่อนไขการชำระเงิน", merchant: "เปิดให้เข้าถึงเมื่อยืนยันการชำระเงินตามเงื่อนไขแล้ว", scene: "ภาพจำลองการรับผลลัพธ์ดิจิทัลหลังยืนยันการชำระเงิน", note: "ส่งมอบผลลัพธ์เมื่อสถานะการชำระเงินได้รับการยืนยันแล้วเท่านั้น" },
   ];
   const [active, setActive] = useState(0);
   const uid = useId().replace(/:/g, "");
@@ -116,30 +116,21 @@ export const PayPerRequestFlowVisual = () => {
             <rect x="-35" y="94" width="70" height="25" rx="5" fill={paint("blue")} />
           </g>
           <path d="M177 128H225M415 128H463" fill="none" stroke="#7296e4" strokeWidth="3" strokeDasharray="5 7" />
-          <path d={active === 0 || active === 2 ? "M187 121L177 128L187 135M425 121L415 128L425 135" : "M215 121L225 128L215 135M453 121L463 128L453 135"} fill="none" stroke="#4777df" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-          {active === 0 && <g transform="translate(320 115)">
-            <rect x="-69" y="-65" width="120" height="136" rx="14" fill="#b9cff9" transform="rotate(-8)" />
-            <rect x="-58" y="-70" width="120" height="136" rx="14" fill={paint("white")} />
-            <rect x="-45" y="-54" width="90" height="7" rx="3" fill="#a0b7de" />
-            <rect x="-45" y="-40" width="68" height="5" rx="2" fill="#c6d3e8" />
-            <rect x="-45" y="-10" width="90" height="28" rx="7" fill={paint("blue")} />
-            <path d="M-25 4L-15 4" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
-            <path d="M-25 12L-5 12" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
-            <rect x="-45" y="28" width="90" height="28" rx="7" fill="#edf1f8" stroke="#d5ddeb" />
-            <circle cx="-30" cy="42" r="5" fill="#b2c2dc" />
-            <rect x="-18" y="39" width="28" height="5" rx="2" fill="#9dafcd" />
+          <path d={active === 2 ? "M187 121L177 128L187 135M425 121L415 128L425 135" : "M215 121L225 128L215 135M453 121L463 128L453 135"} fill="none" stroke="#4777df" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          {active === 0 && <g transform="translate(320 118)">
+            <rect x="-72" y="-62" width="144" height="108" rx="12" fill={paint("dark")} />
+            <rect x="-62" y="-52" width="124" height="86" rx="6" fill={paint("white")} />
+            <path d="M-72 46L-87 63Q-87 69-76 69H76Q87 69 87 63L72 46Z" fill="#a8b9d5" />
+            <path d="M-25 46H25L20 54H-20Z" fill="#768dae" />
+            <path d="M-28-28L-44-10L-28 8M28-28L44-10L28 8M8-33L-8 13" fill="none" stroke="#4777df" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="61" cy="-57" r="22" fill={paint("blue")} /><path d="M50-57H72M63-66L72-57L63-48" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
           </g>}
           {active === 1 && <g transform="translate(320 118)">
-            <rect x="-80" y="-59" width="160" height="115" rx="15" fill={paint("dark")} />
-            <rect x="-69" y="-48" width="138" height="93" rx="8" fill={paint("white")} />
-            <rect x="-55" y="-36" width="48" height="7" rx="3" fill="#a0b7de" />
-            <rect x="-55" y="-22" width="36" height="5" rx="2" fill="#c6d3e8" />
-            <rect x="-55" y="0" width="110" height="28" rx="7" fill="#dbe7ff" stroke="#4777df" />
-            <path d="M-35 14L-25 14" fill="none" stroke="#4777df" strokeWidth="3" strokeLinecap="round" />
-            <path d="M-35 22L-15 22" fill="none" stroke="#4777df" strokeWidth="3" strokeLinecap="round" />
-            <rect x="-55" y="38" width="110" height="7" rx="3" fill="#bdcce5" />
-            <circle cx="55" cy="-48" r="22" fill={paint("blue")} />
-            <path d="M48-54L55-48L62-54" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M-59 68V-49Q-59-65-43-65H43Q59-65 59-49V68" fill="none" stroke="#b7cae9" strokeWidth="17" strokeLinecap="round" />
+            <rect x="-68" y="-23" width="136" height="22" rx="8" fill={paint("blue")} />
+            {[-42, -12, 18, 48].map((x) => <path key={x} d={`M${x} -21L${x - 12} -3`} stroke="#dce8ff" strokeWidth="6" />)}
+            <circle cx="0" cy="38" r="26" fill={paint("white")} stroke="#8eafe5" strokeWidth="3" /><circle cx="0" cy="38" r="15" fill="none" stroke="#4777df" strokeWidth="4" />
+            <circle cx="59" cy="-59" r="22" fill={paint("blue")} /><path d="M59-71V-59L67-53" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
           </g>}
           {active === 2 && <g transform="translate(320 118)">
             <rect x="-69" y="-65" width="138" height="136" rx="14" fill="#b9cff9" transform="rotate(8)" />
@@ -168,7 +159,7 @@ export const PayPerRequestFlowVisual = () => {
       <div id={`${id}-detail`} aria-live="polite" aria-atomic="true" style={{ display: "grid", gap: 12 }}>
         <div style={{ textAlign: "center", fontWeight: 700, fontSize: 18, lineHeight: 1.6 }}>{step.title}</div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 12 }}>
-          <div style={{ padding: 14, borderRadius: 12, background: "rgba(47,107,255,.07)", minWidth: 0 }}><div style={{ fontSize: 12, fontWeight: 700, marginBottom: 6 }}>มุมลูกค้า</div><p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.customer}</p></div>
+          <div style={{ padding: 14, borderRadius: 12, background: "rgba(47,107,255,.07)", minWidth: 0 }}><div style={{ fontSize: 12, fontWeight: 700, marginBottom: 6 }}>ผู้ใช้บริการ</div><p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.customer}</p></div>
           <div style={{ padding: 14, borderRadius: 12, background: "rgba(127,127,127,.07)", minWidth: 0 }}><div style={{ fontSize: 12, fontWeight: 700, marginBottom: 6 }}>ผู้ให้บริการและระบบ</div><p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.merchant}</p></div>
         </div>
         {step.note && <p style={{ margin: 0, padding: "10px 14px", borderRadius: 10, background: "rgba(217,119,6,.09)", fontSize: 13, lineHeight: 1.7 }}><strong>ก่อนส่งมอบ: </strong>{step.note}</p>}
