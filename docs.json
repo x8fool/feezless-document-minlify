@@ -177,20 +177,23 @@
   "description": "เอกสาร API อย่างเป็นทางการของ Feezless สำหรับนักพัฒนาและธุรกิจ เรียนรู้การเชื่อมต่อระบบรับชำระเงิน การจ่ายเงินอัตโนมัติ การเข้าถึงรายการเดินบัญชี การตั้งค่า Webhook และการสร้างหน้าชำระเงิน พร้อมคู่มือทีละขั้นตอนและเอกสารอ้างอิง API",
   "fonts": {
     "heading": {
-      "family": "Geist"
+      "family": "Plus Jakarta Sans",
+      "weight": 500
     },
     "body": {
-      "family": "Geist"
+      "family": "Plus Jakarta Sans",
+      "weight": 400
     }
   },
   "icons": {
-    "library": "fontawesome"
+    "library": "tabler"
   },
   "background": {
     "color": {
       "light": "#FFFFFF",
       "dark": "#0E0E0E"
-    }
+    },
+    "decoration": "gradient"
   },
   "thumbnails": {
     "fonts": {
