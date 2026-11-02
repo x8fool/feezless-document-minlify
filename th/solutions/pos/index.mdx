@@ -36,7 +36,7 @@ icon: "🏪"
 3. ลูกค้าเลือกวิธีชำระเงินที่หน้าชำระเงิน
 4. ระบบตัดสต็อกอัตโนมัติเมื่อการขายเสร็จสมบูรณ์
 
-กดแต่ละขั้นตอนหรือเล่นอัตโนมัติเพื่อดูลำดับการทำงานของระบบขายหน้าร้าน
+กดแต่ละขั้นตอนเพื่อดูลำดับการทำงานของระบบขายหน้าร้าน
 
 <PosFlowVisual />
 
@@ -79,20 +79,14 @@ icon: "🏪"
 
 export const PosFlowVisual = () => {
   const steps = [
-    { label: "ตั้งค่าสินค้า", detail: "ตั้งค่ารายการสินค้าและราคาที่ต้องการขาย" },
+    { label: "เพิ่มสินค้า", detail: "ตั้งค่ารายการสินค้าและราคาที่ต้องการขาย" },
     { label: "รับคำสั่งซื้อ", detail: "รับคำสั่งซื้อและแสดงหน้าชำระเงินให้ลูกค้าบนโทรศัพท์หรือแท็บเล็ตของคุณ" },
     { label: "ลูกค้าชำระเงิน", detail: "ลูกค้าเลือกวิธีชำระเงินที่หน้าชำระเงิน", note: "ตรวจสอบสถานะการชำระเงินที่ยืนยันแล้วก่อนส่งมอบสินค้าหรือบริการ" },
     { label: "ตัดสต็อก", detail: "ระบบตัดสต็อกอัตโนมัติเมื่อการขายเสร็จสมบูรณ์" },
   ];
   const centers = [80, 240, 400, 560];
   const [active, setActive] = useState(0);
-  const [playing, setPlaying] = useState(false);
-  useEffect(() => {
-    if (!playing) return undefined;
-    const id = setInterval(() => setActive((a) => (a + 1) % steps.length), 2200);
-    return () => clearInterval(id);
-  }, [playing]);
-  const go = (i) => { setPlaying(false); setActive(i); };
+  const go = (i) => setActive(i);
   const btn = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 40, height: 36, padding: 0, lineHeight: 0, borderRadius: 8, border: "1px solid rgba(127,127,127,.35)", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
   const slot = (i) => ({
     transform: `translate(${centers[i]}px, ${i === active ? 118 : 128}px) scale(${i === active ? 1.08 : 0.92})`,
@@ -101,7 +95,7 @@ export const PosFlowVisual = () => {
   });
   const shadow = <ellipse cx="0" cy="62" rx="50" ry="7" fill="#0b1a4a" opacity=".22" filter="url(#posf-blur)" />;
   return (
-    <div className="not-prose" style={{ position: "relative", width: "100%", minWidth: 0, boxSizing: "border-box", border: "1px solid rgba(127,127,127,.25)", borderRadius: 16, padding: 16, display: "grid", gap: 12, color: "inherit" }}>
+    <div className="not-prose" style={{ position: "relative", width: "100%", minWidth: 0, boxSizing: "border-box", border: "none", borderRadius: 16, padding: 0, display: "grid", gap: 12, color: "inherit" }}>
       <svg viewBox="0 0 640 340" style={{ width: "100%", display: "block", borderRadius: 12, background: "rgba(47,107,255,.06)" }} role="img" aria-label="ลำดับการทำงานของระบบขายหน้าร้าน 4 ขั้นตอน">
         <defs>
           <linearGradient id="posf-blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#6b97ff" /><stop offset="1" stopColor="#1d4ed8" /></linearGradient>
@@ -193,7 +187,6 @@ export const PosFlowVisual = () => {
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", alignItems: "center" }}>
         <button type="button" style={btn} disabled={active === 0} onClick={() => go(active - 1)} aria-label="ย้อนกลับ" title="ย้อนกลับ"><Icon icon="chevron-left" size={16} /></button>
         <button type="button" style={btn} disabled={active === steps.length - 1} onClick={() => go(active + 1)} aria-label="ถัดไป" title="ถัดไป"><Icon icon="chevron-right" size={16} /></button>
-        <button type="button" style={btn} onClick={() => setPlaying(!playing)} aria-label={playing ? "หยุด" : "เล่นอัตโนมัติ"} title={playing ? "หยุด" : "เล่นอัตโนมัติ"}><Icon icon={playing ? "pause" : "play"} size={16} /></button>
       </div>
     </div>
   );
