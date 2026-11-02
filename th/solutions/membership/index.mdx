@@ -45,7 +45,11 @@ icon:
 3. ส่งบัตรผ่านช่องทางที่ลูกค้าเลือก
 4. ลูกค้าเปิดลิงก์เพื่อตั้งรหัส PIN และให้ความยินยอมตาม PDPA ด้วยตนเอง
 
-ดูเส้นทางลูกค้าตั้งแต่ชำระเงินครั้งแรกจนถึงตั้งค่าด้วยตนเอง โดยเลือกจุดบนเส้นขั้นตอนด้านล่าง ภาพนี้เป็นภาพประกอบ ไม่ใช่หน้าจอหรือสถานะธุรกรรมจริง
+สถานการณ์ตัวอย่าง: ลูกค้าชำระเงินครั้งแรกที่ร้านค้าและเข้าร่วมโปรแกรมสมาชิกโดยอัตโนมัติ ระบบ Feezless ออกบัตรสมาชิกดิจิทัลให้ ลูกค้ารับบัตรแล้วเปิดลิงก์เพื่อตั้งรหัส PIN และให้ความยินยอมตาม PDPA ด้วยตนเอง
+
+ภาพด้านล่างแสดงมุมมองสามฝ่าย: ลูกค้า (ไอคอนคน) คือผู้ชำระเงิน รับบัตร และตั้งค่าด้วยตนเอง ร้านค้า (ไอคอนร้านค้า) คือผู้ตรวจสอบผลการชำระเงินและให้ลูกค้าดำเนินการเอง ระบบ Feezless (ไอคอนแพลตฟอร์ม) คือผู้ออกบัตรดิจิทัลและให้ลูกค้าจัดการ PIN กับความยินยอมผ่านลิงก์
+
+ภาพนี้เป็นภาพประกอบ ไม่ใช่หน้าจอหรือสถานะธุรกรรมจริง
 
 <MembershipFlowVisual />
 
@@ -79,11 +83,12 @@ icon:
 - กลับไปยัง [ภาพรวมบริการชำระเงิน](/th/index) เพื่อเปรียบเทียบบริการทั้ง 6 แบบ
 
 export const MembershipFlowVisual = () => {
+  const povLabels = { customer: "ลูกค้า", merchant: "ร้านค้า", system: "ระบบ Feezless" };
   const steps = [
-    { label: "ชำระครั้งแรก", title: "เริ่มสมัครสมาชิกด้วยการชำระเงินครั้งแรก", customer: "ชำระเงินครั้งแรกเพื่อเริ่มขั้นตอนสมัครสมาชิก", merchant: "ตรวจสอบผลการชำระเงิน แยกจากขั้นตอนตั้ง PIN และให้ความยินยอม", scene: "ลูกค้าชำระเงินครั้งแรกเพื่อเริ่มสมัครสมาชิก", note: "การสร้างหรือเปิดลิงก์ชำระเงินไม่ได้ยืนยันว่าลูกค้าชำระเงินแล้ว" },
-    { label: "ออกบัตร", title: "เตรียมบัตรสมาชิกดิจิทัลให้ลูกค้า", customer: "รอรับบัตรสมาชิกดิจิทัลในขั้นตอนถัดไป", merchant: "ระบบออกบัตรดิจิทัลเป็นส่วนหนึ่งของขั้นตอนสมัครสมาชิก", scene: "ระบบออกบัตรสมาชิกดิจิทัล ก่อนส่งถึงลูกค้า" },
-    { label: "รับบัตร", title: "รับบัตรผ่านช่องทางที่เลือก", customer: "รับบัตรสมาชิกดิจิทัลผ่านช่องทางที่เลือก", merchant: "ส่งบัตรผ่านช่องทางที่ลูกค้าเลือก", scene: "ส่งบัตรสมาชิกดิจิทัลถึงลูกค้าผ่านช่องทางที่เลือก" },
-    { label: "ตั้งค่าด้วยตนเอง", title: "ตั้ง PIN และให้ความยินยอมด้วยตนเอง", customer: "เปิดลิงก์เพื่อตั้งรหัส PIN และให้ความยินยอมตาม PDPA ด้วยตนเอง", merchant: "ให้ลูกค้าดำเนินการเอง แทนการให้พนักงานตั้ง PIN หรือให้ความยินยอมแทน", scene: "ลูกค้าตั้งรหัส PIN และให้ความยินยอมบนอุปกรณ์ของตน", note: "การยืนยันการชำระเงินแยกจากการตั้ง PIN และการให้ความยินยอม" },
+    { label: "ชำระครั้งแรก", title: "ชำระเงินครั้งแรก", pov: "customer", story: "ลูกค้าชำระเงินครั้งแรกที่ร้านค้าเพื่อเริ่มสมัครสมาชิก", customer: "ชำระเงินครั้งแรกเพื่อเริ่มขั้นตอนสมัครสมาชิก", merchant: "ตรวจสอบผลการชำระเงิน แยกจากขั้นตอนตั้ง PIN และให้ความยินยอม", system: "ประมวลผลการชำระเงินและแจ้งผลให้ร้านค้าทราบ", note: "การสร้างหรือเปิดลิงก์ชำระเงินไม่ได้ยืนยันว่าลูกค้าชำระเงินแล้ว" },
+    { label: "ออกบัตร", title: "ออกบัตรสมาชิกดิจิทัล", pov: "system", story: "ระบบออกบัตรสมาชิกดิจิทัลให้ลูกค้าโดยอัตโนมัติ", customer: "รอรับบัตรสมาชิกดิจิทัลในขั้นตอนถัดไป", merchant: "ไม่ต้องออกบัตรเอง ระบบจัดการให้", system: "ออกบัตรสมาชิกดิจิทัลเป็นส่วนหนึ่งของขั้นตอนสมัครสมาชิก", note: "บัตรดิจิทัลออกโดยระบบ ไม่ใช่บัตรกระดาษ" },
+    { label: "รับบัตร", title: "รับบัตรสมาชิกดิจิทัล", pov: "customer", story: "ลูกค้ารับบัตรสมาชิกดิจิทัลผ่านช่องทางที่เลือก", customer: "รับบัตรสมาชิกดิจิทัลผ่านช่องทางที่เลือก", merchant: "ส่งบัตรผ่านช่องทางที่ลูกค้าเลือก", system: "ส่งบัตรสมาชิกดิจิทัลถึงลูกค้าตามช่องทางที่ตั้งค่าไว้", note: "ช่องทางการส่งบัตรขึ้นอยู่กับการตั้งค่าที่ปรึกษากับ Feezless" },
+    { label: "ตั้งค่าด้วยตนเอง", title: "ตั้ง PIN และให้ความยินยอม", pov: "customer", story: "ลูกค้าเปิดลิงก์เพื่อตั้งรหัส PIN และให้ความยินยอมตาม PDPA ด้วยตนเอง", customer: "เปิดลิงก์เพื่อตั้งรหัส PIN และให้ความยินยอมตาม PDPA ด้วยตนเอง", merchant: "ให้ลูกค้าดำเนินการเอง แทนการให้พนักงานตั้ง PIN หรือให้ความยินยอมแทน", system: "ให้ลูกค้าตั้งรหัส PIN และให้ความยินยอมผ่านลิงก์ที่ระบบจัดเตรียม", note: "การยืนยันการชำระเงินแยกจากการตั้ง PIN และการให้ความยินยอม" },
   ];
   const [active, setActive] = useState(0);
   const uid = useId().replace(/:/g, "");
@@ -96,6 +101,7 @@ export const MembershipFlowVisual = () => {
   ];
   const step = steps[active];
   const btn = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 44, height: 44, padding: 0, borderRadius: 10, border: "1px solid rgba(127,127,127,.3)", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
+  const actorIcon = (pov) => pov === "system" ? <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width="24" height="24" aria-hidden="true" style={{ objectFit: "contain", flexShrink: 0 }} /> : pov === "merchant" ? <Icon icon="building-store" size={24} aria-hidden="true" style={{ flexShrink: 0 }} /> : <Icon icon="user" size={24} aria-hidden="true" style={{ flexShrink: 0 }} />;
   return (
     <section className="not-prose membership-story" aria-label="เส้นทางลูกค้าสมัครสมาชิก" style={{ width: "100%", minWidth: 0, border: "none", padding: 0, display: "grid", gap: 14, background: "#ffffff", color: "#1e293b", colorScheme: "light", borderRadius: 16, fontFamily: "inherit" }}>
       <style>{`.membership-story button:focus-visible { outline: 2px solid #2f6bff; outline-offset: 3px; } .membership-story button:disabled { opacity: .35; cursor: default; } .membership-story button:not(:disabled):hover { background: rgba(47,107,255,.08) !important; }`}</style>
@@ -124,9 +130,18 @@ export const MembershipFlowVisual = () => {
             const ink = selected ? "#1a73e8" : "#5f6368";
             return <li key={item.label} className="flow-stage" aria-current={selected ? "step" : undefined} style={{ gridColumn: reverse ? 2 - i % 2 : i % 2 + 1, gridRow: Math.floor(i / 2) + 1 }}>
               <div style={{ height: "100%", boxSizing: "border-box", padding: 12, border: `1px solid ${selected ? "#1a73e8" : "#dadce0"}`, borderRadius: 6, background: "#fff" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, minWidth: 0 }}>
+                <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 12, minWidth: 0 }}>
                   <span aria-hidden="true" style={{ display: "grid", placeItems: "center", flexShrink: 0, width: 28, height: 28, border: `1.5px solid ${selected ? "#1a73e8" : "#202124"}`, borderRadius: "50%", background: "#fff", color: selected ? "#1a73e8" : "#202124", fontSize: 14, fontWeight: 700 }}>{i + 1}</span>
-                  <div style={{ minWidth: 0 }}><div style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.6 }}>{item.label}</div><div style={{ fontSize: 12, color: "#5f6368", lineHeight: 1.6 }}>{panel.actor}</div></div>
+                  <div style={{ minWidth: 0, flex: 1 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      {actorIcon(item.pov)}
+                      <div>
+                        <div style={{ fontSize: 12, color: "#5f6368", lineHeight: 1.6 }}>{povLabels[item.pov]}</div>
+                        <div style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.6, color: "#202124" }}>{item.title}</div>
+                      </div>
+                    </div>
+                    <p style={{ margin: "4px 0 0", fontSize: 12, lineHeight: 1.6, color: "#3c4043" }}>{item.story}</p>
+                  </div>
                 </div>
                 <svg viewBox="0 0 240 150" aria-hidden="true" style={{ width: "100%", maxWidth: 280, height: "auto", display: "block", margin: "0 auto" }}>
                   {panel.kind === "system" ? <g>
@@ -179,10 +194,32 @@ export const MembershipFlowVisual = () => {
         </button>)}
       </div>
       <div id={`${id}-detail`} aria-live="polite" aria-atomic="true" style={{ display: "grid", gap: 12 }}>
-        <div style={{ textAlign: "center", fontWeight: 700, fontSize: 18, lineHeight: 1.6 }}>{step.title}</div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: 8 }}>
+          {actorIcon(step.pov)}
+          <div style={{ textAlign: "center", fontWeight: 700, fontSize: 18, lineHeight: 1.6, color: "#202124" }}>{step.title}</div>
+        </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 12 }}>
-          <div style={{ padding: 14, borderRadius: 12, background: "rgba(47,107,255,.07)", minWidth: 0 }}><div style={{ fontSize: 12, fontWeight: 700, marginBottom: 6 }}>มุมลูกค้า</div><p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.customer}</p></div>
-          <div style={{ padding: 14, borderRadius: 12, background: "rgba(127,127,127,.07)", minWidth: 0 }}><div style={{ fontSize: 12, fontWeight: 700, marginBottom: 6 }}>ร้านค้าและระบบ</div><p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.merchant}</p></div>
+          <div style={{ padding: 14, borderRadius: 12, background: "rgba(47,107,255,.07)", minWidth: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+              <Icon icon="user" size={20} aria-hidden="true" style={{ flexShrink: 0 }} />
+              <div style={{ fontSize: 12, fontWeight: 700 }}>ลูกค้า</div>
+            </div>
+            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.customer}</p>
+          </div>
+          <div style={{ padding: 14, borderRadius: 12, background: "rgba(127,127,127,.07)", minWidth: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+              <Icon icon="building-store" size={20} aria-hidden="true" style={{ flexShrink: 0 }} />
+              <div style={{ fontSize: 12, fontWeight: 700 }}>ร้านค้า</div>
+            </div>
+            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.merchant}</p>
+          </div>
+          <div style={{ padding: 14, borderRadius: 12, background: "rgba(47,107,255,.07)", minWidth: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+              <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width="20" height="20" aria-hidden="true" style={{ objectFit: "contain", flexShrink: 0 }} />
+              <div style={{ fontSize: 12, fontWeight: 700 }}>ระบบ Feezless</div>
+            </div>
+            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.system}</p>
+          </div>
         </div>
         {step.note && <p style={{ margin: 0, padding: "10px 14px", borderRadius: 10, background: "rgba(217,119,6,.09)", fontSize: 13, lineHeight: 1.7 }}><strong>ข้อควรทราบ: </strong>{step.note}</p>}
       </div>
