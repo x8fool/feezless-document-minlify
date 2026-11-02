@@ -1,113 +1,108 @@
 (() => {
-  if (window.__feezlessMakeformDrawerInstalled) return;
-  window.__feezlessMakeformDrawerInstalled = true;
+  if (window.__feezlessContactDrawerInstalled) return;
+  if (typeof HTMLDialogElement === 'undefined' || typeof HTMLDialogElement.prototype.showModal !== 'function') return;
+  window.__feezlessContactDrawerInstalled = true;
 
-  const formUrl = 'https://makeform.ai/e/iY978F0d?__mf_modal_embed=1';
-  const formId = 'iY978F0d';
-  const sdkUrl = 'https://www.makeform.ai/widgets/embed.js';
-  const triggerSelector = `a[href="${formUrl}"]:not([data-feezless-contact-fallback])`;
-  let sdkPromise;
-  let pendingOpen = null;
+  const bookingUrl = 'https://zcal.co/i/gFYmG_pU';
+  const embedUrl = 'https://zcal.co/i/gFYmG_pU?embed=1&embedType=iframe';
+  const triggerSelector = `a[href="${bookingUrl}"]:not([data-feezless-contact-fallback])`;
+  let activeDrawer = null;
 
-  function loadSdk() {
-    if (typeof window.MakeForm?.openSlider === 'function') {
-      return Promise.resolve(window.MakeForm);
-    }
-    if (sdkPromise) return sdkPromise;
+  function openDrawer(trigger) {
+    if (activeDrawer) return;
 
-    sdkPromise = new Promise((resolve, reject) => {
-      let script = document.querySelector(`script[src="${sdkUrl}"]`);
-      const isNew = !script;
-      if (isNew) {
-        script = document.createElement('script');
-        script.id = 'feezless-makeform-sdk';
-        script.src = sdkUrl;
-        script.async = true;
-      }
+    const dialog = document.createElement('dialog');
+    dialog.className = 'feezless-zcal-drawer';
+    dialog.id = 'feezless-contact-dialog';
+    dialog.setAttribute('aria-label', 'Contact Feezless');
 
-      const timeout = window.setTimeout(onError, 12000);
-      function cleanup() {
-        window.clearTimeout(timeout);
-        script.removeEventListener('load', onLoad);
-        script.removeEventListener('error', onError);
-      }
-      function onLoad() {
-        if (typeof window.MakeForm?.openSlider !== 'function') {
-          onError();
-          return;
-        }
-        cleanup();
-        resolve(window.MakeForm);
-      }
-      function onError() {
-        cleanup();
-        if (script.id === 'feezless-makeform-sdk') script.remove();
-        reject(new Error('Makeform could not be loaded'));
-      }
+    const header = document.createElement('div');
+    header.className = 'feezless-zcal-header';
+    const title = document.createElement('strong');
+    title.textContent = 'Contact Feezless';
+    const fallback = document.createElement('a');
+    fallback.href = bookingUrl;
+    fallback.target = '_blank';
+    fallback.rel = 'noopener noreferrer';
+    fallback.dataset.feezlessContactFallback = 'true';
+    fallback.textContent = 'Open in new tab';
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'feezless-zcal-close';
+    closeButton.setAttribute('aria-label', 'Close contact calendar');
+    closeButton.textContent = '×';
+    closeButton.addEventListener('click', () => dialog.close());
+    header.append(title, fallback, closeButton);
 
-      script.addEventListener('load', onLoad, { once: true });
-      script.addEventListener('error', onError, { once: true });
-      if (isNew) document.head.appendChild(script);
-    }).catch((error) => {
-      sdkPromise = null;
-      throw error;
+    const content = document.createElement('div');
+    content.className = 'feezless-zcal-content';
+    const iframe = document.createElement('iframe');
+    iframe.id = 'zcal-invite-drawer';
+    iframe.src = embedUrl;
+    iframe.title = 'Book a meeting with Feezless';
+    iframe.loading = 'lazy';
+    iframe.setAttribute('scrolling', 'no');
+    content.append(iframe);
+    dialog.append(header, content);
+
+    const state = {
+      dialog,
+      trigger,
+      restoreFocus: true,
+      previousOverflow: document.documentElement.style.overflow
+    };
+    dialog.addEventListener('close', () => {
+      dialog.remove();
+      document.documentElement.style.overflow = state.previousOverflow;
+      if (activeDrawer === state) activeDrawer = null;
+      if (state.restoreFocus && trigger.isConnected) trigger.focus({ preventScroll: true });
+    }, { once: true });
+    dialog.addEventListener('click', (event) => {
+      if (event.target !== dialog) return;
+      const bounds = dialog.getBoundingClientRect();
+      if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
     });
-    return sdkPromise;
+
+    document.body.append(dialog);
+    try {
+      dialog.showModal();
+    } catch (error) {
+      dialog.remove();
+      throw error;
+    }
+    activeDrawer = state;
+    document.documentElement.style.overflow = 'hidden';
+    closeButton.focus({ preventScroll: true });
   }
 
   function initializeContacts() {
-    const triggers = document.querySelectorAll(triggerSelector);
-    triggers.forEach((trigger) => trigger.setAttribute('aria-haspopup', 'dialog'));
-    if (triggers.length) loadSdk().catch(() => {});
+    document.querySelectorAll(triggerSelector).forEach((trigger) => {
+      trigger.setAttribute('aria-haspopup', 'dialog');
+    });
   }
 
-  // Delegation also covers links in menus mounted after the initial page render.
+  // Delegation includes navigation menus and links added after page load.
   document.addEventListener('click', (event) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const trigger = event.target instanceof Element ? event.target.closest(triggerSelector) : null;
     if (!trigger) return;
-
     event.preventDefault();
     event.stopPropagation();
-    if (pendingOpen) return;
-
-    const request = { trigger };
-    pendingOpen = request;
     trigger.setAttribute('aria-haspopup', 'dialog');
-    trigger.setAttribute('aria-busy', 'true');
-
-    loadSdk().then((sdk) => {
-      if (pendingOpen !== request) return;
-      sdk.openSlider(formId, {
-        embedUrl: formUrl,
-        width: 400,
-        initialBgColor: 'Canvas',
-        onOpen: () => {
-          const dialog = document.querySelector('.makeform-slider-modal');
-          if (!dialog) return;
-          dialog.setAttribute('role', 'dialog');
-          dialog.setAttribute('aria-modal', 'true');
-          dialog.setAttribute('aria-label', 'Feezless');
-          dialog.querySelector('button')?.focus({ preventScroll: true });
-        },
-        onClose: () => {
-          if (trigger.isConnected) trigger.focus({ preventScroll: true });
-        }
-      });
-    }).catch(() => {
-      // Keep the form reachable when the embed SDK is unavailable.
-      if (pendingOpen === request) window.location.assign(formUrl);
-    }).finally(() => {
-      trigger.removeAttribute('aria-busy');
-      if (pendingOpen === request) pendingOpen = null;
-    });
+    try {
+      openDrawer(trigger);
+    } catch {
+      // The normal booking URL also works without JavaScript or an embedded calendar.
+      window.location.assign(bookingUrl);
+    }
   }, true);
 
   initializeContacts();
   window.addEventListener('mintlify:navigate', () => {
-    if (pendingOpen) pendingOpen.trigger.removeAttribute('aria-busy');
-    pendingOpen = null;
-    if (typeof window.MakeForm?.closeSlider === 'function') window.MakeForm.closeSlider();
+    if (activeDrawer) {
+      activeDrawer.restoreFocus = false;
+      activeDrawer.dialog.close();
+    }
     initializeContacts();
   });
 })();

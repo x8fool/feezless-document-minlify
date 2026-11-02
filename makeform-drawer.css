@@ -1,19 +1,102 @@
-/* Follow the device theme only for the Feezless contact form drawer. */
-.makeform-slider-modal:has(> iframe[src^="https://makeform.ai/e/iY978F0d"]) {
-  color-scheme: light;
-  /* Override background updates sent by the embedded form to its outer panel. */
-  background: #ffffff !important;
+/* Scoped styles for the Feezless contact calendar drawer. */
+.feezless-zcal-drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: min(1096px, 100vw);
+  max-width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
+  background: #ffffff;
   color: #0e0e0e;
+  color-scheme: light;
+  font-family: inherit;
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.18);
 }
 
-.makeform-slider-modal:has(> iframe[src^="https://makeform.ai/e/iY978F0d"]) > .makeform-close-button {
+.feezless-zcal-drawer[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.feezless-zcal-drawer::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.feezless-zcal-header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(127, 127, 127, 0.3);
+}
+
+.feezless-zcal-header strong {
+  flex: 1 1 auto;
+}
+
+.feezless-zcal-header a {
   color: inherit;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.feezless-zcal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(127, 127, 127, 0.35);
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.feezless-zcal-header a:focus-visible,
+.feezless-zcal-close:focus-visible {
+  outline: 2px solid #4777df;
+  outline-offset: 3px;
+}
+
+.feezless-zcal-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.feezless-zcal-content iframe {
+  display: block;
+  border: none;
+  width: 100%;
+  max-width: 1096px;
+  min-width: 320px;
+  height: 723px;
+  min-height: 544px;
+}
+
+html.dark .feezless-zcal-drawer {
+  color-scheme: dark;
+  background: #0e0e0e;
+  color: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
-  .makeform-slider-modal:has(> iframe[src^="https://makeform.ai/e/iY978F0d"]) {
+  html:not(.light):not(.dark) .feezless-zcal-drawer {
     color-scheme: dark;
-    background: #0e0e0e !important;
+    background: #0e0e0e;
     color: #ffffff;
   }
 }
