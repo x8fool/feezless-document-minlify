@@ -31,7 +31,8 @@
             "group": "เริ่มต้นใช้งาน",
             "icon": "🗂️",
             "pages": [
-              "th/index"
+              "th/index",
+              "th/changelog"
             ]
           },
           {
