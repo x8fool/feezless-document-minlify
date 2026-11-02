@@ -29,7 +29,11 @@
         "groups": [
           {
             "group": "เริ่มต้นใช้งาน",
-            "icon": "🗂️",
+            "icon": {
+              "style": "regular",
+              "name": "book-2",
+              "library": "tabler"
+            },
             "pages": [
               "th/index",
               "th/changelog"
@@ -37,7 +41,11 @@
           },
           {
             "group": "บริการของเรา",
-            "icon": "🛠️",
+            "icon": {
+              "style": "regular",
+              "name": "apps",
+              "library": "tabler"
+            },
             "pages": [
               "th/solutions/pay-per-request/index",
               "th/solutions/checkout/index",
@@ -49,7 +57,11 @@
           },
           {
             "group": "เอกสารทางกฎหมาย",
-            "icon": "⚖️",
+            "icon": {
+              "style": "regular",
+              "name": "scale",
+              "library": "tabler"
+            },
             "pages": [
               "th/legal/terms-of-use",
               "th/legal/privacy-policy"
@@ -63,14 +75,22 @@
         "groups": [
           {
             "group": "はじめに",
-            "icon": "🗂️",
+            "icon": {
+              "style": "regular",
+              "name": "book-2",
+              "library": "tabler"
+            },
             "pages": [
               "jp/index"
             ]
           },
           {
             "group": "決済ソリューション",
-            "icon": "💲",
+            "icon": {
+              "style": "regular",
+              "name": "apps",
+              "library": "tabler"
+            },
             "pages": [
               "jp/solutions/pay-per-request/index",
               "jp/solutions/checkout/index",
@@ -89,14 +109,22 @@
         "groups": [
           {
             "group": "시작하기",
-            "icon": "🗂️",
+            "icon": {
+              "style": "regular",
+              "name": "book-2",
+              "library": "tabler"
+            },
             "pages": [
               "ko/index"
             ]
           },
           {
             "group": "결제 솔루션",
-            "icon": "💲",
+            "icon": {
+              "style": "regular",
+              "name": "apps",
+              "library": "tabler"
+            },
             "pages": [
               "ko/solutions/pay-per-request/index",
               "ko/solutions/checkout/index",
@@ -115,14 +143,22 @@
         "groups": [
           {
             "group": "入门",
-            "icon": "🗂️",
+            "icon": {
+              "style": "regular",
+              "name": "book-2",
+              "library": "tabler"
+            },
             "pages": [
               "zh-CN/index"
             ]
           },
           {
             "group": "支付解决方案",
-            "icon": "💲",
+            "icon": {
+              "style": "regular",
+              "name": "apps",
+              "library": "tabler"
+            },
             "pages": [
               "zh-CN/solutions/pay-per-request/index",
               "zh-CN/solutions/checkout/index",
