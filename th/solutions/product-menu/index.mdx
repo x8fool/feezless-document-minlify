@@ -35,7 +35,7 @@ icon: "🛍️"
 2. ลูกค้าเลือกดูเมนู เพิ่มสินค้าลงตะกร้า และชำระเงินในหน้าเดียวกัน
 3. ระบบตัดสต็อกอัตโนมัติเมื่อการขายเสร็จสมบูรณ์
 
-กดแต่ละขั้นตอนเพื่อดูลำดับการทำงานของเมนูสินค้า
+ดูเส้นทางลูกค้าตั้งแต่เลือกสินค้าจนถึงรับสินค้า โดยเลือกจุดบนเส้นขั้นตอนด้านล่าง ภาพนี้เป็นภาพประกอบ ไม่ใช่หน้าจอหรือสถานะธุรกรรมจริง
 
 <ProductMenuFlowVisual />
 
@@ -81,107 +81,91 @@ icon: "🛍️"
 
 export const ProductMenuFlowVisual = () => {
   const steps = [
-    { label: "สร้างเมนู", detail: "สร้างแค็ตตาล็อกสินค้าหรือเมนู พร้อมระบุชื่อ รายละเอียด และราคา" },
-    { label: "เลือกและชำระ", detail: "ลูกค้าเลือกดูเมนู เพิ่มสินค้าลงตะกร้า และชำระเงินในหน้าเดียวกัน", note: "ตรวจสอบสถานะการชำระเงินที่ยืนยันแล้วก่อนจัดการส่งมอบตามคำสั่งซื้อ" },
-    { label: "ตัดสต็อก", detail: "ระบบตัดสต็อกอัตโนมัติเมื่อการขายเสร็จสมบูรณ์" },
+    { label: "เลือกสินค้า", title: "เลือกจากแค็ตตาล็อกที่ร้านเตรียมไว้", customer: "เลือกดูสินค้าและรายการในเมนูบนหน้าเดียว", merchant: "สร้างแค็ตตาล็อกสินค้าพร้อมชื่อ รายละเอียด และราคา", scene: "ลูกค้าดูเมนูสินค้าที่ร้านค้าจัดแค็ตตาล็อกไว้" },
+    { label: "เพิ่มลงตะกร้า", title: "เพิ่มสินค้าลงตะกร้าโดยไม่ต้องออกจากหน้า", customer: "เพิ่มสินค้าลงตะกร้าและตรวจสอบรายการในหน้าเดียวกัน", merchant: "ตะกร้าและหน้าสินค้าอยู่บนหน้าเดียวกัน ไม่ต้องเปลี่ยนหน้า", scene: "ลูกค้าเพิ่มสินค้าลงตะกร้า ร้านค้าไม่ต้องเปลี่ยนหน้า" },
+    { label: "ชำระเงิน", title: "ชำระเงินในหน้าเดียวกัน", customer: "เลือกวิธีชำระเงินและดำเนินการจนจบขั้นตอน", merchant: "ตรวจสอบสถานะการชำระเงินที่ยืนยันแล้วก่อนจัดการส่งมอบ", scene: "ลูกค้าชำระเงินบนหน้าเดียวกัน ร้านค้าตรวจสอบผลก่อนส่งมอบ", note: "การดำเนินการจนจบขั้นตอนชำระเงินไม่ใช่การยืนยันว่าชำระเงินแล้ว" },
+    { label: "รับสินค้า", title: "รับสินค้าเมื่อยืนยันการชำระเงินแล้ว", customer: "รับสินค้าหรือบริการหลังร้านค้าตรวจสอบการชำระเงิน", merchant: "เมื่อการขายเสร็จสมบูรณ์ ระบบตัดสต็อกอัตโนมัติ", scene: "ภาพจำลองการส่งมอบสินค้าหลังยืนยันการชำระเงิน", note: "จัดการส่งมอบเมื่อสถานะการชำระเงินได้รับการยืนยันแล้วเท่านั้น" },
   ];
-  const centers = [80, 320, 560];
   const [active, setActive] = useState(0);
-  const go = (i) => setActive(i);
-  const btn = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 40, height: 36, padding: 0, lineHeight: 0, borderRadius: 8, border: "1px solid rgba(127,127,127,.35)", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
-  const slot = (i) => ({
-    transform: `translate(${centers[i]}px, ${i === active ? 118 : 128}px) scale(${i === active ? 1.08 : 0.92})`,
-    opacity: i === active ? 1 : 0.5,
-    transition: "transform .45s ease, opacity .45s ease",
-  });
-  const shadow = <ellipse cx="0" cy="62" rx="50" ry="7" fill="#0b1a4a" opacity=".22" filter="url(#pmf-blur)" />;
+  const uid = useId().replace(/:/g, "");
+  const id = `menu-story-${uid}`;
+  const paint = (name) => `url(#${id}-${name})`;
+  const step = steps[active];
+  const btn = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 44, height: 44, padding: 0, borderRadius: 10, border: "1px solid rgba(127,127,127,.3)", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
   return (
-    <div className="not-prose" style={{ position: "relative", width: "100%", minWidth: 0, boxSizing: "border-box", border: "none", borderRadius: 16, padding: 0, display: "grid", gap: 12, color: "inherit" }}>
-      <svg viewBox="0 0 640 340" style={{ width: "100%", display: "block", borderRadius: 12, background: "rgba(47,107,255,.06)" }} role="img" aria-label="ลำดับการทำงานของเมนูสินค้า 3 ขั้นตอน">
-        <defs>
-          <linearGradient id="pmf-blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#6b97ff" /><stop offset="1" stopColor="#1d4ed8" /></linearGradient>
-          <linearGradient id="pmf-white" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff" /><stop offset="1" stopColor="#e6edff" /></linearGradient>
-          <linearGradient id="pmf-satin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#eef3ff" /><stop offset="1" stopColor="#c9d7ff" /></linearGradient>
-          <linearGradient id="pmf-bezel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#3a4670" /><stop offset="1" stopColor="#0f1530" /></linearGradient>
-          <filter id="pmf-blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" /></filter>
-        </defs>
-
-        <line x1="80" y1="232" x2="560" y2="232" stroke="currentColor" strokeOpacity=".18" strokeWidth="4" strokeLinecap="round" />
-        <line x1="80" y1="232" x2={centers[active]} y2="232" stroke="#2f6bff" strokeWidth="4" strokeLinecap="round" style={{ transition: "all .45s ease" }} />
-
-        <g style={slot(0)}>
-          {shadow}
-          <rect x="-46" y="-50" width="80" height="100" rx="12" fill="url(#pmf-satin)" transform="rotate(-10)" opacity=".8" />
-          <rect x="-42" y="-54" width="80" height="100" rx="12" fill="url(#pmf-satin)" transform="rotate(-4)" />
-          <rect x="-38" y="-56" width="80" height="100" rx="12" fill="url(#pmf-white)" stroke="#c3d2ff" />
-          <rect x="-30" y="-46" width="20" height="20" rx="6" fill="url(#pmf-blue)" />
-          <rect x="-4" y="-43" width="36" height="5" rx="2.5" fill="#c7d3f5" />
-          <rect x="-4" y="-33" width="20" height="5" rx="2.5" fill="#2f6bff" opacity=".85" />
-          <rect x="-30" y="-16" width="20" height="20" rx="6" fill="url(#pmf-blue)" />
-          <rect x="-4" y="-13" width="36" height="5" rx="2.5" fill="#c7d3f5" />
-          <rect x="-4" y="-3" width="20" height="5" rx="2.5" fill="#2f6bff" opacity=".85" />
-          <rect x="-30" y="14" width="20" height="20" rx="6" fill="url(#pmf-blue)" />
-          <rect x="-4" y="17" width="36" height="5" rx="2.5" fill="#c7d3f5" />
-          <rect x="-4" y="27" width="20" height="5" rx="2.5" fill="#2f6bff" opacity=".85" />
-        </g>
-
-        <g style={slot(1)}>
-          {shadow}
-          <path d="M-14 40 L14 40 L22 58 L-22 58 Z" fill="url(#pmf-bezel)" />
-          <rect x="-60" y="-50" width="120" height="90" rx="12" fill="url(#pmf-bezel)" />
-          <rect x="-52" y="-42" width="104" height="74" rx="6" fill="url(#pmf-white)" />
-          <rect x="-44" y="-34" width="44" height="6" rx="3" fill="#c7d3f5" />
-          <rect x="22" y="-34" width="22" height="6" rx="3" fill="#9fb5ee" />
-          <rect x="-44" y="-20" width="44" height="6" rx="3" fill="#c7d3f5" />
-          <rect x="22" y="-20" width="22" height="6" rx="3" fill="#9fb5ee" />
-          <rect x="-44" y="-6" width="44" height="6" rx="3" fill="#c7d3f5" />
-          <rect x="22" y="-6" width="22" height="6" rx="3" fill="#9fb5ee" />
-          <rect x="-44" y="10" width="88" height="14" rx="7" fill="url(#pmf-blue)" />
-          <g transform="translate(48, -38)">
-            <rect x="-8" y="0" width="16" height="14" rx="4" fill="#2f6bff" />
-            <text x="0" y="10" textAnchor="middle" fontSize="9" fontWeight="700" fill="#ffffff">+</text>
+    <section className="not-prose menu-story" aria-label="เส้นทางลูกค้าเมนูสินค้า" style={{ width: "100%", minWidth: 0, border: "none", padding: 0, display: "grid", gap: 14, color: "inherit", fontFamily: "inherit" }}>
+      <style>{`.menu-story button:focus-visible { outline: 2px solid #2f6bff; outline-offset: 3px; } .menu-story button:disabled { opacity: .35; cursor: default; } .menu-story button:not(:disabled):hover { background: rgba(47,107,255,.08) !important; }`}</style>
+      <div style={{ background: "rgba(47,107,255,.06)", borderRadius: 16, overflow: "hidden" }}>
+        <svg viewBox="0 0 640 240" role="img" aria-label={step.scene} style={{ width: "100%", height: "auto", display: "block" }}>
+          <defs>
+            <linearGradient id={`${id}-blue`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#94b6ff" /><stop offset="1" stopColor="#2454d6" /></linearGradient>
+            <linearGradient id={`${id}-white`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#ffffff" /><stop offset="1" stopColor="#dce6fa" /></linearGradient>
+            <linearGradient id={`${id}-dark`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#525e78" /><stop offset="1" stopColor="#182139" /></linearGradient>
+            <filter id={`${id}-shadow`} x="-50%" y="-100%" width="200%" height="300%"><feGaussianBlur stdDeviation="5" /></filter>
+          </defs>
+          <ellipse cx="320" cy="210" rx="238" ry="12" fill="#293957" opacity=".12" filter={paint("shadow")} />
+          <g transform="translate(110 68)">
+            <circle cx="0" cy="0" r="25" fill={paint("white")} />
+            <path d="M-38 99V58C-38 20 38 20 38 58V99Z" fill={paint("blue")} />
+            <path d="M-24 52Q0 65 24 52" fill="none" stroke="#fff" strokeOpacity=".45" strokeWidth="4" />
+            <path d="M28 64L58 48" fill="none" stroke="#78a2fa" strokeWidth="14" strokeLinecap="round" />
           </g>
-        </g>
-
-        <g style={slot(2)}>
-          {shadow}
-          <path d="M0 -22 L40 -2 L0 18 L-40 -2 Z" fill="#f4d7a8" />
-          <path d="M-40 -2 L0 18 L0 58 L-40 38 Z" fill="#dcb175" />
-          <path d="M0 18 L40 -2 L40 38 L0 58 Z" fill="#c4935a" />
-          <path d="M-20 -12 L20 8" stroke="#c99a5e" strokeWidth="5" />
-          <g transform="translate(-34 -52) scale(.45)" opacity=".9">
-            <path d="M0 -22 L40 -2 L0 18 L-40 -2 Z" fill="#f4d7a8" />
-            <path d="M-40 -2 L0 18 L0 58 L-40 38 Z" fill="#dcb175" />
-            <path d="M0 18 L40 -2 L40 38 L0 58 Z" fill="#c4935a" />
+          <g transform="translate(530 68)">
+            <circle cx="0" cy="0" r="25" fill={paint("white")} />
+            <path d="M-38 99V58C-38 20 38 20 38 58V99Z" fill={paint("dark")} />
+            <path d="M-18 37L0 54L18 37" fill="none" stroke="#a6b9dd" strokeWidth="3" />
+            <rect x="-52" y="84" width="104" height="52" rx="10" fill={paint("white")} />
+            <rect x="-35" y="94" width="70" height="25" rx="5" fill={paint("blue")} />
           </g>
-          <circle cx="36" cy="-42" r="14" fill="url(#pmf-blue)" />
-          <text x="36" y="-37" textAnchor="middle" fontSize="13" fontWeight="700" fill="#ffffff">−1</text>
-        </g>
-
-        <circle r="9" fill="#2f6bff" opacity=".25" style={{ transform: `translate(${centers[active]}px, 232px)`, transition: "transform .45s ease" }} />
-        {steps.map((s, i) => (
-          <g key={s.label} onClick={() => go(i)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(i); } }} role="button" tabIndex={0} aria-label={`ขั้นตอนที่ ${i + 1}: ${s.label}`} aria-pressed={i === active} style={{ cursor: "pointer", outline: "none" }}>
-            <rect x={centers[i] - 70} y="212" width="140" height="66" fill="transparent" />
-            <circle cx={centers[i]} cy="232" r="11" fill={i <= active ? "#2f6bff" : "rgba(127,127,127,.35)"} />
-            <text x={centers[i]} y="236" textAnchor="middle" fontSize="11" fontWeight="700" fill="#ffffff">{i + 1}</text>
-            <text x={centers[i]} y="268" textAnchor="middle" fontSize="13" fontWeight={i === active ? 700 : 400} fill="currentColor">{s.label}</text>
-          </g>
-        ))}
-
-        <line x1="40" y1="288" x2="600" y2="288" stroke="currentColor" strokeOpacity=".1" />
-        <text x="320" y="310" textAnchor="middle" fontSize="14" fill="currentColor">{steps[active].detail}</text>
-        {steps[active].note ? <text x="320" y="330" textAnchor="middle" fontSize="12" fill="#d97706">⚠ {steps[active].note}</text> : null}
-      </svg>
-
-      <div aria-live="polite" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap" }}>
-        {steps[active].detail}{steps[active].note ? ` ${steps[active].note}` : ""}
+          <path d="M177 128H225M415 128H463" fill="none" stroke="#7296e4" strokeWidth="3" strokeDasharray="5 7" />
+          <path d={active === 0 || active === 3 ? "M187 121L177 128L187 135M425 121L415 128L425 135" : "M215 121L225 128L215 135M453 121L463 128L453 135"} fill="none" stroke="#4777df" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          {active === 0 && <g transform="translate(320 115)">
+            <rect x="-66" y="-62" width="132" height="124" rx="14" fill="#b9cff9" transform="rotate(-8)" />
+            <rect x="-58" y="-66" width="132" height="124" rx="14" fill={paint("white")} />
+            {[0, 1, 2].map((row) => <g key={row} transform={`translate(0 ${row * 36})`}><rect x="-48" y="-52" width="28" height="28" rx="8" fill={paint("blue")} /><rect x="-14" y="-48" width="56" height="7" rx="3" fill="#a0b7de" /><rect x="-14" y="-34" width="32" height="5" rx="2" fill="#c6d3e8" /></g>)}
+          </g>}
+          {active === 1 && <g transform="translate(320 118)">
+            <rect x="-54" y="-56" width="108" height="112" rx="14" fill={paint("dark")} />
+            <rect x="-46" y="-48" width="92" height="96" rx="10" fill={paint("white")} />
+            {[0, 1, 2].map((row) => <g key={row} transform={`translate(0 ${row * 28})`}><rect x="-38" y="-38" width="76" height="20" rx="6" fill={row === 1 ? "#dbe7ff" : "#edf1f8"} stroke={row === 1 ? "#4777df" : "#d5ddeb"} /><circle cx="-26" cy="-28" r="5" fill={row === 1 ? "#4777df" : "#b2c2dc"} /><rect x="-16" y="-31" width="30" height="5" rx="2" fill="#9dafcd" /></g>)}
+            <g transform="translate(40 -36)"><circle cx="0" cy="0" r="18" fill={paint("blue")} /><path d="M-6 0H6M0 -6V6" stroke="#fff" strokeWidth="3" strokeLinecap="round" /></g>
+          </g>}
+          {active === 2 && <g transform="translate(320 118)">
+            <rect x="-47" y="-79" width="94" height="158" rx="18" fill={paint("dark")} />
+            <rect x="-39" y="-69" width="78" height="138" rx="11" fill={paint("white")} />
+            {[0, 1, 2].map((row) => <g key={row}><rect x="-29" y={-46 + row * 33} width="58" height="24" rx="7" fill={row === 1 ? "#dbe7ff" : "#edf1f8"} stroke={row === 1 ? "#4777df" : "#d5ddeb"} /><circle cx="-16" cy={-34 + row * 33} r="5" fill={row === 1 ? "#4777df" : "#b2c2dc"} /><rect x="-4" y={-37 + row * 33} width="23" height="5" rx="2" fill="#9dafcd" /></g>)}
+            <circle cx="55" cy="-48" r="22" fill={paint("blue")} /><path d="M55-60V-48L63-42" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
+          </g>}
+          {active === 3 && <g transform="translate(320 118)">
+            <path d="M0-57L65-24L0 11L-65-24Z" fill="#f3d9b1" /><path d="M-65-24L0 11V78L-65 42Z" fill="#d8b27b" /><path d="M0 11L65-24V42L0 78Z" fill="#bd925c" />
+            <path d="M-18-47L46-14L28-4L-37-37Z" fill="#fff4df" opacity=".8" />
+            <circle cx="57" cy="-48" r="25" fill={paint("blue")} /><path d="M45-49L54-40L70-58" fill="none" stroke="#fff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+          </g>}
+        </svg>
+        <div style={{ display: "flex", justifyContent: "space-between", padding: "0 10% 14px", fontSize: 13, gap: 12 }}><span>ลูกค้า</span><span>ร้านค้า</span></div>
       </div>
-
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", alignItems: "center" }}>
-        <button type="button" style={btn} disabled={active === 0} onClick={() => go(active - 1)} aria-label="ย้อนกลับ" title="ย้อนกลับ"><Icon icon="chevron-left" size={16} /></button>
-        <button type="button" style={btn} disabled={active === steps.length - 1} onClick={() => go(active + 1)} aria-label="ถัดไป" title="ถัดไป"><Icon icon="chevron-right" size={16} /></button>
+      <div role="group" aria-label="เลือกขั้นตอนบนเส้นทางลูกค้า" style={{ position: "relative", display: "grid", gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))`, gap: 0 }}>
+        <div aria-hidden="true" style={{ position: "absolute", top: 15, height: 2, left: `${50 / steps.length}%`, right: `${50 / steps.length}%`, background: "rgba(127,127,127,.25)" }} />
+        <div aria-hidden="true" style={{ position: "absolute", top: 15, height: 2, left: `${50 / steps.length}%`, width: `${(100 - 100 / steps.length) * active / (steps.length - 1)}%`, background: "#4777df" }} />
+        {steps.map((item, i) => <button key={item.label} type="button" onClick={() => setActive(i)} aria-pressed={active === i} aria-controls={`${id}-detail`} aria-label={`ขั้นตอนที่ ${i + 1}: ${item.label}`} style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 8, width: "100%", minWidth: 0, minHeight: 70, padding: "0 4px 6px", border: "none", borderRadius: 8, background: "transparent", color: "inherit", font: "inherit", fontSize: 13, lineHeight: 1.5, cursor: "pointer" }}>
+          <span aria-hidden="true" style={{ display: "grid", placeItems: "center", width: 32, height: 32, borderRadius: "50%", background: i <= active ? "#3264d5" : "#717b8e", color: "#fff", fontWeight: 700, boxShadow: active === i ? "0 0 0 4px rgba(71,119,223,.18)" : "none" }}>{i + 1}</span>
+          <span style={{ fontWeight: active === i ? 700 : 400 }}>{item.label}</span>
+        </button>)}
       </div>
-    </div>
+      <div id={`${id}-detail`} aria-live="polite" aria-atomic="true" style={{ display: "grid", gap: 12 }}>
+        <div style={{ textAlign: "center", fontWeight: 700, fontSize: 18, lineHeight: 1.6 }}>{step.title}</div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 12 }}>
+          <div style={{ padding: 14, borderRadius: 12, background: "rgba(47,107,255,.07)", minWidth: 0 }}><div style={{ fontSize: 12, fontWeight: 700, marginBottom: 6 }}>มุมลูกค้า</div><p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.customer}</p></div>
+          <div style={{ padding: 14, borderRadius: 12, background: "rgba(127,127,127,.07)", minWidth: 0 }}><div style={{ fontSize: 12, fontWeight: 700, marginBottom: 6 }}>ร้านค้าและระบบ</div><p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.merchant}</p></div>
+        </div>
+        {step.note && <p style={{ margin: 0, padding: "10px 14px", borderRadius: 10, background: "rgba(217,119,6,.09)", fontSize: 13, lineHeight: 1.7 }}><strong>ก่อนส่งมอบ: </strong>{step.note}</p>}
+      </div>
+      <div style={{ display: "flex", gap: 10, justifyContent: "center", alignItems: "center" }}>
+        <button type="button" style={btn} disabled={active === 0} onClick={() => setActive((value) => Math.max(0, value - 1))} aria-label="ย้อนกลับ" title="ย้อนกลับ"><Icon icon="chevron-left" size={16} /></button>
+        <span aria-hidden="true" style={{ fontSize: 12, opacity: .7 }}>{active + 1} / {steps.length}</span>
+        <button type="button" style={btn} disabled={active === steps.length - 1} onClick={() => setActive((value) => Math.min(steps.length - 1, value + 1))} aria-label="ถัดไป" title="ถัดไป"><Icon icon="chevron-right" size={16} /></button>
+      </div>
+    </section>
   );
 };
 
