@@ -31,11 +31,9 @@ icon:
 2. เชื่อมคำขอ API การชำระเงิน และการส่งมอบบริการดิจิทัลไว้ในขั้นตอนเดียวกัน
 3. เปิดให้เข้าถึงผลลัพธ์หรือบริการดิจิทัลเมื่อเป็นไปตามเงื่อนไขการชำระเงิน
 
-ตัวอย่างสมมติ: ลูกค้าส่งคำขอใช้ API ของร้านค้าหนึ่งครั้ง จากนั้นชำระเงินตามเงื่อนไขที่กำหนด และร้านค้าจึงเปิดให้เข้าถึงผลลัพธ์หลังยืนยันการชำระเงิน ภาพนี้เป็นภาพประกอบ ไม่ใช่หน้าจอหรือสถานะธุรกรรมจริง
+ตัวอย่างสมมติ: ลูกค้าเรียก API ของร้านค้าหนึ่งครั้ง ชำระเงินตามเงื่อนไข แล้วเข้าถึงผลลัพธ์หลังยืนยันการชำระเงิน
 
-- ไอคอน <Icon icon="user" size={20} /> แสดงมุมมองลูกค้า
-- ไอคอน <Icon icon="building-store" size={20} /> แสดงมุมมองร้านค้า
-- ไอคอน <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width="20" height="20" style={{ objectFit: "contain", display: "inline", verticalAlign: "middle" }} /> แสดงบทบาทระบบ Feezless
+ไอคอนคนแทนลูกค้า ไอคอนร้านแทนร้านค้า และไอคอน Feezless แทนระบบ เลือกขั้นตอนเพื่อดูมุมมองของแต่ละฝ่าย ภาพนี้เป็นภาพประกอบ ไม่ใช่หน้าจอหรือสถานะธุรกรรมจริง
 
 <PayPerRequestFlowVisual />
 
@@ -88,7 +86,7 @@ icon:
 export const PayPerRequestFlowVisual = () => {
   const povLabels = { customer: "ลูกค้า", merchant: "ร้านค้า", system: "ระบบ Feezless" };
   const steps = [
-    { label: "เรียกใช้บริการ", title: "ลูกค้าส่งคำขอใช้บริการ", pov: "customer", story: "ลูกค้าส่งคำขอใช้ API หรือบริการดิจิทัลจากร้านค้า", customer: "ส่งคำขอใช้บริการหรือเรียกใช้ API", merchant: "กำหนดราคา ผู้รับเงิน และเงื่อนไขสำหรับคำขอ", system: "รอรับคำขอและเงื่อนไขการชำระเงินจากร้านค้า" },
+    { label: "เรียกใช้บริการ", title: "ส่งคำขอใช้บริการ", pov: "customer", story: "ลูกค้าเรียก API ของร้านค้าหนึ่งครั้งเพื่อขอใช้บริการ", customer: "ลูกค้าส่งคำขอเรียกใช้ API หนึ่งครั้ง", merchant: "ร้านค้ากำหนดราคา ผู้รับเงิน และเงื่อนไขสำหรับคำขอ API", system: "Feezless ตรวจสอบเงื่อนไขการชำระเงินสำหรับคำขอนี้" },
     { label: "ชำระตามเงื่อนไข", title: "ลูกค้าชำระเงินต่อคำขอ", pov: "customer", story: "ลูกค้าชำระเงินตามเงื่อนไขการใช้บริการที่ร้านค้ากำหนด", customer: "ชำระเงินตามเงื่อนไขการใช้บริการที่กำหนด", merchant: "เชื่อมคำขอกับการชำระเงิน และตรวจสอบผลก่อนส่งมอบ", system: "ตรวจสอบเงื่อนไขการชำระเงินและสถานะการชำระเงิน", note: "การสร้างคำขอชำระเงินหรือได้รับหลักฐานการโอนเพียงอย่างเดียวไม่ใช่การยืนยันว่าชำระเงินแล้ว" },
     { label: "เข้าถึงผลลัพธ์", title: "ร้านค้าเปิดให้เข้าถึงผลลัพธ์", pov: "merchant", story: "ร้านค้าเปิดให้ลูกค้าเข้าถึงผลลัพธ์หลังยืนยันการชำระเงิน", customer: "เข้าถึงผลลัพธ์หรือบริการดิจิทัลเมื่อเป็นไปตามเงื่อนไขการชำระเงิน", merchant: "เปิดให้เข้าถึงเมื่อยืนยันการชำระเงินตามเงื่อนไขแล้ว", system: "ตรวจสอบเงื่อนไขการชำระเงินก่อนอนุญาตให้เข้าถึงผลลัพธ์", note: "ส่งมอบผลลัพธ์เมื่อสถานะการชำระเงินได้รับการยืนยันแล้วเท่านั้น" },
   ];
@@ -101,11 +99,11 @@ export const PayPerRequestFlowVisual = () => {
     { kind: "system", screen: "ผลลัพธ์บริการ", actor: "ผู้ให้บริการ" },
   ];
   const step = steps[active];
-  const ActorIcon = ({ pov }) => {
-    if (pov === "system") return <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width={24} height={24} style={{ objectFit: "contain", flexShrink: 0 }} aria-hidden="true" />;
-    if (pov === "merchant") return <Icon icon="building-store" size={24} aria-hidden="true" />;
-    return <Icon icon="user" size={24} aria-hidden="true" />;
-  };
+  const actorIcon = (pov, size = 24) => (
+    <span aria-hidden="true" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: size, height: size, flexShrink: 0 }}>
+      {pov === "system" ? <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width={size} height={size} style={{ objectFit: "contain" }} /> : pov === "merchant" ? <Icon icon="building-store" size={size} /> : <Icon icon="user" size={size} />}
+    </span>
+  );
   const btn = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 44, height: 44, padding: 0, borderRadius: 10, border: "1px solid rgba(127,127,127,.3)", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
   return (
     <section className="not-prose request-story" aria-label="เส้นทางลูกค้าชำระเงินต่อคำขอ" style={{ width: "100%", minWidth: 0, border: "none", padding: 0, display: "grid", gap: 14, background: "#ffffff", color: "#1e293b", colorScheme: "light", borderRadius: 16, fontFamily: "inherit" }}>
@@ -113,7 +111,7 @@ export const PayPerRequestFlowVisual = () => {
       <div style={{ background: "#ffffff", containerType: "inline-size", minWidth: 0 }}>
         <style>{`
           .request-story .flow-diagram { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; margin: 0; padding: 20px 4px; list-style: none; }
-          .request-story .flow-stage { position: relative; minWidth: 0; }
+          .request-story .flow-stage { position: relative; min-width: 0; }
           .request-story .flow-arrow { position: absolute; width: 64px; height: 64px; pointer-events: none; }
           @container (max-width: 520px) {
             .request-story .flow-diagram { grid-template-columns: minmax(0, 1fr); gap: 56px; }
@@ -138,9 +136,9 @@ export const PayPerRequestFlowVisual = () => {
                 <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 12, minWidth: 0 }}>
                   <span aria-hidden="true" style={{ display: "grid", placeItems: "center", flexShrink: 0, width: 28, height: 28, border: `1.5px solid ${selected ? "#1a73e8" : "#202124"}`, borderRadius: "50%", background: "#fff", color: selected ? "#1a73e8" : "#202124", fontSize: 14, fontWeight: 700 }}>{i + 1}</span>
                   <div style={{ display: "flex", alignItems: "flex-start", gap: 8, flex: 1, minWidth: 0 }}>
-                    <span style={{ flexShrink: 0, marginTop: 2 }}><ActorIcon pov={item.pov} /></span>
+                    {actorIcon(item.pov)}
                     <div style={{ minWidth: 0 }}>
-                      <div style={{ fontSize: 11, fontWeight: 600, color: "#5f6368", lineHeight: 1.4, marginBottom: 2 }}>{povLabels[item.pov]}</div>
+                      <div style={{ fontSize: 11, fontWeight: 600, color: "#5f6368", lineHeight: 1.4 }}>{povLabels[item.pov]}</div>
                       <div style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.5, color: "#202124" }}>{item.title}</div>
                       <p style={{ margin: "4px 0 0", fontSize: 12, lineHeight: 1.6, color: "#3c4043" }}>{item.story}</p>
                     </div>
@@ -189,28 +187,28 @@ export const PayPerRequestFlowVisual = () => {
       </div>
       <div id={`${id}-detail`} aria-live="polite" aria-atomic="true" style={{ display: "grid", gap: 12 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: 8 }}>
-          <span style={{ flexShrink: 0 }}><ActorIcon pov={step.pov} /></span>
-          <span style={{ textAlign: "center", fontWeight: 700, fontSize: 18, lineHeight: 1.6, color: "#202124" }}>{step.title}</span>
+          {actorIcon(step.pov)}
+          <span style={{ textAlign: "center", fontWeight: 700, fontSize: 18, lineHeight: 1.6, color: "inherit" }}>{step.title}</span>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 12 }}>
           <div style={{ padding: 14, borderRadius: 12, background: "rgba(47,107,255,.07)", minWidth: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-              <span style={{ flexShrink: 0 }}><Icon icon="user" size={18} aria-hidden="true" /></span>
-              <span style={{ fontSize: 12, fontWeight: 700, color: "#202124" }}>ลูกค้า</span>
+              {actorIcon("customer", 20)}
+              <span style={{ fontSize: 12, fontWeight: 700, color: "inherit" }}>ลูกค้า</span>
             </div>
             <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "#3c4043" }}>{step.customer}</p>
           </div>
           <div style={{ padding: 14, borderRadius: 12, background: "rgba(127,127,127,.07)", minWidth: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-              <span style={{ flexShrink: 0 }}><Icon icon="building-store" size={18} aria-hidden="true" /></span>
-              <span style={{ fontSize: 12, fontWeight: 700, color: "#202124" }}>ร้านค้า</span>
+              {actorIcon("merchant", 20)}
+              <span style={{ fontSize: 12, fontWeight: 700, color: "inherit" }}>ร้านค้า</span>
             </div>
             <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "#3c4043" }}>{step.merchant}</p>
           </div>
           <div style={{ padding: 14, borderRadius: 12, background: "rgba(71,119,223,.07)", minWidth: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-              <span style={{ flexShrink: 0 }}><img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width={18} height={18} style={{ objectFit: "contain", flexShrink: 0 }} aria-hidden="true" /></span>
-              <span style={{ fontSize: 12, fontWeight: 700, color: "#202124" }}>ระบบ Feezless</span>
+              {actorIcon("system", 20)}
+              <span style={{ fontSize: 12, fontWeight: 700, color: "inherit" }}>ระบบ Feezless</span>
             </div>
             <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "#3c4043" }}>{step.system}</p>
           </div>

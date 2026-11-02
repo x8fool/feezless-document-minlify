@@ -39,7 +39,9 @@ icon:
 3. ลูกค้าเลือกวิธีชำระเงินที่หน้าชำระเงิน
 4. ระบบตัดสต็อกอัตโนมัติเมื่อการขายเสร็จสมบูรณ์
 
-ตัวอย่างประกอบ: ลูกค้าเข้าร้านกาแฟแล้วสั่งกาแฟหนึ่งแก้ว พนักงานเตรียมรายการบนแท็บเล็ต ลูกค้าชำระเงินที่หน้าจอ และรับกาแฟหลังยืนยันการชำระเงิน ภาพด้านล่างแบ่งเป็นมุมมองสามฝ่าย: ลูกค้า (ไอคอนคน) ร้านค้า (ไอคอนร้าน) และระบบ Feezless (ไอคอนแบรนด์) ภาพนี้เป็นภาพประกอบ ไม่ใช่หน้าจอหรือสถานะธุรกรรมจริง
+ตัวอย่างสมมติ: ลูกค้าสั่งกาแฟหนึ่งแก้ว พนักงานรับออเดอร์บนแท็บเล็ตและส่งมอบกาแฟหลังยืนยันการชำระเงิน
+
+ไอคอนคนแทนลูกค้า ไอคอนร้านแทนร้านค้า และไอคอน Feezless แทนระบบ เลือกขั้นตอนเพื่อดูมุมมองของแต่ละฝ่าย ภาพนี้เป็นภาพประกอบ ไม่ใช่หน้าจอหรือสถานะธุรกรรมจริง
 
 <PosFlowVisual />
 
@@ -86,7 +88,7 @@ export const PosFlowVisual = () => {
     { label: "เตรียม", title: "เตรียมสินค้า", pov: "merchant", story: "พนักงานเตรียมรายการกาแฟและราคาไว้บนแท็บเล็ตก่อนรับออเดอร์", customer: "ลูกค้าเข้าร้านกาแฟและดูเมนูบนเคาน์เตอร์", merchant: "ร้านค้าบันทึกรายการสินค้าและกำหนดราคาก่อนเปิดรับคำสั่งซื้อ", system: "Feezless จัดเก็บรายการสินค้าและราคาให้แสดงผลบนหน้าจอแคชเชียร์" },
     { label: "สั่งซื้อ", title: "รับออเดอร์", pov: "merchant", story: "ลูกค้าสั่งกาแฟหนึ่งแก้ว พนักงานเพิ่มรายการแล้วเปิดหน้าชำระเงินให้", customer: "ลูกค้าบอกรายการกาแฟที่ต้องการกับพนักงานที่เคาน์เตอร์", merchant: "พนักงานรับคำสั่งซื้อและแสดงหน้าชำระเงินบนโทรศัพท์หรือแท็บเล็ต", system: "Feezless สร้างรายการชำระเงินตามออเดอร์ที่ร้านค้ากรอก" },
     { label: "ชำระเงิน", title: "ชำระเงิน", pov: "customer", story: "ลูกค้าเลือกวิธีชำระเงินบนหน้าจอของร้านแล้วดำเนินการตามขั้นตอน", customer: "ลูกค้าเลือกวิธีชำระเงินจากหน้าชำระเงินบนอุปกรณ์ของร้าน", merchant: "ร้านค้ารอตรวจสอบสถานะการชำระเงินที่ยืนยันแล้วก่อนส่งมอบ", system: "Feezless ประมวลผลรายการชำระเงินและแจ้งผลกลับมายังร้านค้า", note: "การสร้างรายการหรือส่งหลักฐานการโอนไม่ใช่การยืนยันว่าชำระเงินแล้ว" },
-    { label: "รับสินค้า", title: "รับกาแฟ", pov: "system", story: "เมื่อชำระเงินยืนยันแล้ว ระบบบันทึกยอดขายและตัดสต็อกอัตโนมัติ", customer: "ลูกค้ารับกาแฟหลังร้านค้าตรวจสอบว่าการชำระเงินได้รับการยืนยันแล้ว", merchant: "ร้านค้าส่งมอบกาแฟให้ลูกค้าหลังตรวจสอบสถานะการชำระเงิน", system: "Feezless บันทึกยอดขายและอัปเดตสต็อกอัตโนมัติเมื่อการขายเสร็จสมบูรณ์", note: "ส่งมอบสินค้าเมื่อสถานะการชำระเงินได้รับการยืนยันแล้วเท่านั้น" },
+    { label: "อัปเดตยอดขาย", title: "บันทึกยอดขายและสต็อก", pov: "system", story: "Feezless บันทึกยอดขายกาแฟและอัปเดตสต็อกอัตโนมัติเมื่อการขายเสร็จสมบูรณ์", customer: "ลูกค้ารับกาแฟหลังร้านค้าตรวจสอบว่าการชำระเงินได้รับการยืนยันแล้ว", merchant: "พนักงานส่งมอบกาแฟหลังตรวจสอบสถานะการชำระเงินที่ยืนยันแล้ว", system: "Feezless บันทึกยอดขายและอัปเดตสต็อกเมื่อขายกาแฟรายการนี้เสร็จสมบูรณ์", note: "ส่งมอบสินค้าเมื่อสถานะการชำระเงินได้รับการยืนยันแล้วเท่านั้น" },
   ];
   const [active, setActive] = useState(0);
   const uid = useId().replace(/:/g, "");
@@ -98,7 +100,11 @@ export const PosFlowVisual = () => {
     { kind: "system", screen: "ยอดขายและสต็อก" },
   ];
   const step = steps[active];
-  const actorIcon = (pov) => pov === "system" ? <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width="24" height="24" style={{ objectFit: "contain", flexShrink: 0 }} aria-hidden="true" /> : pov === "merchant" ? <Icon icon="building-store" size={24} aria-hidden="true" /> : <Icon icon="user" size={24} aria-hidden="true" />;
+  const actorIcon = (pov, size = 24) => (
+    <span aria-hidden="true" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: size, height: size, flexShrink: 0 }}>
+      {pov === "system" ? <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width={size} height={size} style={{ objectFit: "contain" }} /> : pov === "merchant" ? <Icon icon="building-store" size={size} /> : <Icon icon="user" size={size} />}
+    </span>
+  );
   const btn = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 44, height: 44, padding: 0, borderRadius: 10, border: "1px solid rgba(127,127,127,.3)", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
   return (
     <section className="not-prose pos-story" aria-label="เส้นทางลูกค้าหน้าร้าน" style={{ width: "100%", minWidth: 0, border: "none", padding: 0, display: "grid", gap: 14, background: "transparent", color: "inherit", borderRadius: 16, fontFamily: "inherit" }}>
@@ -130,12 +136,12 @@ export const PosFlowVisual = () => {
               <div style={{ height: "100%", boxSizing: "border-box", padding: 12, border: `1px solid ${selected ? "#1a73e8" : "#dadce0"}`, borderRadius: 6, background: "#fff", color: "#1e293b" }}>
                 <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 12, minWidth: 0 }}>
                   <span aria-hidden="true" style={{ display: "grid", placeItems: "center", flexShrink: 0, width: 28, height: 28, border: `1.5px solid ${selected ? "#1a73e8" : "#202124"}`, borderRadius: "50%", background: "#fff", color: selected ? "#1a73e8" : "#202124", fontSize: 14, fontWeight: 700 }}>{i + 1}</span>
-                  <div style={{ minWidth: 0, display: "flex", alignItems: "flex-start", gap: 8 }}>
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: 8, flex: 1, minWidth: 0 }}>
                     {actorIcon(item.pov)}
                     <div style={{ minWidth: 0 }}>
                       <div style={{ fontSize: 11, fontWeight: 600, color: "#5f6368", lineHeight: 1.4 }}>{povLabels[item.pov]}</div>
                       <div style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.5, color: "#202124" }}>{item.title}</div>
-                      <p style={{ margin: 0, fontSize: 12, lineHeight: 1.6, color: "#3c4043" }}>{item.story}</p>
+                      <p style={{ margin: "4px 0 0", fontSize: 12, lineHeight: 1.6, color: "#3c4043" }}>{item.story}</p>
                     </div>
                   </div>
                 </div>
@@ -183,26 +189,26 @@ export const PosFlowVisual = () => {
       <div id={`${id}-detail`} aria-live="polite" aria-atomic="true" style={{ display: "grid", gap: 12 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: 8 }}>
           {actorIcon(step.pov)}
-          <div style={{ textAlign: "center", fontWeight: 700, fontSize: 18, lineHeight: 1.6, color: "#202124" }}>{step.title}</div>
+          <div style={{ textAlign: "center", fontWeight: 700, fontSize: 18, lineHeight: 1.6, color: "inherit" }}>{step.title}</div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 12 }}>
           <div style={{ padding: 14, borderRadius: 12, background: "rgba(47,107,255,.07)", minWidth: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-              <Icon icon="user" size={20} aria-hidden="true" />
+              {actorIcon("customer", 20)}
               <div style={{ fontSize: 12, fontWeight: 700 }}>ลูกค้า</div>
             </div>
             <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.customer}</p>
           </div>
           <div style={{ padding: 14, borderRadius: 12, background: "rgba(127,127,127,.07)", minWidth: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-              <Icon icon="building-store" size={20} aria-hidden="true" />
+              {actorIcon("merchant", 20)}
               <div style={{ fontSize: 12, fontWeight: 700 }}>ร้านค้า</div>
             </div>
             <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.merchant}</p>
           </div>
           <div style={{ padding: 14, borderRadius: 12, background: "rgba(47,107,255,.07)", minWidth: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-              <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width="20" height="20" style={{ objectFit: "contain", flexShrink: 0 }} aria-hidden="true" />
+              {actorIcon("system", 20)}
               <div style={{ fontSize: 12, fontWeight: 700 }}>ระบบ Feezless</div>
             </div>
             <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.system}</p>
