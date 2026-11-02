@@ -113,8 +113,8 @@ export const MembershipFlowVisual = () => {
             <rect x="-52" y="84" width="104" height="52" rx="10" fill={paint("white")} />
             <rect x="-35" y="94" width="70" height="25" rx="5" fill={paint("blue")} />
           </g>
-          <path d="M177 128H225M415 128H463" fill="none" stroke="#7296e4" strokeWidth="3" strokeDasharray="5 7" />
-          <path d={active === 1 || active === 2 ? "M187 121L177 128L187 135M425 121L415 128L425 135" : "M215 121L225 128L215 135M453 121L463 128L453 135"} fill="none" stroke="#4777df" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          <path d={active === 1 ? "M415 128H463" : "M177 128H225M415 128H463"} fill="none" stroke="#7296e4" strokeWidth="3" strokeDasharray="5 7" />
+          <path d={active === 1 ? "M425 121L415 128L425 135" : active === 2 ? "M187 121L177 128L187 135M425 121L415 128L425 135" : "M215 121L225 128L215 135M453 121L463 128L453 135"} fill="none" stroke="#4777df" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
           {active === 0 && <g transform="translate(320 115)">
             <rect x="-60" y="-50" width="120" height="100" rx="12" fill={paint("white")} stroke="#c3d2ff" strokeWidth="2" />
             <rect x="-48" y="-38" width="96" height="8" rx="4" fill="#a0b7de" />
