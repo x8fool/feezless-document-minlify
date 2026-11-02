@@ -36,6 +36,10 @@ icon: "🏪"
 3. ลูกค้าเลือกวิธีชำระเงินที่หน้าชำระเงิน
 4. ระบบตัดสต็อกอัตโนมัติเมื่อการขายเสร็จสมบูรณ์
 
+กดแต่ละขั้นตอนหรือเล่นอัตโนมัติเพื่อดูลำดับการทำงานของระบบขายหน้าร้าน
+
+<PosFlowVisual />
+
 > **หมายเหตุ:** การสร้างรายการชำระเงินหรือการส่งหลักฐานการโอนเพียงอย่างเดียวไม่ใช่การยืนยันว่าชำระเงินแล้ว ตรวจสอบสถานะการชำระเงินที่ยืนยันแล้วก่อนส่งมอบสินค้าหรือบริการ
 
 ## สิ่งที่ต้องเตรียม
@@ -72,6 +76,133 @@ icon: "🏪"
 ระบบขายหน้าร้านออกแบบมาสำหรับการขายกับลูกค้าที่หน้าร้าน หากต้องการให้ลูกค้าเลือกดูสินค้าและชำระเงินออนไลน์ด้วย ใช้ [เมนูสินค้า (Product Menu)](/th/solutions/product-menu/index) เพื่อรวมร้านค้า ตะกร้า และการชำระเงินไว้ในหน้าเดียว
 
 หากมีคำถามเกี่ยวกับการตั้งค่าและค่าบริการ ติดต่อ [Feezless](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1) พร้อมระบุลักษณะการใช้งาน
+
+export const PosFlowVisual = () => {
+  const steps = [
+    { label: "ตั้งค่าสินค้า", detail: "ตั้งค่ารายการสินค้าและราคาที่ต้องการขาย" },
+    { label: "รับคำสั่งซื้อ", detail: "รับคำสั่งซื้อและแสดงหน้าชำระเงินให้ลูกค้าบนโทรศัพท์หรือแท็บเล็ตของคุณ" },
+    { label: "ลูกค้าชำระเงิน", detail: "ลูกค้าเลือกวิธีชำระเงินที่หน้าชำระเงิน", note: "ตรวจสอบสถานะการชำระเงินที่ยืนยันแล้วก่อนส่งมอบสินค้าหรือบริการ" },
+    { label: "ตัดสต็อก", detail: "ระบบตัดสต็อกอัตโนมัติเมื่อการขายเสร็จสมบูรณ์" },
+  ];
+  const centers = [80, 240, 400, 560];
+  const [active, setActive] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  useEffect(() => {
+    if (!playing) return undefined;
+    const id = setInterval(() => setActive((a) => (a + 1) % steps.length), 2200);
+    return () => clearInterval(id);
+  }, [playing]);
+  const go = (i) => { setPlaying(false); setActive(i); };
+  const btn = { padding: "6px 14px", borderRadius: 8, border: "1px solid rgba(127,127,127,.35)", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
+  const slot = (i) => ({
+    transform: `translate(${centers[i]}px, ${i === active ? 118 : 128}px) scale(${i === active ? 1.08 : 0.92})`,
+    opacity: i === active ? 1 : 0.5,
+    transition: "transform .45s ease, opacity .45s ease",
+  });
+  const shadow = <ellipse cx="0" cy="62" rx="50" ry="7" fill="#0b1a4a" opacity=".22" filter="url(#posf-blur)" />;
+  return (
+    <div className="not-prose" style={{ width: "100%", minWidth: 0, boxSizing: "border-box", border: "1px solid rgba(127,127,127,.25)", borderRadius: 16, padding: 16, display: "grid", gap: 12, color: "inherit" }}>
+      <svg viewBox="0 0 640 290" style={{ width: "100%", display: "block", borderRadius: 12, background: "rgba(47,107,255,.06)" }} role="img" aria-label="ลำดับการทำงานของระบบขายหน้าร้าน 4 ขั้นตอน">
+        <defs>
+          <linearGradient id="posf-blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#6b97ff" /><stop offset="1" stopColor="#1d4ed8" /></linearGradient>
+          <linearGradient id="posf-white" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff" /><stop offset="1" stopColor="#e6edff" /></linearGradient>
+          <linearGradient id="posf-satin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#eef3ff" /><stop offset="1" stopColor="#c9d7ff" /></linearGradient>
+          <linearGradient id="posf-bezel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#3a4670" /><stop offset="1" stopColor="#0f1530" /></linearGradient>
+          <filter id="posf-blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" /></filter>
+        </defs>
+
+        <line x1="80" y1="232" x2="560" y2="232" stroke="currentColor" strokeOpacity=".18" strokeWidth="4" strokeLinecap="round" />
+        <line x1="80" y1="232" x2={centers[active]} y2="232" stroke="#2f6bff" strokeWidth="4" strokeLinecap="round" style={{ transition: "all .45s ease" }} />
+
+        <g style={slot(0)}>
+          {shadow}
+          <rect x="-46" y="-50" width="80" height="100" rx="12" fill="url(#posf-satin)" transform="rotate(-10)" opacity=".8" />
+          <rect x="-42" y="-54" width="80" height="100" rx="12" fill="url(#posf-satin)" transform="rotate(-4)" />
+          <rect x="-38" y="-56" width="80" height="100" rx="12" fill="url(#posf-white)" stroke="#c3d2ff" />
+          {[0, 1, 2].map((r) => (
+            <g key={r}>
+              <rect x="-30" y={-46 + r * 30} width="20" height="20" rx="6" fill="url(#posf-blue)" />
+              <rect x="-4" y={-43 + r * 30} width="36" height="5" rx="2.5" fill="#c7d3f5" />
+              <rect x="-4" y={-33 + r * 30} width="20" height="5" rx="2.5" fill="#2f6bff" opacity=".85" />
+            </g>
+          ))}
+        </g>
+
+        <g style={slot(1)}>
+          {shadow}
+          <path d="M-14 40 L14 40 L22 58 L-22 58 Z" fill="url(#posf-bezel)" />
+          <rect x="-60" y="-50" width="120" height="90" rx="12" fill="url(#posf-bezel)" />
+          <rect x="-52" y="-42" width="104" height="74" rx="6" fill="url(#posf-white)" />
+          {[0, 1, 2].map((r) => (
+            <g key={r}>
+              <rect x="-44" y={-34 + r * 14} width="44" height="6" rx="3" fill="#c7d3f5" />
+              <rect x="22" y={-34 + r * 14} width="22" height="6" rx="3" fill="#9fb5ee" />
+            </g>
+          ))}
+          <rect x="-44" y="10" width="88" height="14" rx="7" fill="url(#posf-blue)" />
+        </g>
+
+        <g style={slot(2)}>
+          {shadow}
+          <rect x="-30" y="-62" width="60" height="114" rx="13" fill="url(#posf-bezel)" />
+          <rect x="-25" y="-56" width="50" height="102" rx="9" fill="url(#posf-white)" />
+          <rect x="-18" y="-46" width="36" height="16" rx="5" fill="url(#posf-satin)" />
+          {[0, 1, 2].map((r) => (
+            <rect key={r} x="-18" y={-22 + r * 16} width="36" height="11" rx="5.5" fill={r === 1 ? "url(#posf-blue)" : "#dbe4fb"} />
+          ))}
+          <rect x="-18" y="28" width="36" height="10" rx="5" fill="#2f6bff" opacity=".85" />
+          <circle cx="40" cy="-46" r="17" fill="url(#posf-blue)" />
+          <circle cx="40" cy="-46" r="10" fill="none" stroke="#ffffff" strokeOpacity=".85" strokeWidth="3" />
+          <circle cx="36" cy="-51" r="4" fill="#ffffff" opacity=".45" />
+        </g>
+
+        <g style={slot(3)}>
+          {shadow}
+          <path d="M0 -22 L40 -2 L0 18 L-40 -2 Z" fill="#f4d7a8" />
+          <path d="M-40 -2 L0 18 L0 58 L-40 38 Z" fill="#dcb175" />
+          <path d="M0 18 L40 -2 L40 38 L0 58 Z" fill="#c4935a" />
+          <path d="M-20 -12 L20 8" stroke="#c99a5e" strokeWidth="5" />
+          <g transform="translate(-34 -52) scale(.45)" opacity=".9">
+            <path d="M0 -22 L40 -2 L0 18 L-40 -2 Z" fill="#f4d7a8" />
+            <path d="M-40 -2 L0 18 L0 58 L-40 38 Z" fill="#dcb175" />
+            <path d="M0 18 L40 -2 L40 38 L0 58 Z" fill="#c4935a" />
+          </g>
+          <circle cx="36" cy="-42" r="14" fill="url(#posf-blue)" />
+          <text x="36" y="-37" textAnchor="middle" fontSize="13" fontWeight="700" fill="#ffffff">−1</text>
+        </g>
+
+        <circle r="9" fill="#2f6bff" opacity=".25" style={{ transform: `translate(${centers[active]}px, 232px)`, transition: "transform .45s ease" }} />
+        {steps.map((s, i) => (
+          <g key={s.label} onClick={() => go(i)} style={{ cursor: "pointer" }}>
+            <circle cx={centers[i]} cy="232" r="11" fill={i <= active ? "#2f6bff" : "rgba(127,127,127,.35)"} />
+            <text x={centers[i]} y="236" textAnchor="middle" fontSize="11" fontWeight="700" fill="#ffffff">{i + 1}</text>
+            <text x={centers[i]} y="268" textAnchor="middle" fontSize="13" fontWeight={i === active ? 700 : 400} fill="currentColor">{s.label}</text>
+          </g>
+        ))}
+      </svg>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 8 }}>
+        {steps.map((s, i) => (
+          <button key={s.label} type="button" onClick={() => go(i)} aria-pressed={i === active} style={{ textAlign: "left", padding: 10, borderRadius: 10, font: "inherit", color: "inherit", cursor: "pointer", border: i === active ? "2px solid #2f6bff" : "1px solid rgba(127,127,127,.3)", background: i === active ? "rgba(47,107,255,.12)" : "transparent" }}>
+            <div style={{ fontSize: 12, opacity: 0.7 }}>ขั้นตอนที่ {i + 1}</div>
+            <div style={{ fontWeight: 600 }}>{s.label}</div>
+          </button>
+        ))}
+      </div>
+
+      <div aria-live="polite" style={{ minHeight: 44 }}>
+        <div>{steps[active].detail}</div>
+        {steps[active].note ? <div style={{ marginTop: 6, fontSize: 14, color: "#d97706" }}>⚠ {steps[active].note}</div> : null}
+      </div>
+
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <button type="button" style={btn} disabled={active === 0} onClick={() => go(active - 1)}>ย้อนกลับ</button>
+        <button type="button" style={btn} disabled={active === steps.length - 1} onClick={() => go(active + 1)}>ถัดไป</button>
+        <button type="button" style={btn} onClick={() => setPlaying(!playing)}>{playing ? "หยุด" : "เล่นอัตโนมัติ"}</button>
+      </div>
+    </div>
+  );
+};
 
 export const PricingCalculator = () => {
   const [amount, setAmount] = useState("1000");
