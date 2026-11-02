@@ -177,10 +177,10 @@
   "description": "เอกสารอย่างเป็นทางการของ Feezless Merchant Store Platform สำหรับนักพัฒนาและร้านค้า เรียนรู้การเชื่อมต่อ POS Cashier, Payment Link, Product Menu, Membership & Loyalty, Invoice & Bill Payment และ F402 Pay-Per-Request พร้อมคู่มือทีละขั้นตอนและเอกสารอ้างอิง API",
   "fonts": {
     "heading": {
-      "family": "Open Sans"
+      "family": "Noto Sans Thai Looped"
     },
     "body": {
-      "family": "Open Sans"
+      "family": "Noto Sans Thai Looped"
     }
   },
   "icons": {
