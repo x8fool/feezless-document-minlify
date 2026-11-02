@@ -52,8 +52,7 @@
             "icon": "⚖️",
             "pages": [
               "th/legal/terms-of-use",
-              "th/legal/privacy-policy",
-              "th/legal/embed"
+              "th/legal/privacy-policy"
             ]
           }
         ],
@@ -263,6 +262,11 @@
       "source": "/th/untitled-page-2",
       "destination": "/th/index",
       "permanent": true
+    },
+    {
+      "source": "/th/legal/embed",
+      "destination": "/th/legal/terms-of-use",
+      "permanent": false
     }
   ],
   "api": {
