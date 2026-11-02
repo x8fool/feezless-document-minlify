@@ -42,7 +42,7 @@ icon: "👥"
 3. ส่งบัตรผ่านช่องทางที่ลูกค้าเลือก
 4. ลูกค้าเปิดลิงก์เพื่อตั้งรหัส PIN และให้ความยินยอมตาม PDPA ด้วยตนเอง
 
-กดแต่ละขั้นตอนเพื่อดูลำดับการทำงานของระบบสมาชิก
+ดูเส้นทางลูกค้าตั้งแต่ชำระเงินครั้งแรกจนถึงตั้งค่าด้วยตนเอง โดยเลือกจุดบนเส้นขั้นตอนด้านล่าง ภาพนี้เป็นภาพประกอบ ไม่ใช่หน้าจอหรือสถานะธุรกรรมจริง
 
 <MembershipFlowVisual />
 
@@ -77,115 +77,116 @@ icon: "👥"
 
 export const MembershipFlowVisual = () => {
   const steps = [
-    { label: "ชำระเงินครั้งแรก", detail: "การชำระเงินครั้งแรกของลูกค้าเริ่มต้นขั้นตอนการสมัครสมาชิก", note: "แยกการยืนยันการชำระเงินออกจากการตั้งรหัส PIN และการให้ความยินยอม การสร้างหรือเปิดลิงก์ชำระเงินไม่ได้ยืนยันว่าลูกค้าชำระเงินแล้ว" },
-    { label: "ออกบัตรสมาชิก", detail: "ระบบออกบัตรสมาชิกดิจิทัลเป็นส่วนหนึ่งของขั้นตอนดังกล่าว" },
-    { label: "ส่งบัตร", detail: "ส่งบัตรผ่านช่องทางที่ลูกค้าเลือก" },
-    { label: "ตั้ง PIN + ยินยอม", detail: "ลูกค้าเปิดลิงก์เพื่อตั้งรหัส PIN และให้ความยินยอมตาม PDPA ด้วยตนเอง" },
+    { label: "ชำระครั้งแรก", title: "การชำระเงินครั้งแรกเริ่มต้นการสมัครสมาชิก", customer: "ลูกค้าชำระเงินครั้งแรกผ่านช่องทางที่ร้านค้ากำหนด", merchant: "ระบบเริ่มขั้นตอนสมัครสมาชิกหลังชำระเงิน", scene: "ลูกค้าชำระเงินครั้งแรกเพื่อเริ่มสมัครสมาชิก", note: "การสร้างหรือเปิดลิงก์ชำระเงินไม่ได้ยืนยันว่าลูกค้าชำระเงินแล้ว" },
+    { label: "ออกบัตร", title: "ระบบออกบัตรสมาชิกดิจิทัล", customer: "รอระบบออกบัตรสมาชิกดิจิทัล", merchant: "ระบบสร้างบัตรสมาชิกดิจิทัลตามข้อมูลที่ตั้งค่าไว้", scene: "ระบบออกบัตรสมาชิกดิจิทัล ยังไม่ส่งถึงลูกค้า" },
+    { label: "รับบัตร", title: "ส่งบัตรผ่านช่องทางที่ลูกค้าเลือก", customer: "รับบัตรสมาชิกดิจิทัลผ่านช่องทางที่เลือก", merchant: "ส่งบัตรสมาชิกดิจิทัลผ่านช่องทางที่ลูกค้าเลือก", scene: "ส่งบัตรสมาชิกดิจิทัลถึงลูกค้าทางช่องทางที่เลือก" },
+    { label: "ตั้งค่าด้วยตนเอง", title: "ลูกค้าตั้งรหัส PIN และให้ความยินยอม PDPA", customer: "เปิดลิงก์เพื่อตั้งรหัส PIN และให้ความยินยอมตาม PDPA ด้วยตนเอง", merchant: "ระบบรอลูกค้าดำเนินการตั้งค่า PIN และยินยอมเอง", scene: "ลูกค้าตั้งรหัส PIN และให้ความยินยอมบนอุปกรณ์ของตน", note: "การยืนยันการชำระเงินแยกจากการตั้ง PIN และการให้ความยินยอม" },
   ];
-  const centers = [80, 240, 400, 560];
   const [active, setActive] = useState(0);
-  const go = (i) => setActive(i);
-  const btn = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 40, height: 36, padding: 0, lineHeight: 0, borderRadius: 8, border: "1px solid rgba(127,127,127,.35)", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
-  const slot = (i) => ({
-    transform: `translate(${centers[i]}px, ${i === active ? 118 : 128}px) scale(${i === active ? 1.08 : 0.92})`,
-    opacity: i === active ? 1 : 0.5,
-    transition: "transform .45s ease, opacity .45s ease",
-  });
-  const shadow = <ellipse cx="0" cy="62" rx="50" ry="7" fill="#0b1a4a" opacity=".22" filter="url(#memf-blur)" />;
+  const uid = useId().replace(/:/g, "");
+  const id = `membership-story-${uid}`;
+  const paint = (name) => `url(#${id}-${name})`;
+  const step = steps[active];
+  const btn = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 44, height: 44, padding: 0, borderRadius: 10, border: "1px solid rgba(127,127,127,.3)", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
   return (
-    <div className="not-prose" style={{ position: "relative", width: "100%", minWidth: 0, boxSizing: "border-box", border: "none", borderRadius: 16, padding: 0, display: "grid", gap: 12, color: "inherit" }}>
-      <svg viewBox="0 0 640 356" style={{ width: "100%", display: "block", borderRadius: 12, background: "rgba(47,107,255,.06)" }} role="img" aria-label="ลำดับการทำงานของระบบสมาชิก 4 ขั้นตอน">
-        <defs>
-          <linearGradient id="memf-blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#6b97ff" /><stop offset="1" stopColor="#1d4ed8" /></linearGradient>
-          <linearGradient id="memf-white" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff" /><stop offset="1" stopColor="#e6edff" /></linearGradient>
-          <linearGradient id="memf-satin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#eef3ff" /><stop offset="1" stopColor="#c9d7ff" /></linearGradient>
-          <linearGradient id="memf-bezel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#3a4670" /><stop offset="1" stopColor="#0f1530" /></linearGradient>
-          <filter id="memf-blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" /></filter>
-        </defs>
-
-        <line x1="80" y1="232" x2="560" y2="232" stroke="currentColor" strokeOpacity=".18" strokeWidth="4" strokeLinecap="round" />
-        <line x1="80" y1="232" x2={centers[active]} y2="232" stroke="#2f6bff" strokeWidth="4" strokeLinecap="round" style={{ transition: "all .45s ease" }} />
-
-        <g style={slot(0)}>
-          {shadow}
-          <rect x="-46" y="-50" width="80" height="100" rx="12" fill="url(#memf-satin)" transform="rotate(-10)" opacity=".8" />
-          <rect x="-42" y="-54" width="80" height="100" rx="12" fill="url(#memf-satin)" transform="rotate(-4)" />
-          <rect x="-38" y="-56" width="80" height="100" rx="12" fill="url(#memf-white)" stroke="#c3d2ff" />
-          <rect x="-30" y="-46" width="60" height="36" rx="6" fill="url(#memf-blue)" />
-          <rect x="-30" y="-38" width="40" height="5" rx="2.5" fill="rgba(255,255,255,.7)" />
-          <rect x="-30" y="-28" width="30" height="5" rx="2.5" fill="rgba(255,255,255,.5)" />
-          <rect x="-30" y="-6" width="60" height="12" rx="6" fill="#2f6bff" opacity=".85" />
-          <rect x="-30" y="10" width="40" height="8" rx="4" fill="#c7d3f5" />
-          <rect x="-30" y="22" width="50" height="8" rx="4" fill="#c7d3f5" />
-          <circle cx="40" cy="-46" r="17" fill="url(#memf-blue)" />
-          <circle cx="40" cy="-46" r="10" fill="none" stroke="#ffffff" strokeOpacity=".85" strokeWidth="3" />
-          <circle cx="36" cy="-51" r="4" fill="#ffffff" opacity=".45" />
-        </g>
-
-        <g style={slot(1)}>
-          {shadow}
-          <rect x="-56" y="-36" width="112" height="72" rx="10" fill="url(#memf-bezel)" />
-          <rect x="-50" y="-30" width="100" height="60" rx="6" fill="url(#memf-white)" />
-          <rect x="-44" y="-24" width="28" height="28" rx="6" fill="url(#memf-blue)" />
-          <rect x="-12" y="-22" width="44" height="6" rx="3" fill="#c7d3f5" />
-          <rect x="-12" y="-12" width="30" height="6" rx="3" fill="#2f6bff" opacity=".85" />
-          <rect x="-44" y="4" width="88" height="16" rx="8" fill="url(#memf-satin)" />
-          <rect x="-40" y="8" width="24" height="8" rx="4" fill="#c7d3f5" />
-          <rect x="-12" y="8" width="24" height="8" rx="4" fill="#c7d3f5" />
-          <rect x="16" y="8" width="16" height="8" rx="4" fill="#c7d3f5" />
-        </g>
-
-        <g style={slot(2)}>
-          {shadow}
-          <path d="M-44 -14 L-44 34 Q-44 46 -32 46 L32 46 Q44 46 44 34 L44 -14 Q44 -26 32 -26 L-32 -26 Q-44 -26 -44 -14 Z" fill="url(#memf-bezel)" />
-          <path d="M-38 -8 L-38 34 Q-38 40 -32 40 L32 40 Q38 40 38 34 L38 -8 Q38 -14 32 -14 L-32 -14 Q-38 -14 -38 -8 Z" fill="url(#memf-white)" />
-          <rect x="-30" y="0" width="60" height="10" rx="5" fill="url(#memf-blue)" />
-          <rect x="-30" y="16" width="44" height="6" rx="3" fill="#c7d3f5" />
-          <rect x="-30" y="26" width="30" height="6" rx="3" fill="#c7d3f5" />
-          <path d="M28 24 L44 24 L44 40 L36 36 L28 40 Z" fill="url(#memf-blue)" />
-          <circle cx="36" cy="30" r="3" fill="#ffffff" />
-        </g>
-
-        <g style={slot(3)}>
-          {shadow}
-          <rect x="-30" y="-62" width="60" height="114" rx="13" fill="url(#memf-bezel)" />
-          <rect x="-25" y="-56" width="50" height="102" rx="9" fill="url(#memf-white)" />
-          <rect x="-18" y="-46" width="36" height="16" rx="5" fill="url(#memf-satin)" />
-          <rect x="-18" y="-22" width="36" height="11" rx="5.5" fill="#dbe4fb" />
-          <rect x="-18" y="-6" width="36" height="11" rx="5.5" fill="url(#memf-blue)" />
-          <rect x="-18" y="10" width="36" height="11" rx="5.5" fill="#dbe4fb" />
-          <rect x="-18" y="26" width="36" height="10" rx="5" fill="#2f6bff" opacity=".85" />
-          <rect x="-18" y="-42" width="10" height="8" rx="4" fill="#2f6bff" opacity=".85" />
-          <rect x="-6" y="-42" width="10" height="8" rx="4" fill="#2f6bff" opacity=".85" />
-          <rect x="6" y="-42" width="10" height="8" rx="4" fill="#2f6bff" opacity=".85" />
-          <circle cx="40" cy="-46" r="17" fill="url(#memf-blue)" />
-          <path d="M34 -46 L38 -42 L46 -50" fill="none" stroke="#ffffff" strokeOpacity=".85" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-        </g>
-
-        <circle r="9" fill="#2f6bff" opacity=".25" style={{ transform: `translate(${centers[active]}px, 232px)`, transition: "transform .45s ease" }} />
-        {steps.map((s, i) => (
-          <g key={s.label} onClick={() => go(i)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(i); } }} role="button" tabIndex={0} aria-label={`ขั้นตอนที่ ${i + 1}: ${s.label}`} aria-pressed={i === active} style={{ cursor: "pointer", outline: "none" }}>
-            <rect x={centers[i] - 70} y="212" width="140" height="66" fill="transparent" />
-            <circle cx={centers[i]} cy="232" r="11" fill={i <= active ? "#2f6bff" : "rgba(127,127,127,.35)"} />
-            <text x={centers[i]} y="236" textAnchor="middle" fontSize="11" fontWeight="700" fill="#ffffff">{i + 1}</text>
-            <text x={centers[i]} y="268" textAnchor="middle" fontSize="13" fontWeight={i === active ? 700 : 400} fill="currentColor">{s.label}</text>
+    <section className="not-prose membership-story" aria-label="เส้นทางลูกค้าสมัครสมาชิก" style={{ width: "100%", minWidth: 0, border: "none", padding: 0, display: "grid", gap: 14, color: "inherit", fontFamily: "inherit" }}>
+      <style>{`.membership-story button:focus-visible { outline: 2px solid #2f6bff; outline-offset: 3px; } .membership-story button:disabled { opacity: .35; cursor: default; } .membership-story button:not(:disabled):hover { background: rgba(47,107,255,.08) !important; }`}</style>
+      <div style={{ background: "rgba(47,107,255,.06)", borderRadius: 16, overflow: "hidden" }}>
+        <svg viewBox="0 0 640 240" role="img" aria-label={step.scene} style={{ width: "100%", height: "auto", display: "block" }}>
+          <defs>
+            <linearGradient id={`${id}-blue`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#94b6ff" /><stop offset="1" stopColor="#2454d6" /></linearGradient>
+            <linearGradient id={`${id}-white`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#ffffff" /><stop offset="1" stopColor="#dce6fa" /></linearGradient>
+            <linearGradient id={`${id}-dark`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#525e78" /><stop offset="1" stopColor="#182139" /></linearGradient>
+            <filter id={`${id}-shadow`} x="-50%" y="-100%" width="200%" height="300%"><feGaussianBlur stdDeviation="5" /></filter>
+          </defs>
+          <ellipse cx="320" cy="210" rx="238" ry="12" fill="#293957" opacity=".12" filter={paint("shadow")} />
+          <g transform="translate(110 68)">
+            <circle cx="0" cy="0" r="25" fill={paint("white")} />
+            <path d="M-38 99V58C-38 20 38 20 38 58V99Z" fill={paint("blue")} />
+            <path d="M-24 52Q0 65 24 52" fill="none" stroke="#fff" strokeOpacity=".45" strokeWidth="4" />
+            <path d="M28 64L58 48" fill="none" stroke="#78a2fa" strokeWidth="14" strokeLinecap="round" />
           </g>
-        ))}
-
-        <line x1="40" y1="288" x2="600" y2="288" stroke="currentColor" strokeOpacity=".1" />
-        <text x="320" y="306" textAnchor="middle" fontSize="14" fill="currentColor">{steps[active].detail}</text>
-        {steps[active].note ? <text x="320" y="324" textAnchor="middle" fontSize="12" fill="#d97706">⚠ {steps[active].note}</text> : null}
-      </svg>
-
-      <div aria-live="polite" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap" }}>
-        {steps[active].detail}{steps[active].note ? ` ${steps[active].note}` : ""}
+          <g transform="translate(530 68)">
+            <circle cx="0" cy="0" r="25" fill={paint("white")} />
+            <path d="M-38 99V58C-38 20 38 20 38 58V99Z" fill={paint("dark")} />
+            <path d="M-18 37L0 54L18 37" fill="none" stroke="#a6b9dd" strokeWidth="3" />
+            <rect x="-52" y="84" width="104" height="52" rx="10" fill={paint("white")} />
+            <rect x="-35" y="94" width="70" height="25" rx="5" fill={paint("blue")} />
+          </g>
+          <path d="M177 128H225M415 128H463" fill="none" stroke="#7296e4" strokeWidth="3" strokeDasharray="5 7" />
+          <path d={active === 0 || active === 3 ? "M187 121L177 128L187 135M425 121L415 128L425 135" : "M215 121L225 128L215 135M453 121L463 128L453 135"} fill="none" stroke="#4777df" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          {active === 0 && <g transform="translate(320 115)">
+            <rect x="-60" y="-50" width="120" height="100" rx="12" fill={paint("white")} stroke="#c3d2ff" strokeWidth="2" />
+            <rect x="-48" y="-38" width="96" height="8" rx="4" fill="#a0b7de" />
+            <rect x="-48" y="-24" width="70" height="6" rx="3" fill="#c6d3e8" />
+            <rect x="-48" y="-12" width="80" height="6" rx="3" fill="#c6d3e8" />
+            <rect x="-48" y="0" width="50" height="6" rx="3" fill="#c6d3e8" />
+            <rect x="-48" y="16" width="96" height="28" rx="8" fill="#dbe7ff" stroke="#4777df" strokeWidth="2" />
+            <circle cx="-32" cy="30" r="6" fill="#4777df" />
+            <rect x="-20" y="26" width="50" height="8" rx="4" fill="#4777df" opacity="0.6" />
+          </g>}
+          {active === 1 && <g transform="translate(320 115)">
+            <rect x="-55" y="-45" width="110" height="90" rx="14" fill={paint("white")} stroke="#c3d2ff" strokeWidth="2" />
+            <rect x="-45" y="-35" width="90" height="55" rx="10" fill="#dbe7ff" stroke="#4777df" strokeWidth="2" />
+            <rect x="-35" y="-25" width="30" height="20" rx="6" fill={paint("blue")} opacity="0.8" />
+            <rect x="-5" y="-20" width="40" height="6" rx="3" fill="#a0b7de" />
+            <rect x="-5" y="-10" width="30" height="6" rx="3" fill="#c6d3e8" />
+            <circle cx="35" cy="20" r="8" fill="none" stroke="#4777df" strokeWidth="2" />
+            <circle cx="35" cy="20" r="3" fill="#4777df" />
+          </g>}
+          {active === 2 && <g transform="translate(320 115)">
+            <rect x="-50" y="-40" width="100" height="80" rx="12" fill={paint("white")} stroke="#c3d2ff" strokeWidth="2" />
+            <path d="M-40 -20L0 10L40 -20" fill="none" stroke="#4777df" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M-40 -20L-40 25Q-40 35 -30 35L30 35Q40 35 40 25L40 -20" fill="none" stroke="#4777df" strokeWidth="2" />
+            <rect x="-25" y="5" width="50" height="30" rx="8" fill="#dbe7ff" stroke="#4777df" strokeWidth="2" />
+            <rect x="-18" y="12" width="20" height="16" rx="5" fill={paint("blue")} opacity="0.7" />
+            <rect x="2" y="15" width="16" height="4" rx="2" fill="#4777df" opacity="0.5" />
+            <rect x="2" y="22" width="12" height="4" rx="2" fill="#4777df" opacity="0.3" />
+          </g>}
+          {active === 3 && <g transform="translate(320 115)">
+            <rect x="-40" y="-55" width="80" height="110" rx="16" fill={paint("dark")} />
+            <rect x="-34" y="-49" width="68" height="98" rx="12" fill={paint("white")} />
+            <rect x="-26" y="-38" width="52" height="10" rx="5" fill="#dbe7ff" />
+            <circle cx="-16" cy="-33" r="3" fill="#4777df" />
+            <circle cx="-6" cy="-33" r="3" fill="#4777df" />
+            <circle cx="4" cy="-33" r="3" fill="#4777df" />
+            <circle cx="14" cy="-33" r="3" fill="#4777df" />
+            <rect x="-26" y="-22" width="52" height="10" rx="5" fill="#dbe7ff" />
+            <rect x="-26" y="-6" width="52" height="10" rx="5" fill={paint("blue")} />
+            <rect x="-26" y="10" width="52" height="10" rx="5" fill="#dbe7ff" />
+            <rect x="-26" y="26" width="52" height="10" rx="5" fill="#dbe7ff" />
+            <rect x="-20" y="42" width="40" height="14" rx="7" fill={paint("blue")} />
+            <rect x="45" y="-50" width="30" height="40" rx="6" fill={paint("white")} stroke="#c3d2ff" strokeWidth="2" />
+            <rect x="49" y="-44" width="22" height="4" rx="2" fill="#a0b7de" />
+            <rect x="49" y="-36" width="16" height="4" rx="2" fill="#c6d3e8" />
+            <rect x="49" y="-28" width="20" height="4" rx="2" fill="#c6d3e8" />
+            <rect x="49" y="-18" width="22" height="10" rx="5" fill="#dbe7ff" stroke="#4777df" strokeWidth="1.5" />
+          </g>}
+        </svg>
+        <div style={{ display: "flex", justifyContent: "space-between", padding: "0 10% 14px", fontSize: 13, gap: 12 }}><span>ลูกค้า</span><span>ร้านค้าและระบบ</span></div>
       </div>
-
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", alignItems: "center" }}>
-        <button type="button" style={btn} disabled={active === 0} onClick={() => go(active - 1)} aria-label="ย้อนกลับ" title="ย้อนกลับ"><Icon icon="chevron-left" size={16} /></button>
-        <button type="button" style={btn} disabled={active === steps.length - 1} onClick={() => go(active + 1)} aria-label="ถัดไป" title="ถัดไป"><Icon icon="chevron-right" size={16} /></button>
+      <div role="group" aria-label="เลือกขั้นตอนบนเส้นทางลูกค้า" style={{ position: "relative", display: "grid", gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))`, gap: 0 }}>
+        <div aria-hidden="true" style={{ position: "absolute", top: 15, height: 2, left: `${50 / steps.length}%`, right: `${50 / steps.length}%`, background: "rgba(127,127,127,.25)" }} />
+        <div aria-hidden="true" style={{ position: "absolute", top: 15, height: 2, left: `${50 / steps.length}%`, width: `${(100 - 100 / steps.length) * active / (steps.length - 1)}%`, background: "#4777df" }} />
+        {steps.map((item, i) => <button key={item.label} type="button" onClick={() => setActive(i)} aria-pressed={active === i} aria-controls={`${id}-detail`} aria-label={`ขั้นตอนที่ ${i + 1}: ${item.label}`} style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 8, width: "100%", minWidth: 0, minHeight: 70, padding: "0 4px 6px", border: "none", borderRadius: 8, background: "transparent", color: "inherit", font: "inherit", fontSize: 13, lineHeight: 1.5, cursor: "pointer" }}>
+          <span aria-hidden="true" style={{ display: "grid", placeItems: "center", width: 32, height: 32, borderRadius: "50%", background: i <= active ? "#3264d5" : "#717b8e", color: "#fff", fontWeight: 700, boxShadow: active === i ? "0 0 0 4px rgba(71,119,223,.18)" : "none" }}>{i + 1}</span>
+          <span style={{ fontWeight: active === i ? 700 : 400 }}>{item.label}</span>
+        </button>)}
       </div>
-    </div>
+      <div id={`${id}-detail`} aria-live="polite" aria-atomic="true" style={{ display: "grid", gap: 12 }}>
+        <div style={{ textAlign: "center", fontWeight: 700, fontSize: 18, lineHeight: 1.6 }}>{step.title}</div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 12 }}>
+          <div style={{ padding: 14, borderRadius: 12, background: "rgba(47,107,255,.07)", minWidth: 0 }}><div style={{ fontSize: 12, fontWeight: 700, marginBottom: 6 }}>มุมลูกค้า</div><p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.customer}</p></div>
+          <div style={{ padding: 14, borderRadius: 12, background: "rgba(127,127,127,.07)", minWidth: 0 }}><div style={{ fontSize: 12, fontWeight: 700, marginBottom: 6 }}>ร้านค้าและระบบ</div><p style={{ margin: 0, fontSize: 15, lineHeight: 1.7 }}>{step.merchant}</p></div>
+        </div>
+        {step.note && <p style={{ margin: 0, padding: "10px 14px", borderRadius: 10, background: "rgba(217,119,6,.09)", fontSize: 13, lineHeight: 1.7 }}><strong>ข้อควรทราบ: </strong>{step.note}</p>}
+      </div>
+      <div style={{ display: "flex", gap: 10, justifyContent: "center", alignItems: "center" }}>
+        <button type="button" style={btn} disabled={active === 0} onClick={() => setActive((value) => Math.max(0, value - 1))} aria-label="ย้อนกลับ" title="ย้อนกลับ"><Icon icon="chevron-left" size={16} /></button>
+        <span aria-hidden="true" style={{ fontSize: 12, opacity: .7 }}>{active + 1} / {steps.length}</span>
+        <button type="button" style={btn} disabled={active === steps.length - 1} onClick={() => setActive((value) => Math.min(steps.length - 1, value + 1))} aria-label="ถัดไป" title="ถัดไป"><Icon icon="chevron-right" size={16} /></button>
+      </div>
+    </section>
   );
 };
 
