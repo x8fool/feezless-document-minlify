@@ -7,7 +7,10 @@ keywords:
   - "การชำระเงินต่อคำขอ"
   - "การชำระเงินสำหรับ API"
   - "การชำระค่าบริการดิจิทัล"
-icon: "💳"
+icon:
+  name: "paywall"
+  style: "regular"
+  library: "tabler"
 ---
 
 โปรโตคอลชำระเงินต่อคำขอ (True Pay-Per-Request Protocol) ช่วยให้คุณคิดค่าบริการแยกตามคำขอ API หรือการเรียกใช้บริการดิจิทัล แทนการบังคับให้ลูกค้าสมัครสมาชิกแบบเหมาจ่าย เมื่อได้รับคำขอ ระบบจะตรวจสอบเงื่อนไขการชำระเงินก่อนเปิดให้เข้าถึงผลลัพธ์หรือบริการดิจิทัล
@@ -87,66 +90,77 @@ export const PayPerRequestFlowVisual = () => {
   const [active, setActive] = useState(0);
   const uid = useId().replace(/:/g, "");
   const id = `request-story-${uid}`;
-  const paint = (name) => `url(#${id}-${name})`;
+  const panels = [
+    { kind: "request", screen: "API / Service", actor: "ผู้ใช้บริการ" },
+    { kind: "payment", screen: "Payment", actor: "ผู้ใช้บริการ" },
+    { kind: "system", screen: "ผลลัพธ์บริการ", actor: "ผู้ให้บริการ" },
+  ];
   const step = steps[active];
   const btn = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 44, height: 44, padding: 0, borderRadius: 10, border: "1px solid rgba(127,127,127,.3)", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
   return (
-    <section className="not-prose request-story" aria-label="เส้นทางลูกค้าชำระเงินต่อคำขอ" style={{ width: "100%", minWidth: 0, border: "none", padding: 0, display: "grid", gap: 14, fontFamily: "inherit", background: "#ffffff", color: "#1e293b", colorScheme: "light", borderRadius: 16 }}>
+    <section className="not-prose request-story" aria-label="เส้นทางลูกค้าชำระเงินต่อคำขอ" style={{ width: "100%", minWidth: 0, border: "none", padding: 0, display: "grid", gap: 14, background: "#ffffff", color: "#1e293b", colorScheme: "light", borderRadius: 16, fontFamily: "inherit" }}>
       <style>{`.request-story button:focus-visible { outline: 2px solid #2f6bff; outline-offset: 3px; } .request-story button:disabled { opacity: .35; cursor: default; } .request-story button:not(:disabled):hover { background: rgba(47,107,255,.08) !important; }`}</style>
-      <div style={{ background: "linear-gradient(135deg, #ffffff 0%, #eef4ff 100%)", borderRadius: 16, overflow: "hidden" }}>
-        <svg viewBox="0 0 640 240" role="img" aria-label={step.scene} style={{ width: "100%", height: "auto", display: "block" }}>
-          <defs>
-            <linearGradient id={`${id}-blue`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#94b6ff" /><stop offset="1" stopColor="#2454d6" /></linearGradient>
-            <linearGradient id={`${id}-white`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#ffffff" /><stop offset="1" stopColor="#dce6fa" /></linearGradient>
-            <linearGradient id={`${id}-dark`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#525e78" /><stop offset="1" stopColor="#182139" /></linearGradient>
-            <filter id={`${id}-shadow`} x="-50%" y="-100%" width="200%" height="300%"><feGaussianBlur stdDeviation="5" /></filter>
-          </defs>
-          <ellipse cx="320" cy="210" rx="238" ry="12" fill="#293957" opacity=".12" filter={paint("shadow")} />
-          <g transform="translate(110 68)">
-            <circle cx="0" cy="0" r="25" fill={paint("white")} />
-            <path d="M-38 99V58C-38 20 38 20 38 58V99Z" fill={paint("blue")} />
-            <path d="M-24 52Q0 65 24 52" fill="none" stroke="#fff" strokeOpacity=".45" strokeWidth="4" />
-            <path d="M28 64L58 48" fill="none" stroke="#78a2fa" strokeWidth="14" strokeLinecap="round" />
-          </g>
-          <g transform="translate(530 118)">
-            <title>Feezless Platform</title>
-            <rect x="-56" y="-56" width="112" height="112" rx="26" fill={paint("white")} stroke="#c7d8f5" strokeWidth="1.5" style={{ filter: "drop-shadow(0 6px 8px rgba(47,107,255,.18))" }} />
-            <image href="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" x="-40" y="-40" width="80" height="80" preserveAspectRatio="xMidYMid meet" />
-          </g>
-          <g style={{ filter: "drop-shadow(0 0 3px rgba(71,119,223,.85)) drop-shadow(0 0 8px rgba(71,119,223,.45))" }}>
-            <path d="M177 128H225M415 128H463" fill="none" stroke="#7296e4" strokeWidth="3" strokeDasharray="5 7" />
-            <path d={active === 2 ? "M187 121L177 128L187 135M425 121L415 128L425 135" : "M215 121L225 128L215 135M453 121L463 128L453 135"} fill="none" stroke="#4777df" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-          </g>
-          {active === 0 && <g transform="translate(320 118)">
-            <rect x="-72" y="-62" width="144" height="108" rx="12" fill={paint("dark")} />
-            <rect x="-62" y="-52" width="124" height="86" rx="6" fill={paint("white")} />
-            <path d="M-72 46L-87 63Q-87 69-76 69H76Q87 69 87 63L72 46Z" fill="#a8b9d5" />
-            <path d="M-25 46H25L20 54H-20Z" fill="#768dae" />
-            <path d="M-28-28L-44-10L-28 8M28-28L44-10L28 8M8-33L-8 13" fill="none" stroke="#4777df" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-            <circle cx="61" cy="-57" r="22" fill={paint("blue")} /><path d="M50-57H72M63-66L72-57L63-48" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-          </g>}
-          {active === 1 && <g transform="translate(320 118)">
-            <path d="M-59 68V-49Q-59-65-43-65H43Q59-65 59-49V68" fill="none" stroke="#b7cae9" strokeWidth="17" strokeLinecap="round" />
-            <rect x="-68" y="-23" width="136" height="22" rx="8" fill={paint("blue")} />
-            {[-42, -12, 18, 48].map((x) => <path key={x} d={`M${x} -21L${x - 12} -3`} stroke="#dce8ff" strokeWidth="6" />)}
-            <circle cx="0" cy="38" r="26" fill={paint("white")} stroke="#8eafe5" strokeWidth="3" /><circle cx="0" cy="38" r="15" fill="none" stroke="#4777df" strokeWidth="4" />
-            <circle cx="59" cy="-59" r="22" fill={paint("blue")} /><path d="M59-71V-59L67-53" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
-          </g>}
-          {active === 2 && <g transform="translate(320 118)">
-            <rect x="-69" y="-65" width="138" height="136" rx="14" fill="#b9cff9" transform="rotate(8)" />
-            <rect x="-58" y="-70" width="138" height="136" rx="14" fill={paint("white")} />
-            <rect x="-45" y="-54" width="90" height="7" rx="3" fill="#a0b7de" />
-            <rect x="-45" y="-40" width="68" height="5" rx="2" fill="#c6d3e8" />
-            <rect x="-45" y="-10" width="90" height="56" rx="7" fill="#edf1f8" stroke="#d5ddeb" />
-            <rect x="-35" y="0" width="70" height="5" rx="2" fill="#9dafcd" />
-            <rect x="-35" y="10" width="50" height="5" rx="2" fill="#9dafcd" />
-            <rect x="-35" y="20" width="60" height="5" rx="2" fill="#9dafcd" />
-            <rect x="-35" y="30" width="40" height="5" rx="2" fill="#9dafcd" />
-            <circle cx="55" cy="-48" r="25" fill={paint("blue")} />
-            <path d="M43-48L52-39L68-57" fill="none" stroke="#fff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-          </g>}
-        </svg>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0 10% 14px", fontSize: 13, gap: 12 }}><span>ผู้ใช้บริการ</span><span style={{ fontWeight: 700, textAlign: "right" }}>Feezless Platform</span></div>
+      <div style={{ background: "#ffffff", containerType: "inline-size", minWidth: 0 }}>
+        <style>{`
+          .request-story .flow-diagram { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; margin: 0; padding: 20px 4px; list-style: none; }
+          .request-story .flow-stage { position: relative; min-width: 0; }
+          .request-story .flow-arrow { position: absolute; width: 64px; height: 64px; pointer-events: none; }
+          @container (max-width: 520px) {
+            .request-story .flow-diagram { grid-template-columns: minmax(0, 1fr); gap: 56px; }
+            .request-story .flow-stage { grid-column: 1 !important; grid-row: auto !important; }
+            .request-story .flow-arrow { width: 56px; height: 56px; left: 50% !important; right: auto !important; top: 100% !important; transform: translateX(-50%) rotate(90deg) !important; }
+            .request-story .flow-arrow-number { transform: rotate(-90deg) !important; }
+          }
+        `}</style>
+        <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8, padding: "8px 4px", fontSize: 13, fontWeight: 600 }}>
+          <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width="24" height="24" style={{ objectFit: "contain" }} />
+          <span>Feezless Platform</span>
+        </div>
+        <ol className="flow-diagram" aria-label="ภาพรวมลำดับขั้นตอน">
+          {steps.map((item, i) => {
+            const panel = panels[i];
+            const selected = active === i;
+            const reverse = Math.floor(i / 2) % 2 === 1;
+            const downward = i % 2 === 1;
+            const ink = selected ? "#1a73e8" : "#5f6368";
+            return <li key={item.label} className="flow-stage" aria-current={selected ? "step" : undefined} style={{ gridColumn: reverse ? 2 - i % 2 : i % 2 + 1, gridRow: Math.floor(i / 2) + 1 }}>
+              <div style={{ height: "100%", boxSizing: "border-box", padding: 12, border: `1px solid ${selected ? "#1a73e8" : "#dadce0"}`, borderRadius: 6, background: "#fff" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12, minWidth: 0 }}>
+                  <span aria-hidden="true" style={{ display: "grid", placeItems: "center", flexShrink: 0, width: 28, height: 28, border: `1.5px solid ${selected ? "#1a73e8" : "#202124"}`, borderRadius: "50%", background: "#fff", color: selected ? "#1a73e8" : "#202124", fontSize: 14, fontWeight: 700 }}>{i + 1}</span>
+                  <div style={{ minWidth: 0 }}><div style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.6 }}>{item.label}</div><div style={{ fontSize: 12, color: "#5f6368", lineHeight: 1.6 }}>{panel.actor}</div></div>
+                </div>
+                <svg viewBox="0 0 240 150" aria-hidden="true" style={{ width: "100%", maxWidth: 280, height: "auto", display: "block", margin: "0 auto" }}>
+                  {panel.kind === "system" ? <g>
+                    {[0, 1, 2, 3].map((row) => <g key={row} transform={`translate(20 ${16 + row * 30})`}><rect width="200" height="28" fill="#e0e0e0" stroke="#bdbdbd" /><circle cx="14" cy="14" r="4" fill={ink} /><path d="M178 7V21M184 7V21M190 7V21" stroke="#b0b0b0" strokeWidth="2" /></g>)}
+                    <rect x="55" y="57" width="130" height="37" fill="#e0e0e0" /><text x="120" y="80" textAnchor="middle" fontSize="14" fill="#3c4043" fontFamily="inherit">{panel.screen}</text>
+                  </g> : <g>
+                    <rect x="5" y="5" width="230" height="140" rx="4" fill="#fff" stroke="#bdc1c6" />
+                    <path d="M6 23H234" stroke="#dadce0" /><rect x="6" y="6" width="228" height="16" rx="3" fill="#f1f3f4" />
+                    <circle cx="14" cy="14" r="2.5" fill="#ea4335" /><circle cx="23" cy="14" r="2.5" fill="#fbbc04" /><circle cx="32" cy="14" r="2.5" fill="#34a853" />
+                    <text x="18" y="42" fill="#3c4043" fontSize="12" fontFamily="inherit">{panel.screen}</text><path d="M6 50H234" stroke="#e8eaed" />
+                    {panel.kind === "request" && <g>
+                      <rect x="18" y="60" width="204" height="70" rx="4" fill="#f1f3f4" stroke="#e8eaed" />
+                      <path d="M40 78L28 92L40 106M56 78L68 92L56 106M53 73L43 111" fill="none" stroke="#9aa0a6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <rect x="86" y="76" width="116" height="5" fill="#9aa0a6" /><rect x="86" y="90" width="94" height="4" fill="#dadce0" /><rect x="86" y="104" width="72" height="4" fill="#dadce0" />
+                    </g>}
+                    {panel.kind === "payment" && <g>
+                      {[0, 1, 2].map((row) => <g key={row} transform={`translate(18 ${61 + row * 20})`}><rect width="14" height="10" rx="2" fill="#e8eaed" /><rect x="25" y="2" width={142 - row * 22} height="5" fill="#dadce0" /><path d="M0 16H202" stroke="#f1f3f4" /></g>)}
+                      <circle cx="33" cy="126" r="9" fill="none" stroke="#9aa0a6" strokeWidth="1.5" /><path d="M33 120V126L37 129" fill="none" stroke="#9aa0a6" strokeWidth="1.5" /><rect x="164" y="119" width="56" height="15" rx="2" fill="#1a73e8" />
+                    </g>}
+                  </g>}
+                </svg>
+              </div>
+              {i < steps.length - 1 && <div className="flow-arrow" aria-hidden="true" style={downward ? { left: "50%", top: "100%", transform: "translateX(-50%) rotate(90deg)" } : reverse ? { right: "100%", top: "50%", transform: "translateY(-50%) rotate(180deg)" } : { left: "100%", top: "50%", transform: "translateY(-50%)" }}>
+                <svg viewBox="0 0 64 64" style={{ width: "100%", height: "100%", display: "block" }}>
+                  <path d="M6 32H21M43 32H57M50 26L57 32L50 38" fill="none" stroke={active === i || active === i + 1 ? "#1a73e8" : "#3c4043"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="32" cy="32" r="11" fill="#fff" stroke="#3c4043" strokeWidth="1.2" />
+                  <g className="flow-arrow-number" style={{ transformOrigin: "32px 32px", transform: downward ? "rotate(-90deg)" : reverse ? "rotate(-180deg)" : "none" }}><text x="32" y="36.5" textAnchor="middle" fontFamily="inherit" fontSize="13" fill="#202124">{i + 2}</text></g>
+                </svg>
+              </div>}
+            </li>;
+          })}
+        </ol>
+        <p style={{ margin: "4px 4px 14px", color: "#5f6368", fontSize: 12, lineHeight: 1.7 }}>ภาพลำดับขั้นตอน ไม่ใช่โครงสร้างระบบ หน้าจอ หรือสถานะธุรกรรมจริง</p>
       </div>
       <div role="group" aria-label="เลือกขั้นตอนบนเส้นทางลูกค้า" style={{ position: "relative", display: "grid", gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))`, gap: 0 }}>
         <div aria-hidden="true" style={{ position: "absolute", top: 15, height: 2, left: `${50 / steps.length}%`, right: `${50 / steps.length}%`, background: "rgba(127,127,127,.25)" }} />
