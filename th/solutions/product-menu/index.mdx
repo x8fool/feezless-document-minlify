@@ -35,6 +35,10 @@ icon: "🛍️"
 2. ลูกค้าเลือกดูเมนู เพิ่มสินค้าลงตะกร้า และชำระเงินในหน้าเดียวกัน
 3. ระบบตัดสต็อกอัตโนมัติเมื่อการขายเสร็จสมบูรณ์
 
+กดแต่ละขั้นตอนเพื่อดูลำดับการทำงานของเมนูสินค้า
+
+<ProductMenuFlowVisual />
+
 > **หมายเหตุ:** การสร้างลิงก์ชำระเงินหรือการดำเนินการจนจบขั้นตอนชำระเงินเพียงอย่างเดียวไม่ใช่การยืนยันว่าชำระเงินแล้ว ตรวจสอบสถานะการชำระเงินที่ยืนยันแล้วก่อนจัดการส่งมอบตามคำสั่งซื้อ
 
 ## สิ่งที่ต้องเตรียม
@@ -74,6 +78,112 @@ icon: "🛍️"
 เมนูสินค้าออกแบบมาสำหรับการขายออนไลน์ หากคุณรับคำสั่งซื้อหน้าร้านด้วย สามารถใช้ [ระบบขายหน้าร้าน (POS)](/th/solutions/pos/index) บนโทรศัพท์หรือแท็บเล็ตเพื่อรับชำระเงินกับลูกค้าที่หน้าร้าน
 
 หากมีคำถามเกี่ยวกับการตั้งค่าและค่าบริการ ติดต่อ [Feezless](https://makeform.ai/e/iY978F0d?__mf_modal_embed=1) พร้อมระบุลักษณะการใช้งาน
+
+export const ProductMenuFlowVisual = () => {
+  const steps = [
+    { label: "สร้างเมนู", detail: "สร้างแค็ตตาล็อกสินค้าหรือเมนู พร้อมระบุชื่อ รายละเอียด และราคา" },
+    { label: "เลือกและชำระ", detail: "ลูกค้าเลือกดูเมนู เพิ่มสินค้าลงตะกร้า และชำระเงินในหน้าเดียวกัน", note: "ตรวจสอบสถานะการชำระเงินที่ยืนยันแล้วก่อนจัดการส่งมอบตามคำสั่งซื้อ" },
+    { label: "ตัดสต็อก", detail: "ระบบตัดสต็อกอัตโนมัติเมื่อการขายเสร็จสมบูรณ์" },
+  ];
+  const centers = [80, 320, 560];
+  const [active, setActive] = useState(0);
+  const go = (i) => setActive(i);
+  const btn = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 40, height: 36, padding: 0, lineHeight: 0, borderRadius: 8, border: "1px solid rgba(127,127,127,.35)", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
+  const slot = (i) => ({
+    transform: `translate(${centers[i]}px, ${i === active ? 118 : 128}px) scale(${i === active ? 1.08 : 0.92})`,
+    opacity: i === active ? 1 : 0.5,
+    transition: "transform .45s ease, opacity .45s ease",
+  });
+  const shadow = <ellipse cx="0" cy="62" rx="50" ry="7" fill="#0b1a4a" opacity=".22" filter="url(#pmf-blur)" />;
+  return (
+    <div className="not-prose" style={{ position: "relative", width: "100%", minWidth: 0, boxSizing: "border-box", border: "none", borderRadius: 16, padding: 0, display: "grid", gap: 12, color: "inherit" }}>
+      <svg viewBox="0 0 640 340" style={{ width: "100%", display: "block", borderRadius: 12, background: "rgba(47,107,255,.06)" }} role="img" aria-label="ลำดับการทำงานของเมนูสินค้า 3 ขั้นตอน">
+        <defs>
+          <linearGradient id="pmf-blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#6b97ff" /><stop offset="1" stopColor="#1d4ed8" /></linearGradient>
+          <linearGradient id="pmf-white" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff" /><stop offset="1" stopColor="#e6edff" /></linearGradient>
+          <linearGradient id="pmf-satin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#eef3ff" /><stop offset="1" stopColor="#c9d7ff" /></linearGradient>
+          <linearGradient id="pmf-bezel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#3a4670" /><stop offset="1" stopColor="#0f1530" /></linearGradient>
+          <filter id="pmf-blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" /></filter>
+        </defs>
+
+        <line x1="80" y1="232" x2="560" y2="232" stroke="currentColor" strokeOpacity=".18" strokeWidth="4" strokeLinecap="round" />
+        <line x1="80" y1="232" x2={centers[active]} y2="232" stroke="#2f6bff" strokeWidth="4" strokeLinecap="round" style={{ transition: "all .45s ease" }} />
+
+        <g style={slot(0)}>
+          {shadow}
+          <rect x="-46" y="-50" width="80" height="100" rx="12" fill="url(#pmf-satin)" transform="rotate(-10)" opacity=".8" />
+          <rect x="-42" y="-54" width="80" height="100" rx="12" fill="url(#pmf-satin)" transform="rotate(-4)" />
+          <rect x="-38" y="-56" width="80" height="100" rx="12" fill="url(#pmf-white)" stroke="#c3d2ff" />
+          <rect x="-30" y="-46" width="20" height="20" rx="6" fill="url(#pmf-blue)" />
+          <rect x="-4" y="-43" width="36" height="5" rx="2.5" fill="#c7d3f5" />
+          <rect x="-4" y="-33" width="20" height="5" rx="2.5" fill="#2f6bff" opacity=".85" />
+          <rect x="-30" y="-16" width="20" height="20" rx="6" fill="url(#pmf-blue)" />
+          <rect x="-4" y="-13" width="36" height="5" rx="2.5" fill="#c7d3f5" />
+          <rect x="-4" y="-3" width="20" height="5" rx="2.5" fill="#2f6bff" opacity=".85" />
+          <rect x="-30" y="14" width="20" height="20" rx="6" fill="url(#pmf-blue)" />
+          <rect x="-4" y="17" width="36" height="5" rx="2.5" fill="#c7d3f5" />
+          <rect x="-4" y="27" width="20" height="5" rx="2.5" fill="#2f6bff" opacity=".85" />
+        </g>
+
+        <g style={slot(1)}>
+          {shadow}
+          <path d="M-14 40 L14 40 L22 58 L-22 58 Z" fill="url(#pmf-bezel)" />
+          <rect x="-60" y="-50" width="120" height="90" rx="12" fill="url(#pmf-bezel)" />
+          <rect x="-52" y="-42" width="104" height="74" rx="6" fill="url(#pmf-white)" />
+          <rect x="-44" y="-34" width="44" height="6" rx="3" fill="#c7d3f5" />
+          <rect x="22" y="-34" width="22" height="6" rx="3" fill="#9fb5ee" />
+          <rect x="-44" y="-20" width="44" height="6" rx="3" fill="#c7d3f5" />
+          <rect x="22" y="-20" width="22" height="6" rx="3" fill="#9fb5ee" />
+          <rect x="-44" y="-6" width="44" height="6" rx="3" fill="#c7d3f5" />
+          <rect x="22" y="-6" width="22" height="6" rx="3" fill="#9fb5ee" />
+          <rect x="-44" y="10" width="88" height="14" rx="7" fill="url(#pmf-blue)" />
+          <g transform="translate(48, -38)">
+            <rect x="-8" y="0" width="16" height="14" rx="4" fill="#2f6bff" />
+            <text x="0" y="10" textAnchor="middle" fontSize="9" fontWeight="700" fill="#ffffff">+</text>
+          </g>
+        </g>
+
+        <g style={slot(2)}>
+          {shadow}
+          <path d="M0 -22 L40 -2 L0 18 L-40 -2 Z" fill="#f4d7a8" />
+          <path d="M-40 -2 L0 18 L0 58 L-40 38 Z" fill="#dcb175" />
+          <path d="M0 18 L40 -2 L40 38 L0 58 Z" fill="#c4935a" />
+          <path d="M-20 -12 L20 8" stroke="#c99a5e" strokeWidth="5" />
+          <g transform="translate(-34 -52) scale(.45)" opacity=".9">
+            <path d="M0 -22 L40 -2 L0 18 L-40 -2 Z" fill="#f4d7a8" />
+            <path d="M-40 -2 L0 18 L0 58 L-40 38 Z" fill="#dcb175" />
+            <path d="M0 18 L40 -2 L40 38 L0 58 Z" fill="#c4935a" />
+          </g>
+          <circle cx="36" cy="-42" r="14" fill="url(#pmf-blue)" />
+          <text x="36" y="-37" textAnchor="middle" fontSize="13" fontWeight="700" fill="#ffffff">−1</text>
+        </g>
+
+        <circle r="9" fill="#2f6bff" opacity=".25" style={{ transform: `translate(${centers[active]}px, 232px)`, transition: "transform .45s ease" }} />
+        {steps.map((s, i) => (
+          <g key={s.label} onClick={() => go(i)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(i); } }} role="button" tabIndex={0} aria-label={`ขั้นตอนที่ ${i + 1}: ${s.label}`} aria-pressed={i === active} style={{ cursor: "pointer", outline: "none" }}>
+            <rect x={centers[i] - 70} y="212" width="140" height="66" fill="transparent" />
+            <circle cx={centers[i]} cy="232" r="11" fill={i <= active ? "#2f6bff" : "rgba(127,127,127,.35)"} />
+            <text x={centers[i]} y="236" textAnchor="middle" fontSize="11" fontWeight="700" fill="#ffffff">{i + 1}</text>
+            <text x={centers[i]} y="268" textAnchor="middle" fontSize="13" fontWeight={i === active ? 700 : 400} fill="currentColor">{s.label}</text>
+          </g>
+        ))}
+
+        <line x1="40" y1="288" x2="600" y2="288" stroke="currentColor" strokeOpacity=".1" />
+        <text x="320" y="310" textAnchor="middle" fontSize="14" fill="currentColor">{steps[active].detail}</text>
+        {steps[active].note ? <text x="320" y="330" textAnchor="middle" fontSize="12" fill="#d97706">⚠ {steps[active].note}</text> : null}
+      </svg>
+
+      <div aria-live="polite" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap" }}>
+        {steps[active].detail}{steps[active].note ? ` ${steps[active].note}` : ""}
+      </div>
+
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", alignItems: "center" }}>
+        <button type="button" style={btn} disabled={active === 0} onClick={() => go(active - 1)} aria-label="ย้อนกลับ" title="ย้อนกลับ"><Icon icon="chevron-left" size={16} /></button>
+        <button type="button" style={btn} disabled={active === steps.length - 1} onClick={() => go(active + 1)} aria-label="ถัดไป" title="ถัดไป"><Icon icon="chevron-right" size={16} /></button>
+      </div>
+    </div>
+  );
+};
 
 export const PricingCalculator = () => {
   const [amount, setAmount] = useState("1000");
