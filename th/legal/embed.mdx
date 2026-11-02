@@ -1,0 +1,304 @@
+---
+title: "ฝังเอกสารใน Overlay ขอความยินยอม"
+sidebarTitle: "ฝังใน Overlay"
+description: "แสดงข้อกำหนดการใช้งานและนโยบายความเป็นส่วนตัวใน Overlay เพื่อขอความยินยอมก่อนผู้ใช้ทำรายการในแต่ละ Use case"
+keywords:
+  - "consent overlay"
+  - "embed"
+  - "PDPA"
+  - "Terms of Use"
+  - "Privacy Policy"
+---
+
+ใช้หน้านี้เพื่อแสดง [ข้อกำหนดการใช้งาน](/th/legal/terms-of-use) และ [นโยบายความเป็นส่วนตัว](/th/legal/privacy-policy) ใน Overlay ก่อนผู้ใช้กดดำเนินการ เช่น ชำระเงิน สมัครสมาชิก หรือเรียกใช้ API แบบคิดค่าบริการ
+
+## ตัวอย่าง Overlay
+
+เลือก Use case แล้วลองกดปุ่ม ปุ่มดำเนินการจะเปิดใช้งานเมื่อผู้ใช้ยอมรับเอกสารที่จำเป็นครบ และจะแสดงตัวอย่างบันทึกความยินยอมที่ควรเก็บ
+
+<ConsentOverlayDemo />
+
+## เอกสารที่ต้องแสดงในแต่ละ Use case
+
+ตารางนี้เป็นตัวอย่างการจับคู่ ให้ฝ่ายกฎหมายยืนยันก่อนใช้งานจริง
+
+| Use case | ช่วงที่แสดง Overlay | ข้อกำหนดการใช้งาน | นโยบายความเป็นส่วนตัว | ความยินยอมเพิ่มเติม (ไม่บังคับ) |
+| --- | --- | --- | --- | --- |
+| [ชำระเงินต่อคำขอ](/th/solutions/pay-per-request/index) | ก่อนเปิดใช้ API key หรือชำระคำขอแรก | บังคับ | บังคับ | ไม่มี |
+| [ลิงก์ชำระเงิน](/th/solutions/checkout/index) | ก่อนกดชำระเงิน | บังคับ | บังคับ | รับข่าวสารการตลาด |
+| [เมนูสินค้า](/th/solutions/product-menu/index) | ก่อนยืนยันตะกร้าและชำระเงิน | บังคับ | บังคับ | รับข่าวสารการตลาด |
+| [ระบบขายหน้าร้าน](/th/solutions/pos/index) | ก่อนลงทะเบียนอุปกรณ์ร้านค้า | บังคับ | บังคับ | ไม่มี |
+| [ระบบสมาชิก](/th/solutions/membership/index) | ก่อนตั้งรหัส PIN | บังคับ | บังคับ | รับข่าวสารการตลาด |
+| [ใบแจ้งหนี้และการชำระบิล](/th/solutions/invoice-bill-payment/index) | ก่อนกดชำระบิล | บังคับ | บังคับ | ไม่มี |
+
+## URL สำหรับฝัง
+
+| เอกสาร | รหัสเอกสาร | URL |
+| --- | --- | --- |
+| ข้อกำหนดการใช้งาน | `terms-of-use` | `https://knownledge.feezless.cloud/th/legal/terms-of-use` |
+| นโยบายความเป็นส่วนตัว | `privacy-policy` | `https://knownledge.feezless.cloud/th/legal/privacy-policy` |
+
+<Warning>
+  โดยค่าเริ่มต้น เว็บไซต์เอกสารนี้ไม่อนุญาตให้โดเมนอื่นฝังหน้าผ่าน `<iframe>` (ส่ง `Content-Security-Policy: frame-ancestors` ที่อนุญาตเฉพาะโดเมนของตัวเอง) ก่อนใช้ iframe ในแอปของคุณ ต้องส่งรายการโดเมนที่จะฝังไปขออนุญาตจาก Mintlify ที่ `support@mintlify.com` ระหว่างรอ ให้ใช้แบบเปิดลิงก์ในแท็บใหม่แทน ดูรายละเอียดที่ [Docs site refuses to load in an iframe](https://mintlify.com/docs/help-center/embed-docs-site-in-iframe)
+</Warning>
+
+## ติดตั้ง Overlay ในแอปของคุณ
+
+<Steps>
+  <Step title="แสดง Overlay ก่อน action">
+    ดักการกดปุ่มที่ต้องขอความยินยอม แล้วแสดง Overlay พร้อมเอกสารที่ Use case นั้นกำหนด
+
+    ```html consent-overlay.html
+    <div id="consent-overlay" role="dialog" aria-modal="true" aria-labelledby="consent-title" hidden>
+      <h2 id="consent-title">ก่อนดำเนินการต่อ</h2>
+
+      <!-- ใช้ได้หลังจากโดเมนของคุณได้รับอนุญาตให้ฝัง iframe -->
+      <iframe
+        src="https://knownledge.feezless.cloud/th/legal/terms-of-use"
+        title="ข้อกำหนดการใช้งาน Feezless"
+        sandbox="allow-scripts allow-same-origin allow-popups"
+        referrerpolicy="strict-origin-when-cross-origin"
+        loading="lazy"
+        style="width:100%;height:320px;border:0"></iframe>
+
+      <label><input type="checkbox" name="terms-of-use" required />
+        ฉันยอมรับ <a href="https://knownledge.feezless.cloud/th/legal/terms-of-use" target="_blank" rel="noopener noreferrer">ข้อกำหนดการใช้งาน</a></label>
+      <label><input type="checkbox" name="privacy-policy" required />
+        ฉันรับทราบ <a href="https://knownledge.feezless.cloud/th/legal/privacy-policy" target="_blank" rel="noopener noreferrer">นโยบายความเป็นส่วนตัว</a></label>
+      <label><input type="checkbox" name="marketing" />
+        ยินยอมรับข่าวสารการตลาด (ไม่บังคับ)</label>
+
+      <button type="button" id="consent-accept" disabled>ยอมรับและดำเนินการต่อ</button>
+      <button type="button" id="consent-cancel">ยกเลิก</button>
+    </div>
+    ```
+  </Step>
+
+  <Step title="ส่งบันทึกความยินยอมไปที่เซิร์ฟเวอร์ของคุณ">
+    เมื่อผู้ใช้ยอมรับครบ ให้ส่งบันทึกไปที่ backend ของคุณเอง ห้ามส่ง secret key หรือข้อมูลรับรองใด ๆ จากฝั่งเบราว์เซอร์
+
+    ```js consent-overlay.js
+    const REQUIRED = ['terms-of-use', 'privacy-policy'];
+    const DOC_VERSIONS = { 'terms-of-use': '1.0.0-draft', 'privacy-policy': '1.0.0-draft' };
+
+    function requireConsent(scenario, action) {
+      const overlay = document.getElementById('consent-overlay');
+      const accept = document.getElementById('consent-accept');
+      const boxes = overlay.querySelectorAll('input[type="checkbox"]');
+
+      const sync = () => {
+        accept.disabled = !REQUIRED.every(
+          (name) => overlay.querySelector(`input[name="${name}"]`).checked
+        );
+      };
+      boxes.forEach((box) => box.addEventListener('change', sync));
+      sync();
+      overlay.hidden = false;
+
+      accept.onclick = async () => {
+        const accepted = [...boxes].filter((b) => b.checked).map((b) => b.name);
+        // endpoint นี้อยู่บนเซิร์ฟเวอร์ของคุณ ไม่ใช่ API ของ Feezless
+        const res = await fetch('https://your-app.example.com/consents', {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            scenario,
+            documents: accepted
+              .filter((id) => DOC_VERSIONS[id])
+              .map((id) => ({ id, version: DOC_VERSIONS[id] })),
+            marketing_opt_in: accepted.includes('marketing'),
+            locale: 'th',
+          }),
+        });
+        if (!res.ok) {
+          alert('บันทึกความยินยอมไม่สำเร็จ กรุณาลองใหม่');
+          return;
+        }
+        overlay.hidden = true;
+        action();
+      };
+
+      document.getElementById('consent-cancel').onclick = () => {
+        overlay.hidden = true;
+      };
+    }
+
+    // ตัวอย่าง: ขอความยินยอมก่อนตั้งรหัส PIN สมาชิก
+    document.getElementById('set-pin').addEventListener('click', () =>
+      requireConsent('membership', () => startPinSetup())
+    );
+    ```
+  </Step>
+
+  <Step title="ตรวจสอบและบันทึกฝั่งเซิร์ฟเวอร์">
+    เซิร์ฟเวอร์ต้องเป็นผู้กำหนดเวลา (`accepted_at`) และผูกบันทึกกับผู้ใช้ที่ยืนยันตัวตนแล้ว ห้ามเชื่อค่าดังกล่าวจากเบราว์เซอร์
+
+    ```json ตัวอย่างบันทึกความยินยอม
+    {
+      "subject_id": "usr_8f3a…",
+      "scenario": "membership",
+      "documents": [
+        { "id": "terms-of-use", "version": "1.0.0-draft" },
+        { "id": "privacy-policy", "version": "1.0.0-draft" }
+      ],
+      "marketing_opt_in": false,
+      "locale": "th",
+      "accepted_at": "2026-11-02T12:00:00Z",
+      "ip_hash": "sha256:…"
+    }
+    ```
+
+    - เก็บเฉพาะข้อมูลที่จำเป็น และ hash หรือ mask ค่าอย่าง IP address ก่อนบันทึก
+    - ห้าม log เนื้อหา PIN ข้อมูลบัตร หรือข้อมูลส่วนบุคคลแบบเต็มลงในบันทึกความยินยอม
+    - ให้ผู้ใช้ถอนความยินยอมได้ และเก็บประวัติการถอนไว้คู่กัน
+  </Step>
+</Steps>
+
+## เมื่อเอกสารเปลี่ยนเวอร์ชัน
+
+1. ปรับเลขเวอร์ชันในตารางท้ายหัวเรื่องของเอกสาร และใน `DOC_VERSIONS` ของแอป
+2. เมื่อผู้ใช้ทำ action ครั้งถัดไป ให้เทียบเวอร์ชันที่บันทึกไว้กับเวอร์ชันปัจจุบัน หากไม่ตรงกัน ให้แสดง Overlay อีกครั้ง
+3. การแก้คำผิดหรือจัดรูปแบบที่ไม่เปลี่ยนสาระ ไม่จำเป็นต้องขอความยินยอมใหม่ ให้ฝ่ายกฎหมายเป็นผู้ตัดสิน
+
+export const ConsentOverlayDemo = () => {
+  const SCENARIOS = [
+    { id: "pay-per-request", label: "ชำระเงินต่อคำขอ", action: "เปิดใช้ API key", marketing: false },
+    { id: "checkout", label: "ลิงก์ชำระเงิน", action: "ชำระเงิน", marketing: true },
+    { id: "product-menu", label: "เมนูสินค้า", action: "ยืนยันตะกร้าและชำระเงิน", marketing: true },
+    { id: "pos", label: "ระบบขายหน้าร้าน", action: "ลงทะเบียนอุปกรณ์", marketing: false },
+    { id: "membership", label: "ระบบสมาชิก", action: "ตั้งรหัส PIN", marketing: true },
+    { id: "invoice", label: "ใบแจ้งหนี้และการชำระบิล", action: "ชำระบิล", marketing: false },
+  ];
+  const DOCS = [
+    { id: "terms-of-use", label: "ข้อกำหนดการใช้งาน", verb: "ฉันยอมรับ", href: "/th/legal/terms-of-use", version: "1.0.0-draft" },
+    { id: "privacy-policy", label: "นโยบายความเป็นส่วนตัว", verb: "ฉันรับทราบ", href: "/th/legal/privacy-policy", version: "1.0.0-draft" },
+  ];
+
+  const [scenarioId, setScenarioId] = useState("membership");
+  const [open, setOpen] = useState(false);
+  const [checked, setChecked] = useState({});
+  const [record, setRecord] = useState(null);
+
+  const scenario = SCENARIOS.find((s) => s.id === scenarioId);
+  const ready = DOCS.every((d) => checked[d.id]);
+
+  const reset = (id) => {
+    setScenarioId(id);
+    setOpen(false);
+    setChecked({});
+    setRecord(null);
+  };
+
+  const accept = () => {
+    setRecord({
+      scenario: scenario.id,
+      documents: DOCS.map((d) => ({ id: d.id, version: d.version })),
+      marketing_opt_in: Boolean(scenario.marketing && checked.marketing),
+      locale: "th",
+      accepted_at: "<กำหนดโดยเซิร์ฟเวอร์>",
+    });
+    setOpen(false);
+  };
+
+  return (
+    <div className="not-prose rounded-xl border border-zinc-200 dark:border-zinc-800 p-4">
+      <div className="flex flex-wrap gap-2 mb-4">
+        {SCENARIOS.map((s) => (
+          <button
+            key={s.id}
+            type="button"
+            onClick={() => reset(s.id)}
+            className={
+              "px-3 py-1.5 rounded-full text-sm border " +
+              (s.id === scenarioId
+                ? "bg-zinc-900 text-white border-zinc-900 dark:bg-white dark:text-zinc-900 dark:border-white"
+                : "border-zinc-300 text-zinc-700 dark:border-zinc-700 dark:text-zinc-300")
+            }
+          >
+            {s.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="relative min-h-[300px] rounded-lg bg-zinc-50 dark:bg-zinc-900 p-6 flex flex-col items-center justify-center gap-3">
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">หน้าจอแอปของคุณ ({scenario.label})</p>
+        <button
+          type="button"
+          onClick={() => { setChecked({}); setRecord(null); setOpen(true); }}
+          className="px-5 py-2.5 rounded-lg bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-medium"
+        >
+          {scenario.action}
+        </button>
+
+        {record && (
+          <div className="w-full mt-2">
+            <p className="text-sm font-medium text-green-700 dark:text-green-400 mb-1">ดำเนินการต่อได้ บันทึกความยินยอมที่ควรส่งไปเซิร์ฟเวอร์:</p>
+            <pre className="text-xs bg-zinc-900 text-zinc-100 rounded-md p-3 overflow-x-auto">{JSON.stringify(record, null, 2)}</pre>
+          </div>
+        )}
+
+        {open && (
+          <div className="absolute inset-0 rounded-lg bg-black/50 flex items-center justify-center p-4">
+            <div role="dialog" aria-modal="true" className="w-full max-w-md rounded-xl bg-white dark:bg-zinc-950 p-5 shadow-xl">
+              <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-1">ก่อน{scenario.action}</h3>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">โปรดอ่านและยอมรับเอกสารต่อไปนี้</p>
+
+              <div className="flex flex-col gap-3 mb-5">
+                {DOCS.map((d) => (
+                  <label key={d.id} className="flex items-start gap-2 text-sm text-zinc-800 dark:text-zinc-200">
+                    <input
+                      type="checkbox"
+                      className="mt-1"
+                      checked={Boolean(checked[d.id])}
+                      onChange={(e) => setChecked({ ...checked, [d.id]: e.target.checked })}
+                    />
+                    <span>
+                      {d.verb}{" "}
+                      <a href={d.href} target="_blank" rel="noopener noreferrer" className="underline">{d.label}</a>{" "}
+                      <span className="text-zinc-400">(v{d.version})</span>
+                    </span>
+                  </label>
+                ))}
+                {scenario.marketing && (
+                  <label className="flex items-start gap-2 text-sm text-zinc-800 dark:text-zinc-200">
+                    <input
+                      type="checkbox"
+                      className="mt-1"
+                      checked={Boolean(checked.marketing)}
+                      onChange={(e) => setChecked({ ...checked, marketing: e.target.checked })}
+                    />
+                    <span>ยินยอมรับข่าวสารการตลาด (ไม่บังคับ)</span>
+                  </label>
+                )}
+              </div>
+
+              <div className="flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="px-4 py-2 rounded-lg text-sm border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300"
+                >
+                  ยกเลิก
+                </button>
+                <button
+                  type="button"
+                  disabled={!ready}
+                  onClick={accept}
+                  className={
+                    "px-4 py-2 rounded-lg text-sm font-medium " +
+                    (ready
+                      ? "bg-zinc-900 text-white dark:bg-white dark:text-zinc-900"
+                      : "bg-zinc-200 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-600 cursor-not-allowed")
+                  }
+                >
+                  ยอมรับและดำเนินการต่อ
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
