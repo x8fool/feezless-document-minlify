@@ -103,10 +103,10 @@ export const ProductMenuFlowVisual = () => {
   ];
   const step = steps[active];
   const currentConnector = Math.max(0, active - 1);
-  const btn = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 44, height: 44, padding: 0, borderRadius: 10, border: "1.5px solid #cbd5e1", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
+  const btn = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 44, height: 44, padding: 0, borderRadius: 10, border: "1.5px solid var(--fv-line)", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
   const actorIcon = (pov, size = 24) => (
     <span aria-hidden="true" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: size, height: size, flexShrink: 0 }}>
-      {pov === "system" ? <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width={size} height={size} style={{ objectFit: "contain" }} /> : pov === "merchant" ? <Icon icon="building-store" size={size} color="var(--fv-text)" /> : <Icon icon="user" size={size} color="var(--fv-text)" />}
+      {pov === "system" ? <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width={size} height={size} style={{ objectFit: "contain" }} /> : pov === "merchant" ? <Icon icon="building-store" size={size} color="currentColor" /> : <Icon icon="user" size={size} color="currentColor" />}
     </span>
   );
   return (
@@ -122,10 +122,9 @@ export const ProductMenuFlowVisual = () => {
           .menu-story .flow-connector[data-active="true"] { animation: none; }
         }
         .menu-story button:focus-visible { outline: 2.5px solid var(--fv-accent); outline-offset: 3px; }
-        .menu-story button:disabled { cursor: not-allowed; opacity: 0.75; border-style: dashed !important; border-color: var(--fv-line) !important; }
-        .menu-story .flow-step-button:not(:disabled):hover { background: var(--fv-soft) !important; }
-        .menu-story .c-txt-muted { color: var(--fv-muted); }
-        .menu-story .c-txt { color: var(--fv-text); }
+        .menu-story button:disabled { cursor: not-allowed; opacity: 1; border-style: dashed !important; border-color: var(--fv-line) !important; color: var(--fv-muted) !important; background: var(--fv-surface) !important; }
+        .menu-story button:not(:disabled):hover { background: var(--fv-soft) !important; }
+        .menu-story .flow-step-card[data-passed="true"] { box-shadow: inset 0 -3px 0 var(--fv-accent); }
       `}</style>
       <div style={{ containerType: "inline-size", minWidth: 0, color: "var(--fv-text)" }}>
         <style>{`
@@ -151,7 +150,7 @@ export const ProductMenuFlowVisual = () => {
             const downward = i % 2 === 1;
             const ink = selected ? "var(--fv-accent)" : "var(--fv-muted)";
             return <li key={item.label} className="flow-stage" aria-current={selected ? "step" : undefined} style={{ gridColumn: reverse ? 2 - i % 2 : i % 2 + 1, gridRow: Math.floor(i / 2) + 1 }}>
-              <div className="flow-step-card" data-passed={i < active ? "true" : "false"} style={{ height: "100%", boxSizing: "border-box", padding: 12, border: `1.5px solid ${selected ? "var(--fv-accent)" : "var(--fv-line)"}`, borderRadius: 10, background: i === active ? "var(--fv-surface)" : "var(--fv-bg)", boxShadow: selected ? "none" : "none" }}>
+              <div className="flow-step-card" data-passed={i < active ? "true" : "false"} style={{ height: "100%", boxSizing: "border-box", padding: 12, border: `1.5px solid ${selected ? "var(--fv-accent)" : "var(--fv-line)"}`, borderRadius: 10, background: i === active ? "var(--fv-surface)" : "var(--fv-bg)" }}>
                 <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 12, minWidth: 0 }}>
                   <span aria-hidden="true" style={{ display: "grid", placeItems: "center", flexShrink: 0, width: 28, height: 28, border: `1.5px solid ${selected ? "var(--fv-accent)" : "var(--fv-text)"}`, borderRadius: "50%", background: "var(--fv-bg)", color: selected ? "var(--fv-accent)" : "var(--fv-text)", fontSize: 14, fontWeight: 700 }}>{i + 1}</span>
                   <div style={{ display: "flex", alignItems: "flex-start", gap: 8, flex: 1, minWidth: 0 }}>
@@ -187,8 +186,8 @@ export const ProductMenuFlowVisual = () => {
               {i < steps.length - 1 && <div className="flow-arrow" aria-hidden="true" style={downward ? { left: "50%", top: "100%", transform: "translateX(-50%) rotate(90deg)" } : reverse ? { right: "100%", top: "50%", transform: "translateY(-50%) rotate(180deg)" } : { left: "100%", top: "50%", transform: "translateY(-50%)" }}>
                 <svg viewBox="0 0 64 64" style={{ width: "100%", height: "100%", display: "block" }}>
                   <g className="flow-connector" data-active={i === currentConnector ? "true" : "false"}>
-                    <path d="M6 32H21M43 32H57" fill="none" stroke={i <= active ? "var(--fv-accent)" : "var(--fv-line)"} strokeWidth="2" strokeDasharray={i <= active ? undefined : "2 5"} strokeLinecap="round" />
-                    <path d="M50 26L57 32L50 38" fill="none" stroke={i <= active ? "var(--fv-accent)" : "var(--fv-line)"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M6 32H21M43 32H57" fill="none" stroke={i === currentConnector ? "var(--fv-accent)" : "var(--fv-line)"} strokeWidth="2" strokeDasharray={i === currentConnector ? undefined : "2 5"} strokeLinecap="round" />
+                    <path d="M50 26L57 32L50 38" fill="none" stroke={i === currentConnector ? "var(--fv-accent)" : "var(--fv-line)"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </g>
                   <circle cx="32" cy="32" r="11" fill="var(--fv-bg)" stroke="var(--fv-text)" strokeWidth="1.2" />
                   <g className="flow-arrow-number" style={{ transformOrigin: "32px 32px", transform: downward ? "rotate(-90deg)" : reverse ? "rotate(-180deg)" : "none" }}><text x="32" y="36.5" textAnchor="middle" fontFamily="inherit" fontSize="13" fill="var(--fv-text)">{i + 2}</text></g>
@@ -202,7 +201,7 @@ export const ProductMenuFlowVisual = () => {
       <div role="group" aria-label="เลือกขั้นตอนบนเส้นทางลูกค้า" style={{ position: "relative", display: "grid", gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))`, gap: 0 }}>
         {steps.slice(0, -1).map((_, i) => <div key={`line-${i}`} className="flow-connector" data-active={i === currentConnector ? "true" : "false"} aria-hidden="true" style={{ position: "absolute", top: 15, left: `${(50 + i * 100) / steps.length}%`, width: `${100 / steps.length}%`, height: 0, borderTop: i === currentConnector ? "2.5px solid var(--fv-accent)" : `2px dashed var(--fv-line)`, pointerEvents: "none" }} />)}
         {steps.map((item, i) => <button key={item.label} className="flow-step-button" data-passed={i < active ? "true" : "false"} type="button" onClick={() => setActive(i)} aria-pressed={active === i} aria-controls={`${id}-detail`} aria-label={`ขั้นตอนที่ ${i + 1}: ${item.label}`} style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 8, width: "100%", minWidth: 0, minHeight: 70, padding: "0 4px 6px", border: "none", borderRadius: 10, background: "transparent", color: "var(--fv-text)", font: "inherit", fontSize: 13, lineHeight: 1.5, cursor: "pointer" }}>
-          <span aria-hidden="true" style={{ display: "grid", placeItems: "center", width: 32, height: 32, borderRadius: "50%", background: i <= active ? "var(--fv-accent)" : "transparent", color: i <= active ? "var(--fv-on-accent)" : "var(--fv-text)", fontWeight: 700, border: i <= active ? "none" : "2px solid var(--fv-line)", boxShadow: active === i ? "0 0 0 4px var(--fv-soft)" : "none" }}>{i + 1}</span>
+          <span aria-hidden="true" style={{ display: "grid", placeItems: "center", width: 32, height: 32, borderRadius: "50%", background: i <= active ? "var(--fv-accent)" : "var(--fv-bg)", color: i <= active ? "var(--fv-on-accent)" : "var(--fv-text)", fontWeight: 700, border: i <= active ? "none" : "2px solid var(--fv-line)", boxShadow: active === i ? "0 0 0 3px var(--fv-bg), 0 0 0 5px var(--fv-accent)" : "none" }}>{i + 1}</span>
           <span style={{ fontWeight: active === i ? 700 : 400, color: i <= active ? "var(--fv-text)" : "var(--fv-muted)" }}>{item.label}</span>
         </button>)}
       </div>
@@ -237,9 +236,9 @@ export const ProductMenuFlowVisual = () => {
         {step.note && <p style={{ margin: 0, padding: "10px 14px", borderRadius: 10, background: "var(--fv-warning-bg)", color: "var(--fv-warning-text)", borderLeft: "4px solid var(--fv-warning-line)", fontSize: 13, lineHeight: 1.7 }}><strong>ก่อนส่งมอบ: </strong>{step.note}</p>}
       </div>
       <div style={{ display: "flex", gap: 10, justifyContent: "center", alignItems: "center" }}>
-        <button type="button" style={{ ...btn, borderColor: "var(--fv-line)", color: "var(--fv-text)" }} disabled={active === 0} onClick={() => setActive((value) => Math.max(0, value - 1))} aria-label="ย้อนกลับ" title="ย้อนกลับ"><Icon icon="chevron-left" size={16} color="var(--fv-text)" /></button>
+        <button type="button" style={{ ...btn, borderColor: "var(--fv-line)", color: "var(--fv-text)" }} disabled={active === 0} onClick={() => setActive((value) => Math.max(0, value - 1))} aria-label="ย้อนกลับ" title="ย้อนกลับ"><Icon icon="chevron-left" size={16} color="currentColor" /></button>
         <span aria-hidden="true" style={{ fontSize: 12, color: "var(--fv-muted)" }}>{active + 1} / {steps.length}</span>
-        <button type="button" style={{ ...btn, borderColor: "var(--fv-line)", color: "var(--fv-text)" }} disabled={active === steps.length - 1} onClick={() => setActive((value) => Math.min(steps.length - 1, value + 1))} aria-label="ถัดไป" title="ถัดไป"><Icon icon="chevron-right" size={16} color="var(--fv-text)" /></button>
+        <button type="button" style={{ ...btn, borderColor: "var(--fv-line)", color: "var(--fv-text)" }} disabled={active === steps.length - 1} onClick={() => setActive((value) => Math.min(steps.length - 1, value + 1))} aria-label="ถัดไป" title="ถัดไป"><Icon icon="chevron-right" size={16} color="currentColor" /></button>
       </div>
     </section>
   );

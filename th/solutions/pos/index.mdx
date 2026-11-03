@@ -104,7 +104,7 @@ export const PosFlowVisual = () => {
 
   const actorIcon = (pov, size = 24) => (
     <span aria-hidden="true" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: size, height: size, flexShrink: 0, color: "var(--fv-text)" }}>
-      {pov === "system" ? <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width={size} height={size} style={{ objectFit: "contain" }} /> : pov === "merchant" ? <Icon icon="building-store" size={size} color="var(--fv-text)" /> : <Icon icon="user" size={size} color="var(--fv-text)" />}
+      {pov === "system" ? <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width={size} height={size} style={{ objectFit: "contain" }} /> : pov === "merchant" ? <Icon icon="building-store" size={size} color="currentColor" /> : <Icon icon="user" size={size} color="currentColor" />}
     </span>
   );
 
@@ -124,7 +124,7 @@ export const PosFlowVisual = () => {
         .dark .pos-story, .pos-story.dark { color-scheme: dark; --fv-bg:#0f172a; --fv-surface:#1e293b; --fv-text:#f8fafc; --fv-muted:#cbd5e1; --fv-line:#94a3b8; --fv-accent:#93c5fd; --fv-soft:#172554; --fv-on-accent:#0f172a; --fv-warning-bg:#451a03; --fv-warning-text:#fde68a; --fv-warning-line:#fbbf24; }
 
         .pos-story button:focus-visible { outline: 2px solid var(--fv-accent); outline-offset: 3px; }
-        .pos-story button:disabled { opacity: 1; cursor: not-allowed; color: var(--fv-muted); border-style: dashed !important; }
+        .pos-story button:disabled { opacity: 1; cursor: not-allowed; color: var(--fv-muted) !important; border-style: dashed !important; background: var(--fv-surface) !important; }
         .pos-story button:not(:disabled):hover { background: var(--fv-soft) !important; }
 
         .pos-story .flow-step-card, .pos-story .flow-step-button { transition: box-shadow 180ms ease, border-color 180ms ease; }
@@ -205,7 +205,7 @@ export const PosFlowVisual = () => {
                         <rect x="6" y="6" width="228" height="16" rx="3" fill={surfaceBg} />
                         <circle cx="14" cy="14" r="2.5" fill="#ea4335" /><circle cx="23" cy="14" r="2.5" fill="#fbbc04" /><circle cx="32" cy="14" r="2.5" fill="#34a853" />
                         <text x="18" y="42" fill={textColor} fontSize="12" fontFamily="inherit">{panel.screen}</text>
-                        <path d="M6 50H234" stroke="var(--fv-line)" opacity="0.3" />
+                        <path d="M6 50H234" stroke="var(--fv-line)" />
                         {panel.kind === "catalog" && (
                           <g>
                             {[0, 1, 2].map((row) => (
@@ -213,7 +213,7 @@ export const PosFlowVisual = () => {
                                 <rect width="24" height="20" rx="2" fill={surfaceBg} />
                                 <path d="M5 14L10 8L14 12L19 6" fill="none" stroke="var(--fv-muted)" />
                                 <rect x="34" y="2" width="125" height="5" fill="var(--fv-muted)" />
-                                <rect x="34" y="12" width="92" height="4" fill={surfaceBg} />
+                                <rect x="34" y="12" width="92" height="4" fill="var(--fv-line)" />
                               </g>
                             ))}
                           </g>
@@ -224,8 +224,8 @@ export const PosFlowVisual = () => {
                             <circle cx="47" cy="108" r="3" fill="var(--fv-muted)" />
                             <circle cx="74" cy="108" r="3" fill="var(--fv-muted)" />
                             <rect x="101" y="66" width="108" height="7" fill="var(--fv-muted)" />
-                            <rect x="101" y="82" width="87" height="5" fill={surfaceBg} />
-                            <rect x="101" y="96" width="65" height="5" fill={surfaceBg} />
+                            <rect x="101" y="82" width="87" height="5" fill="var(--fv-line)" />
+                            <rect x="101" y="96" width="65" height="5" fill="var(--fv-line)" />
                             <rect x="101" y="117" width="108" height="14" rx="2" fill="var(--fv-text)" />
                           </g>
                         )}
@@ -234,8 +234,8 @@ export const PosFlowVisual = () => {
                             {[0, 1, 2].map((row) => (
                               <g key={row} transform={`translate(18 ${61 + row * 20})`}>
                                 <rect width="14" height="10" rx="2" fill={surfaceBg} />
-                                <rect x="25" y="2" width={142 - row * 22} height="5" fill={surfaceBg} />
-                                <path d="M0 16H202" stroke="var(--fv-line)" opacity="0.2" />
+                                <rect x="25" y="2" width={142 - row * 22} height="5" fill="var(--fv-line)" />
+                                <path d="M0 16H202" stroke="var(--fv-line)" />
                               </g>
                             ))}
                             <circle cx="33" cy="126" r="9" fill="none" stroke="var(--fv-muted)" strokeWidth="1.5" />
@@ -276,10 +276,10 @@ export const PosFlowVisual = () => {
           const status = getStatus(i);
           const isActive = status === "active";
           const isCompleted = status === "completed";
-          const badgeBg = isActive ? "var(--fv-accent)" : isCompleted ? "var(--fv-surface)" : "transparent";
+          const badgeBg = isActive ? "var(--fv-accent)" : isCompleted ? "var(--fv-surface)" : "var(--fv-bg)";
           const badgeColor = isActive ? "var(--fv-on-accent)" : isCompleted ? "var(--fv-accent)" : "var(--fv-muted)";
           const badgeBorder = isActive ? "2px solid var(--fv-accent)" : isCompleted ? "2px solid var(--fv-accent)" : "1px dashed var(--fv-line)";
-          const shadow = isActive ? "0 0 0 4px var(--fv-soft)" : "none";
+          const shadow = isActive ? "0 0 0 3px var(--fv-bg), 0 0 0 5px var(--fv-accent)" : "none";
           return (
             <button key={item.label} className="flow-step-button" data-passed={isCompleted ? "true" : "false"} type="button" onClick={() => setActive(i)} aria-pressed={isActive} aria-controls={`${id}-detail`} aria-label={`ขั้นตอนที่ ${i + 1}: ${item.label}`} style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 8, width: "100%", minWidth: 0, minHeight: 70, padding: "0 4px 6px", border: "none", borderRadius: 8, background: "transparent", color: "var(--fv-text)", font: "inherit", fontSize: 13, lineHeight: 1.5, cursor: "pointer" }}>
               <span aria-hidden="true" style={{ display: "grid", placeItems: "center", width: 32, height: 32, borderRadius: "50%", background: badgeBg, color: badgeColor, border: badgeBorder, fontWeight: 700, boxShadow: shadow }}>{i + 1}</span>
@@ -325,9 +325,9 @@ export const PosFlowVisual = () => {
       </div>
 
       <div style={{ display: "flex", gap: 10, justifyContent: "center", alignItems: "center" }}>
-        <button type="button" style={{ ...btnBase, border: "1px solid var(--fv-line)" }} disabled={active === 0} onClick={() => setActive((value) => Math.max(0, value - 1))} aria-label="ย้อนกลับ" title="ย้อนกลับ"><Icon icon="chevron-left" size={16} color="var(--fv-text)" /></button>
+        <button type="button" style={{ ...btnBase, border: "1px solid var(--fv-line)" }} disabled={active === 0} onClick={() => setActive((value) => Math.max(0, value - 1))} aria-label="ย้อนกลับ" title="ย้อนกลับ"><Icon icon="chevron-left" size={16} color="currentColor" /></button>
         <span aria-hidden="true" style={{ fontSize: 12, color: "var(--fv-muted)" }}>{active + 1} / {steps.length}</span>
-        <button type="button" style={{ ...btnBase, border: "1px solid var(--fv-line)" }} disabled={active === steps.length - 1} onClick={() => setActive((value) => Math.min(steps.length - 1, value + 1))} aria-label="ถัดไป" title="ถัดไป"><Icon icon="chevron-right" size={16} color="var(--fv-text)" /></button>
+        <button type="button" style={{ ...btnBase, border: "1px solid var(--fv-line)" }} disabled={active === steps.length - 1} onClick={() => setActive((value) => Math.min(steps.length - 1, value + 1))} aria-label="ถัดไป" title="ถัดไป"><Icon icon="chevron-right" size={16} color="currentColor" /></button>
       </div>
     </section>
   );
