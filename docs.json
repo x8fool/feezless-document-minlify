@@ -23,9 +23,10 @@
         }
       ]
     },
-    "dropdowns": [
+    "languages": [
       {
-        "dropdown": "ไทย",
+        "language": "en",
+        "hidden": true,
         "groups": [
           {
             "group": "เริ่มต้นใช้งาน",
@@ -68,79 +69,10 @@
               "th/legal/compliance-and-trust"
             ]
           }
-        ],
-        "icon": "🇹🇭"
+        ]
       },
       {
-        "dropdown": "日本語",
-        "groups": [
-          {
-            "group": "はじめに",
-            "icon": {
-              "style": "regular",
-              "name": "book-2",
-              "library": "tabler"
-            },
-            "pages": [
-              "jp/index"
-            ]
-          },
-          {
-            "group": "決済ソリューション",
-            "icon": {
-              "style": "regular",
-              "name": "apps",
-              "library": "tabler"
-            },
-            "pages": [
-              "jp/solutions/pay-per-request/index",
-              "jp/solutions/checkout/index",
-              "jp/solutions/product-menu/index",
-              "jp/solutions/pos/index",
-              "jp/solutions/membership/index",
-              "jp/solutions/invoice-bill-payment/index",
-              "jp/untitled-page-2"
-            ]
-          }
-        ],
-        "icon": "🇯🇵"
-      },
-      {
-        "dropdown": "한국어",
-        "groups": [
-          {
-            "group": "시작하기",
-            "icon": {
-              "style": "regular",
-              "name": "book-2",
-              "library": "tabler"
-            },
-            "pages": [
-              "ko/index"
-            ]
-          },
-          {
-            "group": "결제 솔루션",
-            "icon": {
-              "style": "regular",
-              "name": "apps",
-              "library": "tabler"
-            },
-            "pages": [
-              "ko/solutions/pay-per-request/index",
-              "ko/solutions/checkout/index",
-              "ko/solutions/product-menu/index",
-              "ko/solutions/pos/index",
-              "ko/solutions/membership/index",
-              "ko/solutions/invoice-bill-payment/index",
-              "ko/untitled-page-2"
-            ]
-          }
-        ],
-        "icon": "🇰🇷"
-      },
-      {
-        "dropdown": "简体中文",
+        "language": "zh-Hans",
         "groups": [
           {
             "group": "入门",
@@ -170,8 +102,10 @@
               "zh-CN/untitled-page-2"
             ]
           }
-        ],
-        "icon": "🇨🇳"
+        ]
+      },
+      {
+        "language": "zh-Hant"
       }
     ]
   },
