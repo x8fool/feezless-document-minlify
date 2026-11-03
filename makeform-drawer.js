@@ -7,6 +7,7 @@
   const isStartButton = (link) => link && link.textContent.trim() === 'เริ่มใช้งาน';
 
   function prepareButton(link) {
+    link.dataset.feezlessStartCta = 'true';
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
     link.removeAttribute('aria-haspopup');

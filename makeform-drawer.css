@@ -1,3 +1,64 @@
+/* Brand glow only for the merchant portal CTA, not support links. */
+a[data-feezless-start-cta="true"] {
+  --feezless-cta-rgb: var(--primary, 14 14 14);
+  border-radius: 999px;
+  box-shadow: 0 0 0 1px rgb(var(--feezless-cta-rgb) / 0.16),
+    0 4px 18px rgb(var(--feezless-cta-rgb) / 0.2);
+  animation: feezless-cta-glow 3.2s ease-in-out infinite;
+  transition: box-shadow 180ms ease;
+}
+
+html.dark a[data-feezless-start-cta="true"] {
+  --feezless-cta-rgb: var(--primary-light, 253 253 253);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light):not(.dark) a[data-feezless-start-cta="true"] {
+    --feezless-cta-rgb: var(--primary-light, 253 253 253);
+  }
+}
+
+@keyframes feezless-cta-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgb(var(--feezless-cta-rgb) / 0.16),
+      0 4px 18px rgb(var(--feezless-cta-rgb) / 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgb(var(--feezless-cta-rgb) / 0.06),
+      0 0 28px rgb(var(--feezless-cta-rgb) / 0.34);
+  }
+}
+
+a[data-feezless-start-cta="true"]:hover,
+a[data-feezless-start-cta="true"]:focus-visible {
+  animation: none;
+  box-shadow: 0 0 0 2px rgb(var(--feezless-cta-rgb) / 0.24),
+    0 0 30px rgb(var(--feezless-cta-rgb) / 0.4);
+}
+
+a[data-feezless-start-cta="true"]:focus-visible {
+  outline: 2px solid rgb(var(--feezless-cta-rgb));
+  outline-offset: 5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a[data-feezless-start-cta="true"] {
+    animation: none;
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  a[data-feezless-start-cta="true"],
+  a[data-feezless-start-cta="true"]:hover,
+  a[data-feezless-start-cta="true"]:focus-visible {
+    animation: none;
+    box-shadow: none;
+    outline: 2px solid ButtonText;
+    outline-offset: 3px;
+  }
+}
+
 /* Scoped styles for the Feezless contact calendar drawer. */
 .feezless-zcal-drawer {
   position: fixed;
