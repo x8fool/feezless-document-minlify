@@ -40,7 +40,7 @@ icon:
 
 ตัวอย่างสมมติ: ลูกค้าเลือกกาแฟหนึ่งแก้วจากเมนูออนไลน์ เพิ่มลงตะกร้า และชำระเงินในหน้าเดียว ก่อนรับสินค้าหลังร้านค้ายืนยันการชำระเงิน
 
-ไอคอนคนแทนลูกค้า ไอคอนร้านแทนร้านค้า และไอคอน Feezless แทนระบบ เลือกขั้นตอนเพื่อดูมุมมองของแต่ละฝ่าย ภาพนี้เป็นภาพประกอบ ไม่ใช่หน้าจอหรือสถานะธุรกรรมจริง
+ไอคอนคนแทนลูกค้า ไอคอนร้านแทนร้านค้า และไอคอน Feezless แทนระบบ ภาพนี้เป็นภาพประกอบ ไม่ใช่หน้าจอหรือสถานะธุรกรรมจริง
 
 <ProductMenuFlowVisual />
 
@@ -87,10 +87,10 @@ icon:
 export const ProductMenuFlowVisual = () => {
   const povLabels = { customer: "ลูกค้า", merchant: "ร้านค้า", system: "ระบบ Feezless" };
   const steps = [
-    { label: "เลือกสินค้า", title: "เลือกกาแฟจากเมนู", pov: "customer", story: "ลูกค้าเปิดเมนูออนไลน์ของคาเฟ่แล้วเลือกกาแฟหนึ่งแก้ว", customer: "ลูกค้าเลือกกาแฟจากเมนูออนไลน์ของคาเฟ่", merchant: "ร้านค้าเตรียมเมนูกาแฟพร้อมชื่อ รายละเอียด และราคา", system: "Feezless แสดงเมนูกาแฟตามที่ร้านค้าเตรียมไว้" },
-    { label: "เพิ่มลงตะกร้า", title: "เพิ่มกาแฟลงตะกร้า", pov: "customer", story: "ลูกค้าเพิ่มกาแฟที่เลือกลงตะกร้าโดยไม่ต้องออกจากหน้า", customer: "ลูกค้าเพิ่มกาแฟหนึ่งแก้วลงตะกร้า", merchant: "ร้านค้าใช้เมนูที่รวมตะกร้าและการชำระเงินในหน้าเดียว", system: "Feezless แสดงกาแฟที่ลูกค้าเลือกในตะกร้าบนหน้าเดิม" },
-    { label: "ชำระเงิน", title: "ชำระเงินในหน้าเดียว", pov: "customer", story: "ลูกค้าชำระค่ากาแฟจากหน้าเดียวกับเมนูและตะกร้า", customer: "ลูกค้าทำตามขั้นตอนชำระค่ากาแฟในหน้าเดิม", merchant: "ร้านค้าตรวจสอบสถานะการชำระเงินก่อนส่งมอบกาแฟ", system: "Feezless แสดงขั้นตอนชำระเงินในหน้าเดียวกับเมนูและตะกร้า", note: "การดำเนินการจนจบขั้นตอนชำระเงินไม่ใช่การยืนยันว่าชำระเงินแล้ว" },
-    { label: "อัปเดตสต็อก", title: "อัปเดตสต็อกหลังขาย", pov: "system", story: "Feezless ตัดสต็อกของรายการกาแฟอัตโนมัติเมื่อการขายเสร็จสมบูรณ์", customer: "ลูกค้ารับกาแฟหลังร้านค้ายืนยันการชำระเงินแล้ว", merchant: "ร้านค้าส่งมอบกาแฟหลังตรวจสอบสถานะการชำระเงินที่ยืนยันแล้ว", system: "Feezless อัปเดตสต็อกเมื่อขายกาแฟรายการนี้เสร็จสมบูรณ์", note: "จัดการส่งมอบเมื่อสถานะการชำระเงินได้รับการยืนยันแล้วเท่านั้น" },
+    { label: "เลือกสินค้า", title: "เลือกกาแฟจากเมนู", pov: "customer", story: "ลูกค้าเปิดเมนูออนไลน์ของคาเฟ่แล้วเลือกกาแฟหนึ่งแก้ว" },
+    { label: "เพิ่มลงตะกร้า", title: "เพิ่มกาแฟลงตะกร้า", pov: "customer", story: "ลูกค้าเพิ่มกาแฟที่เลือกลงตะกร้าโดยไม่ต้องออกจากหน้า" },
+    { label: "ชำระเงิน", title: "ชำระเงินในหน้าเดียว", pov: "customer", story: "ลูกค้าชำระค่ากาแฟจากหน้าเดียวกับเมนูและตะกร้า" },
+    { label: "อัปเดตสต็อก", title: "อัปเดตสต็อกหลังขาย", pov: "system", story: "Feezless ตัดสต็อกของรายการกาแฟอัตโนมัติเมื่อการขายเสร็จสมบูรณ์" },
   ];
   const [active, setActive] = useState(0);
   const uid = useId().replace(/:/g, "");
@@ -101,14 +101,13 @@ export const ProductMenuFlowVisual = () => {
     { kind: "payment", screen: "Product Menu", actor: "ลูกค้า" },
     { kind: "system", screen: "สต็อกสินค้า", actor: "ระบบ" },
   ];
-  const step = steps[active];
   const currentConnector = Math.max(0, active - 1);
-  const btn = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 44, height: 44, padding: 0, borderRadius: 10, border: "1.5px solid var(--fv-line)", background: "transparent", color: "inherit", font: "inherit", cursor: "pointer" };
   const actorIcon = (pov, size = 24) => (
     <span aria-hidden="true" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: size, height: size, flexShrink: 0 }}>
       {pov === "system" ? <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width={size} height={size} style={{ objectFit: "contain" }} /> : pov === "merchant" ? <Icon icon="building-store" size={size} color="currentColor" /> : <Icon icon="user" size={size} color="currentColor" />}
     </span>
   );
+
   return (
     <section className="not-prose menu-story" aria-label="เส้นทางลูกค้าเมนูสินค้า" style={{ width: "100%", minWidth: 0, border: "none", padding: 0, display: "grid", gap: 14, fontFamily: "inherit", color: "var(--fv-text)", borderRadius: 16 }}>
       <style>{`
@@ -128,47 +127,12 @@ export const ProductMenuFlowVisual = () => {
       `}</style>
       <div role="group" aria-label="เลือกขั้นตอนบนเส้นทางลูกค้า" style={{ position: "relative", display: "grid", gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))`, gap: 0 }}>
         {steps.slice(0, -1).map((_, i) => <div key={`line-${i}`} className="flow-connector" data-active={i === currentConnector ? "true" : "false"} aria-hidden="true" style={{ position: "absolute", top: 15, left: `${(50 + i * 100) / steps.length}%`, width: `${100 / steps.length}%`, height: 0, borderTop: i === currentConnector ? "2.5px solid var(--fv-accent)" : `2px dashed var(--fv-line)`, pointerEvents: "none" }} />)}
-        {steps.map((item, i) => <button key={item.label} className="flow-step-button" data-passed={i < active ? "true" : "false"} type="button" onClick={() => setActive(i)} aria-pressed={active === i} aria-controls={`${id}-detail`} aria-label={`ขั้นตอนที่ ${i + 1}: ${item.label}`} style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 8, width: "100%", minWidth: 0, minHeight: 70, padding: "0 4px 6px", border: "none", borderRadius: 10, background: "transparent", color: "var(--fv-text)", font: "inherit", fontSize: 13, lineHeight: 1.5, cursor: "pointer" }}>
+        {steps.map((item, i) => <button key={item.label} className="flow-step-button" data-passed={i < active ? "true" : "false"} type="button" onClick={() => setActive(i)} aria-pressed={active === i} aria-controls={`${id}-diagram`} aria-label={`ขั้นตอนที่ ${i + 1}: ${item.label}`} style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 8, width: "100%", minWidth: 0, minHeight: 70, padding: "0 4px 6px", border: "none", borderRadius: 10, background: "transparent", color: "var(--fv-text)", font: "inherit", fontSize: 13, lineHeight: 1.5, cursor: "pointer" }}>
           <span aria-hidden="true" style={{ display: "grid", placeItems: "center", width: 32, height: 32, borderRadius: "50%", background: i <= active ? "var(--fv-accent)" : "var(--fv-bg)", color: i <= active ? "var(--fv-on-accent)" : "var(--fv-text)", fontWeight: 700, border: i <= active ? "none" : "2px solid var(--fv-line)", boxShadow: active === i ? "0 0 0 3px var(--fv-bg), 0 0 0 5px var(--fv-accent)" : "none" }}>{i + 1}</span>
           <span style={{ fontWeight: active === i ? 700 : 400, color: i <= active ? "var(--fv-text)" : "var(--fv-muted)" }}>{item.label}</span>
         </button>)}
       </div>
-      <div id={`${id}-detail`} aria-live="polite" aria-atomic="true" style={{ display: "grid", gap: 12 }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: 8 }}>
-          {actorIcon(step.pov)}
-          <div style={{ textAlign: "center", fontWeight: 700, fontSize: 18, lineHeight: 1.6, color: "var(--fv-text)" }}>{step.title}</div>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 12 }}>
-          <div style={{ padding: 14, borderRadius: 12, background: "var(--fv-surface)", border: "1px solid var(--fv-line)", minWidth: 0 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-              {actorIcon("customer", 20)}
-              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--fv-text)" }}>ลูกค้า</div>
-            </div>
-            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "var(--fv-text)" }}>{step.customer}</p>
-          </div>
-          <div style={{ padding: 14, borderRadius: 12, background: "var(--fv-soft)", border: "1.5px solid var(--fv-accent)", minWidth: 0 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-              {actorIcon("merchant", 20)}
-              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--fv-text)" }}>ร้านค้า</div>
-            </div>
-            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "var(--fv-text)" }}>{step.merchant}</p>
-          </div>
-          <div style={{ padding: 14, borderRadius: 12, background: "var(--fv-surface)", border: "1px solid var(--fv-line)", minWidth: 0 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-              {actorIcon("system", 20)}
-              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--fv-text)" }}>ระบบ Feezless</div>
-            </div>
-            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "var(--fv-text)" }}>{step.system}</p>
-          </div>
-        </div>
-        {step.note && <p style={{ margin: 0, padding: "10px 14px", borderRadius: 10, background: "var(--fv-warning-bg)", color: "var(--fv-warning-text)", borderLeft: "4px solid var(--fv-warning-line)", fontSize: 13, lineHeight: 1.7 }}><strong>ก่อนส่งมอบ: </strong>{step.note}</p>}
-      </div>
-      <div style={{ display: "flex", gap: 10, justifyContent: "center", alignItems: "center" }}>
-        <button type="button" style={{ ...btn, borderColor: "var(--fv-line)", color: "var(--fv-text)" }} disabled={active === 0} onClick={() => setActive((value) => Math.max(0, value - 1))} aria-label="ย้อนกลับ" title="ย้อนกลับ"><Icon icon="chevron-left" size={16} color="currentColor" /></button>
-        <span aria-hidden="true" style={{ fontSize: 12, color: "var(--fv-muted)" }}>{active + 1} / {steps.length}</span>
-        <button type="button" style={{ ...btn, borderColor: "var(--fv-line)", color: "var(--fv-text)" }} disabled={active === steps.length - 1} onClick={() => setActive((value) => Math.min(steps.length - 1, value + 1))} aria-label="ถัดไป" title="ถัดไป"><Icon icon="chevron-right" size={16} color="currentColor" /></button>
-      </div>
-      <div style={{ containerType: "inline-size", minWidth: 0, color: "var(--fv-text)" }}>
+      <div id={`${id}-diagram`} style={{ containerType: "inline-size", minWidth: 0, color: "var(--fv-text)" }}>
         <style>{`
           .menu-story .flow-diagram { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; margin: 0; padding: 20px 4px; list-style: none; }
           .menu-story .flow-stage { position: relative; min-width: 0; }

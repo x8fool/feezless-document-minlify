@@ -41,7 +41,7 @@ icon:
 
 ตัวอย่างสมมติ: ลูกค้าสั่งกาแฟหนึ่งแก้ว พนักงานรับออเดอร์บนแท็บเล็ตและส่งมอบกาแฟหลังยืนยันการชำระเงิน
 
-ไอคอนคนแทนลูกค้า ไอคอนร้านแทนร้านค้า และไอคอน Feezless แทนระบบ เลือกขั้นตอนเพื่อดูมุมมองของแต่ละฝ่าย ภาพนี้เป็นภาพประกอบ ไม่ใช่หน้าจอหรือสถานะธุรกรรมจริง
+ไอคอนคนแทนลูกค้า ไอคอนร้านแทนร้านค้า และไอคอน Feezless แทนระบบ ภาพนี้เป็นภาพประกอบ ไม่ใช่หน้าจอหรือสถานะธุรกรรมจริง
 
 <PosFlowVisual />
 
@@ -85,10 +85,10 @@ icon:
 export const PosFlowVisual = () => {
   const povLabels = { customer: "ลูกค้า", merchant: "ร้านค้า", system: "ระบบ Feezless" };
   const steps = [
-    { label: "เตรียม", title: "เตรียมสินค้า", pov: "merchant", story: "พนักงานเตรียมรายการกาแฟและราคาไว้บนแท็บเล็ตก่อนรับออเดอร์", customer: "ลูกค้าเข้าร้านกาแฟและดูเมนูบนเคาน์เตอร์", merchant: "ร้านค้าบันทึกรายการสินค้าและกำหนดราคาก่อนเปิดรับคำสั่งซื้อ", system: "Feezless จัดเก็บรายการสินค้าและราคาให้แสดงผลบนหน้าจอแคชเชียร์" },
-    { label: "สั่งซื้อ", title: "รับออเดอร์", pov: "merchant", story: "ลูกค้าสั่งกาแฟหนึ่งแก้ว พนักงานเพิ่มรายการแล้วเปิดหน้าชำระเงินให้", customer: "ลูกค้าบอกรายการกาแฟที่ต้องการกับพนักงานที่เคาน์เตอร์", merchant: "พนักงานรับคำสั่งซื้อและแสดงหน้าชำระเงินบนโทรศัพท์หรือแท็บเล็ต", system: "Feezless สร้างรายการชำระเงินตามออเดอร์ที่ร้านค้ากรอก" },
-    { label: "ชำระเงิน", title: "ชำระเงิน", pov: "customer", story: "ลูกค้าเลือกวิธีชำระเงินบนหน้าจอของร้านแล้วดำเนินการตามขั้นตอน", customer: "ลูกค้าเลือกวิธีชำระเงินจากหน้าชำระเงินบนอุปกรณ์ของร้าน", merchant: "ร้านค้ารอตรวจสอบสถานะการชำระเงินที่ยืนยันแล้วก่อนส่งมอบ", system: "Feezless ประมวลผลรายการชำระเงินและแจ้งผลกลับมายังร้านค้า", note: "การสร้างรายการหรือส่งหลักฐานการโอนไม่ใช่การยืนยันว่าชำระเงินแล้ว" },
-    { label: "อัปเดตยอดขาย", title: "บันทึกยอดขายและสต็อก", pov: "system", story: "Feezless บันทึกยอดขายกาแฟและอัปเดตสต็อกอัตโนมัติเมื่อการขายเสร็จสมบูรณ์", customer: "ลูกค้ารับกาแฟหลังร้านค้าตรวจสอบว่าการชำระเงินได้รับการยืนยันแล้ว", merchant: "พนักงานส่งมอบกาแฟหลังตรวจสอบสถานะการชำระเงินที่ยืนยันแล้ว", system: "Feezless บันทึกยอดขายและอัปเดตสต็อกเมื่อขายกาแฟรายการนี้เสร็จสมบูรณ์", note: "ส่งมอบสินค้าเมื่อสถานะการชำระเงินได้รับการยืนยันแล้วเท่านั้น" },
+    { label: "เตรียม", title: "เตรียมสินค้า", pov: "merchant", story: "พนักงานเตรียมรายการกาแฟและราคาไว้บนแท็บเล็ตก่อนรับออเดอร์" },
+    { label: "สั่งซื้อ", title: "รับออเดอร์", pov: "merchant", story: "ลูกค้าสั่งกาแฟหนึ่งแก้ว พนักงานเพิ่มรายการแล้วเปิดหน้าชำระเงินให้" },
+    { label: "ชำระเงิน", title: "ชำระเงิน", pov: "customer", story: "ลูกค้าเลือกวิธีชำระเงินบนหน้าจอของร้านแล้วดำเนินการตามขั้นตอน" },
+    { label: "อัปเดตยอดขาย", title: "บันทึกยอดขายและสต็อก", pov: "system", story: "Feezless บันทึกยอดขายกาแฟและอัปเดตสต็อกอัตโนมัติเมื่อการขายเสร็จสมบูรณ์" },
   ];
   const [active, setActive] = useState(0);
   const uid = useId().replace(/:/g, "");
@@ -99,7 +99,6 @@ export const PosFlowVisual = () => {
     { kind: "payment", screen: "Payment" },
     { kind: "system", screen: "ยอดขายและสต็อก" },
   ];
-  const step = steps[active];
   const currentConnector = Math.max(0, active - 1);
 
   const actorIcon = (pov, size = 24) => (
@@ -107,8 +106,6 @@ export const PosFlowVisual = () => {
       {pov === "system" ? <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width={size} height={size} style={{ objectFit: "contain" }} /> : pov === "merchant" ? <Icon icon="building-store" size={size} color="currentColor" /> : <Icon icon="user" size={size} color="currentColor" />}
     </span>
   );
-
-  const btnBase = { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 44, height: 44, padding: 0, borderRadius: 10, background: "transparent", color: "var(--fv-text)", font: "inherit", cursor: "pointer" };
 
   const getStatus = (i) => {
     if (i < active) return "completed";
@@ -163,7 +160,7 @@ export const PosFlowVisual = () => {
           const badgeBorder = isActive ? "2px solid var(--fv-accent)" : isCompleted ? "2px solid var(--fv-accent)" : "1px dashed var(--fv-line)";
           const shadow = isActive ? "0 0 0 3px var(--fv-bg), 0 0 0 5px var(--fv-accent)" : "none";
           return (
-            <button key={item.label} className="flow-step-button" data-passed={isCompleted ? "true" : "false"} type="button" onClick={() => setActive(i)} aria-pressed={isActive} aria-controls={`${id}-detail`} aria-label={`ขั้นตอนที่ ${i + 1}: ${item.label}`} style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 8, width: "100%", minWidth: 0, minHeight: 70, padding: "0 4px 6px", border: "none", borderRadius: 8, background: "transparent", color: "var(--fv-text)", font: "inherit", fontSize: 13, lineHeight: 1.5, cursor: "pointer" }}>
+            <button key={item.label} className="flow-step-button" data-passed={isCompleted ? "true" : "false"} type="button" onClick={() => setActive(i)} aria-pressed={isActive} aria-controls={`${id}-diagram`} aria-label={`ขั้นตอนที่ ${i + 1}: ${item.label}`} style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 8, width: "100%", minWidth: 0, minHeight: 70, padding: "0 4px 6px", border: "none", borderRadius: 8, background: "transparent", color: "var(--fv-text)", font: "inherit", fontSize: 13, lineHeight: 1.5, cursor: "pointer" }}>
               <span aria-hidden="true" style={{ display: "grid", placeItems: "center", width: 32, height: 32, borderRadius: "50%", background: badgeBg, color: badgeColor, border: badgeBorder, fontWeight: 700, boxShadow: shadow }}>{i + 1}</span>
               <span style={{ fontWeight: isActive ? 700 : 400, color: isActive ? "var(--fv-text)" : "var(--fv-muted)" }}>{item.label}</span>
             </button>
@@ -171,53 +168,12 @@ export const PosFlowVisual = () => {
         })}
       </div>
 
-      <div id={`${id}-detail`} aria-live="polite" aria-atomic="true" style={{ display: "grid", gap: 12 }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", gap: 8 }}>
-          {actorIcon(step.pov)}
-          <div style={{ textAlign: "center", fontWeight: 700, fontSize: 18, lineHeight: 1.6, color: "var(--fv-text)" }}>{step.title}</div>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 12 }}>
-          <div style={{ padding: 14, borderRadius: 12, background: "var(--fv-surface)", minWidth: 0, border: "1px solid var(--fv-line)", color: "var(--fv-text)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-              {actorIcon("customer", 20)}
-              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--fv-text)" }}>ลูกค้า</div>
-            </div>
-            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "var(--fv-text)" }}>{step.customer}</p>
-          </div>
-          <div style={{ padding: 14, borderRadius: 12, background: "var(--fv-surface)", minWidth: 0, border: "1px solid var(--fv-line)", color: "var(--fv-text)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-              {actorIcon("merchant", 20)}
-              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--fv-text)" }}>ร้านค้า</div>
-            </div>
-            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "var(--fv-text)" }}>{step.merchant}</p>
-          </div>
-          <div style={{ padding: 14, borderRadius: 12, background: "var(--fv-surface)", minWidth: 0, border: "1px solid var(--fv-line)", color: "var(--fv-text)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-              {actorIcon("system", 20)}
-              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--fv-text)" }}>ระบบ Feezless</div>
-            </div>
-            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: "var(--fv-text)" }}>{step.system}</p>
-          </div>
-        </div>
-        {step.note && (
-          <p style={{ margin: 0, padding: "10px 14px", borderRadius: 10, background: "var(--fv-warning-bg)", color: "var(--fv-warning-text)", fontSize: 13, lineHeight: 1.7, borderLeft: "4px solid var(--fv-warning-line)" }}>
-            <strong>ก่อนส่งมอบ: </strong>{step.note}
-          </p>
-        )}
-      </div>
-
-      <div style={{ display: "flex", gap: 10, justifyContent: "center", alignItems: "center" }}>
-        <button type="button" style={{ ...btnBase, border: "1px solid var(--fv-line)" }} disabled={active === 0} onClick={() => setActive((value) => Math.max(0, value - 1))} aria-label="ย้อนกลับ" title="ย้อนกลับ"><Icon icon="chevron-left" size={16} color="currentColor" /></button>
-        <span aria-hidden="true" style={{ fontSize: 12, color: "var(--fv-muted)" }}>{active + 1} / {steps.length}</span>
-        <button type="button" style={{ ...btnBase, border: "1px solid var(--fv-line)" }} disabled={active === steps.length - 1} onClick={() => setActive((value) => Math.min(steps.length - 1, value + 1))} aria-label="ถัดไป" title="ถัดไป"><Icon icon="chevron-right" size={16} color="currentColor" /></button>
-      </div>
-
       <div style={{ background: "transparent", containerType: "inline-size", minWidth: 0 }}>
         <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8, padding: "8px 4px", fontSize: 13, fontWeight: 600, color: "var(--fv-text)" }}>
           <img src="https://feezless-pull-storage.b-cdn.net/brand/favicon.png" alt="" width="24" height="24" style={{ objectFit: "contain" }} />
           <span>Feezless Platform</span>
         </div>
-        <ol className="flow-diagram" aria-label="ภาพรวมลำดับขั้นตอน">
+        <ol id={`${id}-diagram`} className="flow-diagram" aria-label="ภาพรวมลำดับขั้นตอน">
           {steps.map((item, i) => {
             const panel = panels[i];
             const selected = active === i;
