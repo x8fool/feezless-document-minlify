@@ -65,12 +65,6 @@
               "th/legal/privacy-policy",
               "th/legal/compliance-and-trust"
             ]
-          },
-          {
-            "group": "Tmp",
-            "pages": [
-              "tmp/edit_jp"
-            ]
           }
         ]
       },
@@ -115,7 +109,7 @@
       "youtube": "https://youtube.com/@feezless_th"
     }
   },
-  "description": "เอกสารอย่างเป็นทางการของ Feezless Merchant Store Platform สำหรับนักพัฒนาและร้านค้า เรียนรู้การเชื่อมต่อ POS Cashier, Payment Link, Product Menu, Membership & Loyalty, Invoice & Bill Payment และ F402 Pay-Per-Request พร้อมคู่มือทีละขั้นตอนและเอกสารอ้างอิง API",
+  "description": "เอกสารอย่างเป็นทางการของ Feezless Merchant Store Platform สำหรับนักพัฒนาและร้านค้า เรียนรู้การเชื่อมต่อ POS Cashier, Product Menu และ Membership & Loyalty พร้อมคู่มือทีละขั้นตอนและเอกสารอ้างอิง API",
   "fonts": {
     "heading": {
       "family": "Noto Sans Thai Looped"
