@@ -48,12 +48,9 @@
               "library": "tabler"
             },
             "pages": [
-              "th/solutions/pay-per-request/index",
-              "th/solutions/checkout/index",
               "th/solutions/product-menu/index",
               "th/solutions/pos/index",
-              "th/solutions/membership/index",
-              "th/solutions/invoice-bill-payment/index"
+              "th/solutions/membership/index"
             ]
           },
           {
@@ -68,38 +65,11 @@
               "th/legal/privacy-policy",
               "th/legal/compliance-and-trust"
             ]
-          }
-        ]
-      },
-      {
-        "language": "zh-Hans",
-        "groups": [
-          {
-            "group": "入门",
-            "icon": {
-              "style": "regular",
-              "name": "book-2",
-              "library": "tabler"
-            },
-            "pages": [
-              "zh-CN/index"
-            ]
           },
           {
-            "group": "支付解决方案",
-            "icon": {
-              "style": "regular",
-              "name": "apps",
-              "library": "tabler"
-            },
+            "group": "Tmp",
             "pages": [
-              "zh-CN/solutions/pay-per-request/index",
-              "zh-CN/solutions/checkout/index",
-              "zh-CN/solutions/product-menu/index",
-              "zh-CN/solutions/pos/index",
-              "zh-CN/solutions/membership/index",
-              "zh-CN/solutions/invoice-bill-payment/index",
-              "zh-CN/untitled-page-2"
+              "tmp/edit_jp"
             ]
           }
         ]
@@ -195,16 +165,6 @@
       "permanent": true
     },
     {
-      "source": "/solutions/pay-per-request/index",
-      "destination": "/th/solutions/pay-per-request/index",
-      "permanent": true
-    },
-    {
-      "source": "/solutions/checkout/index",
-      "destination": "/th/solutions/checkout/index",
-      "permanent": true
-    },
-    {
       "source": "/solutions/product-menu/index",
       "destination": "/th/solutions/product-menu/index",
       "permanent": true
@@ -217,11 +177,6 @@
     {
       "source": "/solutions/membership/index",
       "destination": "/th/solutions/membership/index",
-      "permanent": true
-    },
-    {
-      "source": "/solutions/invoice-bill-payment/index",
-      "destination": "/th/solutions/invoice-bill-payment/index",
       "permanent": true
     },
     {
