@@ -67,9 +67,6 @@
             ]
           }
         ]
-      },
-      {
-        "language": "zh-Hant"
       }
     ]
   },
@@ -111,12 +108,8 @@
   },
   "description": "เอกสารอย่างเป็นทางการของ Feezless Merchant Store Platform สำหรับนักพัฒนาและร้านค้า เรียนรู้การเชื่อมต่อ POS Cashier, Product Menu และ Membership & Loyalty พร้อมคู่มือทีละขั้นตอนและเอกสารอ้างอิง API",
   "fonts": {
-    "heading": {
-      "family": "Noto Sans Thai Looped"
-    },
-    "body": {
-      "family": "Noto Sans Thai Looped"
-    }
+    "family": "Open Sans",
+    "weight": 400
   },
   "icons": {
     "library": "tabler"
@@ -130,7 +123,7 @@
   },
   "thumbnails": {
     "fonts": {
-      "family": "Noto Sans Thai Looped"
+      "family": "Open Sans"
     },
     "eyebrow": {
       "color": "#FFFFFF",
