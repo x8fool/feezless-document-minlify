@@ -9,62 +9,43 @@
   },
   "favicon": "https://feezless-pull-storage.b-cdn.net/brand/favicon.png",
   "navigation": {
-    "global": {
-      "dropdowns": [
-        {
-          "dropdown": "中文 (zh)",
-          "href": "https://knownledge.feezless.cloud/zh",
-          "icon": "🇨🇳"
-        },
-        {
-          "dropdown": "Tiếng Việt",
-          "href": "https://knownledge.feezless.cloud/vn",
-          "icon": "🇻🇳"
-        }
-      ]
-    },
-    "languages": [
+    "groups": [
       {
-        "language": "en",
-        "groups": [
-          {
-            "group": "เริ่มต้นใช้งาน",
-            "icon": {
-              "style": "regular",
-              "name": "book-2",
-              "library": "tabler"
-            },
-            "pages": [
-              "th/index",
-              "th/changelog"
-            ]
-          },
-          {
-            "group": "ระบบทำงานอย่างไร?",
-            "icon": {
-              "style": "regular",
-              "name": "apps",
-              "library": "tabler"
-            },
-            "pages": [
-              "th/solutions/product-menu/index",
-              "th/solutions/pos/index",
-              "th/solutions/membership/index"
-            ]
-          },
-          {
-            "group": "กฎหมาย",
-            "icon": {
-              "style": "regular",
-              "name": "scale",
-              "library": "tabler"
-            },
-            "pages": [
-              "th/legal/terms-of-use",
-              "th/legal/privacy-policy",
-              "th/legal/compliance-and-trust"
-            ]
-          }
+        "group": "เริ่มต้นใช้งาน",
+        "icon": {
+          "style": "regular",
+          "name": "book-2",
+          "library": "tabler"
+        },
+        "pages": [
+          "th/index",
+          "th/changelog"
+        ]
+      },
+      {
+        "group": "ระบบทำงานอย่างไร?",
+        "icon": {
+          "style": "regular",
+          "name": "apps",
+          "library": "tabler"
+        },
+        "pages": [
+          "th/solutions/product-menu/index",
+          "th/solutions/pos/index",
+          "th/solutions/membership/index"
+        ]
+      },
+      {
+        "group": "กฎหมาย",
+        "icon": {
+          "style": "regular",
+          "name": "scale",
+          "library": "tabler"
+        },
+        "pages": [
+          "th/legal/terms-of-use",
+          "th/legal/privacy-policy",
+          "th/legal/compliance-and-trust"
         ]
       }
     ]
