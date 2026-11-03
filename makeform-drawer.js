@@ -1,4 +1,41 @@
 (() => {
+  if (window.__feezlessMerchantWindowInstalled) return;
+  window.__feezlessMerchantWindowInstalled = true;
+
+  const merchantUrl = 'https://merchant.feezless.cloud/';
+  const selector = `a[href="${merchantUrl}"], a[href="https://merchant.feezless.cloud"]`;
+  const isStartButton = (link) => link && link.textContent.trim() === 'เริ่มใช้งาน';
+
+  function prepareButton(link) {
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.removeAttribute('aria-haspopup');
+  }
+
+  function initializeStartButtons() {
+    document.querySelectorAll(selector).forEach((link) => {
+      if (isStartButton(link)) prepareButton(link);
+    });
+  }
+
+  document.addEventListener('click', (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target instanceof Element ? event.target.closest(selector) : null;
+    if (!isStartButton(link)) return;
+    prepareButton(link);
+    window.open(merchantUrl, '_blank', 'popup,noopener,noreferrer');
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+
+  initializeStartButtons();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeStartButtons, { once: true });
+  }
+  window.addEventListener('mintlify:navigate', initializeStartButtons);
+})();
+
+(() => {
   if (window.__feezlessContactDrawerInstalled) return;
   if (typeof HTMLDialogElement === 'undefined' || typeof HTMLDialogElement.prototype.showModal !== 'function') return;
   window.__feezlessContactDrawerInstalled = true;
