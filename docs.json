@@ -179,6 +179,66 @@
       "source": "/th/legal/embed",
       "destination": "/th/legal/terms-of-use",
       "permanent": false
+    },
+    {
+      "source": "/jp/index",
+      "destination": "/th/index",
+      "permanent": true
+    },
+    {
+      "source": "/jp/solutions/product-menu/index",
+      "destination": "/th/solutions/product-menu/index",
+      "permanent": true
+    },
+    {
+      "source": "/jp/solutions/pos/index",
+      "destination": "/th/solutions/pos/index",
+      "permanent": true
+    },
+    {
+      "source": "/jp/solutions/membership/index",
+      "destination": "/th/solutions/membership/index",
+      "permanent": true
+    },
+    {
+      "source": "/ko/index",
+      "destination": "/th/index",
+      "permanent": true
+    },
+    {
+      "source": "/ko/solutions/product-menu/index",
+      "destination": "/th/solutions/product-menu/index",
+      "permanent": true
+    },
+    {
+      "source": "/ko/solutions/pos/index",
+      "destination": "/th/solutions/pos/index",
+      "permanent": true
+    },
+    {
+      "source": "/ko/solutions/membership/index",
+      "destination": "/th/solutions/membership/index",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/index",
+      "destination": "/th/index",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/solutions/product-menu/index",
+      "destination": "/th/solutions/product-menu/index",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/solutions/pos/index",
+      "destination": "/th/solutions/pos/index",
+      "permanent": true
+    },
+    {
+      "source": "/zh-CN/solutions/membership/index",
+      "destination": "/th/solutions/membership/index",
+      "permanent": true
     }
   ],
   "api": {
