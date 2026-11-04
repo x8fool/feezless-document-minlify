@@ -9,21 +9,10 @@
   },
   "favicon": "https://feezless-pull-storage.b-cdn.net/brand/favicon.png",
   "navigation": {
-    "groups": [
+    "pages": [
+      "th/index",
       {
-        "group": "เริ่มต้นใช้งาน",
-        "icon": {
-          "style": "regular",
-          "name": "book-2",
-          "library": "tabler"
-        },
-        "pages": [
-          "th/index",
-          "th/changelog"
-        ]
-      },
-      {
-        "group": "ระบบทำงานอย่างไร?",
+        "group": "ร้านค้า (Merchant Platform)",
         "icon": {
           "style": "regular",
           "name": "apps",
@@ -47,7 +36,8 @@
           "th/legal/privacy-policy",
           "th/legal/compliance-and-trust"
         ]
-      }
+      },
+      "th/changelog"
     ]
   },
   "logo": {
