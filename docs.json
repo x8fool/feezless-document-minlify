@@ -147,6 +147,11 @@
       "permanent": true
     },
     {
+      "source": "/privacy-policy",
+      "destination": "/th/legal/privacy-policy",
+      "permanent": true
+    },
+    {
       "source": "/th/legal/embed",
       "destination": "/th/legal/terms-of-use",
       "permanent": false
