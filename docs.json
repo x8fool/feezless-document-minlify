@@ -98,7 +98,8 @@
     "eyebrow": {
       "color": "#FFFFFF",
       "source": "none"
-    }
+    },
+    "preset": "minimal"
   },
   "redirects": [
     {
