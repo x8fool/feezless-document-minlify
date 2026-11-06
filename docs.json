@@ -73,7 +73,7 @@
   "footer": {
     "socials": {
       "facebook": "https://facebook.com/feezless.th",
-      "youtube": "https://youtube.com/@feezless_th"
+      "youtube": "https://youtube.com/@feezless.th"
     }
   },
   "description": "เอกสารอย่างเป็นทางการของ Feezless Merchant Store Platform สำหรับนักพัฒนาและร้านค้า เรียนรู้การเชื่อมต่อ POS Cashier, Product Menu และ Membership & Loyalty พร้อมคู่มือทีละขั้นตอนและเอกสารอ้างอิง API",
@@ -92,9 +92,6 @@
     "decoration": "gradient"
   },
   "thumbnails": {
-    "fonts": {
-      "family": "Inter"
-    },
     "eyebrow": {
       "color": "#FFFFFF",
       "source": "none"
