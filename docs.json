@@ -93,7 +93,7 @@
   },
   "thumbnails": {
     "fonts": {
-      "family": "Inter"
+      "family": "Roboto"
     },
     "eyebrow": {
       "color": "#FFFFFF",
@@ -101,8 +101,7 @@
     },
     "preset": "minimal",
     "appearance": "dark",
-    "surface": "neutral",
-    "background": "/images/Screenshot_2026-10-25_17-12-34.png"
+    "surface": "neutral"
   },
   "redirects": [
     {
