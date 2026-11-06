@@ -25,6 +25,19 @@
         ]
       },
       {
+        "group": "ธุรกิจชำระเงิน",
+        "icon": {
+          "style": "regular",
+          "name": "credit-card",
+          "library": "tabler"
+        },
+        "pages": [
+          "th/payments/payment-link",
+          "th/payments/bill-payment",
+          "th/payments/pay-per-request"
+        ]
+      },
+      {
         "group": "กฎหมาย",
         "icon": {
           "style": "regular",
