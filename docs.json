@@ -93,13 +93,16 @@
   },
   "thumbnails": {
     "fonts": {
-      "family": "Open Sans"
+      "family": "Inter"
     },
     "eyebrow": {
       "color": "#FFFFFF",
       "source": "none"
     },
-    "preset": "minimal"
+    "preset": "minimal",
+    "appearance": "dark",
+    "surface": "neutral",
+    "background": "/images/Screenshot_2026-10-25_17-12-34.png"
   },
   "redirects": [
     {
