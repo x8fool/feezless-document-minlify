@@ -100,8 +100,7 @@
       "source": "none"
     },
     "preset": "minimal",
-    "appearance": "dark",
-    "surface": "neutral"
+    "appearance": "dark"
   },
   "redirects": [
     {
